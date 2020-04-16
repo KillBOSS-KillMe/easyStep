@@ -131,49 +131,64 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _userModel = _interopRequireDefault(__webpack_require__(/*! ./user-model.js */ 100));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+var user = new _userModel.default();var _default =
 {
   data: function data() {
     return {};
 
 
-  } };exports.default = _default;
+  },
+  methods: _defineProperty({
+    // 进入余额页
+    goBalancePage: function goBalancePage(e) {
+      user.navigate_to("../balance/balance");
+    },
+    // 进入帮助页
+    goHelpPage: function goHelpPage(e) {
+      user.navigate_to("../help/help");
+    } }, "goHelpPage", function goHelpPage(
+
+  e) {
+    user.navigate_to("../help/help");
+  }) };exports.default = _default;
 
 /***/ }),
 

@@ -9,7 +9,7 @@
 					<text class="name">金豆(个)</text>
 					<text class="data">2222</text>
 				</li>
-				<li class="item">
+				<li class="item" @tap="goBalancePage">
 					<text class="name">金额(元)</text>
 					<text class="data">222啊2</text>
 				</li>
@@ -23,7 +23,7 @@
 				</view>
 				<icon class="iconfont iconxiangyou"></icon>
 			</li>
-			<li class="item">	
+			<li class="item" @tap="goHelpPage">	
 				<view class="name">
 					<icon class="iconfont iconbangzhu"></icon>
 					帮助中心
@@ -35,11 +35,27 @@
 </template>
 
 <script>
+	import User from "./user-model.js";
+	var user = new User();
 	export default {
 		data() {
 			return {
 				
 			};
+		},
+		methods: {
+			// 进入余额页
+			goBalancePage(e) {
+			  user.navigate_to("../balance/balance");
+			},
+			// 进入帮助页
+			goHelpPage(e) {
+			  user.navigate_to("../help/help");
+			},
+			// 进入帮助页
+			goHelpPage(e) {
+			  user.navigate_to("../help/help");
+			},
 		}
 	}
 </script>

@@ -29,6 +29,8 @@
 </template>
 
 <script>
+	import Index from "./index-model.js";
+	var index = new Index();
 	export default {
 		data() {
 			return {

@@ -1,6 +1,6 @@
-(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],[
-/* 0 */,
-/* 1 */
+(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],{
+
+/***/ 1:
 /*!************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js ***!
   \************************************************************/
@@ -1554,7 +1554,156 @@ var uni$1 = uni;var _default =
 uni$1;exports.default = _default;
 
 /***/ }),
-/* 2 */
+
+/***/ 100:
+/*!*****************************************************!*\
+  !*** D:/workspan/easyStep/pages/user/user-model.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _base = _interopRequireDefault(__webpack_require__(/*! ../../static/js/base */ 98));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}var
+User = /*#__PURE__*/function (_Base) {_inherits(User, _Base);
+  function User() {_classCallCheck(this, User);return _possibleConstructorReturn(this, _getPrototypeOf(User).call(this));
+
+  }return User;}(_base.default);var _default =
+
+
+User;exports.default = _default;
+
+/***/ }),
+
+/***/ 14:
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \**********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode, /* vue-cli only */
+  components, // fixed by xxxxxx auto components
+  renderjs // fixed by xxxxxx renderjs
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // fixed by xxxxxx auto components
+  if (components) {
+    if (!options.components) {
+      options.components = {}
+    }
+    var hasOwn = Object.prototype.hasOwnProperty
+    for (var name in components) {
+      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
+        options.components[name] = components[name]
+      }
+    }
+  }
+  // fixed by xxxxxx renderjs
+  if (renderjs) {
+    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
+      this[renderjs.__module] = this
+    });
+    (options.mixins || (options.mixins = [])).push(renderjs)
+  }
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+
+/***/ 2:
 /*!******************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js ***!
   \******************************************************************************************/
@@ -7583,7 +7732,8 @@ internalMixin(Vue);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 3)))
 
 /***/ }),
-/* 3 */
+
+/***/ 3:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
@@ -7613,7 +7763,8 @@ module.exports = g;
 
 
 /***/ }),
-/* 4 */
+
+/***/ 4:
 /*!***************************************!*\
   !*** D:/workspan/easyStep/pages.json ***!
   \***************************************/
@@ -7624,7 +7775,8 @@ module.exports = g;
 
 
 /***/ }),
-/* 5 */
+
+/***/ 5:
 /*!*******************************************************!*\
   !*** ./node_modules/@dcloudio/uni-stat/dist/index.js ***!
   \*******************************************************/
@@ -8510,7 +8662,8 @@ main();
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 6 */
+
+/***/ 6:
 /*!******************************************************!*\
   !*** ./node_modules/@dcloudio/uni-stat/package.json ***!
   \******************************************************/
@@ -8520,7 +8673,8 @@ main();
 module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-26920200402001","_inBundle":false,"_integrity":"sha512-Mdhd/IRuUMHWPj3TtWrBb0kghRBA0YiO2L2THMFvhCTfQDSoSq1vwOdAx5n/8fIORAvG0uVQoYl73xeVFZML5A==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-26920200402001.tgz","_shasum":"5f66f5dc252ac00c6064857dee8251ee51aa2391","_spec":"@dcloudio/uni-stat@next","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"bfdbb7b3000599679ef8cb29a969e6bd447b00c7","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-26920200402001"};
 
 /***/ }),
-/* 7 */
+
+/***/ 7:
 /*!********************************************************!*\
   !*** D:/workspan/easyStep/pages.json?{"type":"style"} ***!
   \********************************************************/
@@ -8531,7 +8685,8 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/activity/activity": { "navigationBarTitleText": "活动", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/user": { "navigationBarTitleText": "我的", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/balance/balance": { "navigationBarTitleText": "我的余额", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shere/shere": { "navigationBarTitleText": "分享", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/pay/pay": { "navigationBarTitleText": "充值", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/help/help": { "navigationBarTitleText": "帮助", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/accountDetails/accountDetails": { "navigationBarTitleText": "账户明细", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/signIn/signIn": { "navigationBarTitleText": "签到", "enablePullDownRefresh": true, "usingComponents": { "model-calendar": "/components/Calendar" }, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "未命名页面", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#43D182" } };exports.default = _default;
 
 /***/ }),
-/* 8 */
+
+/***/ 8:
 /*!*******************************************************!*\
   !*** D:/workspan/easyStep/pages.json?{"type":"stat"} ***!
   \*******************************************************/
@@ -8542,138 +8697,347 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "__UNI__96F107F" };exports.default = _default;
 
 /***/ }),
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \**********************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+/***/ 97:
+/*!*******************************************************!*\
+  !*** D:/workspan/easyStep/pages/index/index-model.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
-/* globals __VUE_SSR_CONTEXT__ */
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _base = _interopRequireDefault(__webpack_require__(/*! ../../static/js/base */ 98));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}var
+Index = /*#__PURE__*/function (_Base) {_inherits(Index, _Base);
+  function Index() {_classCallCheck(this, Index);return _possibleConstructorReturn(this, _getPrototypeOf(Index).call(this));
 
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
+  }return Index;}(_base.default);var _default =
 
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode, /* vue-cli only */
-  components, // fixed by xxxxxx auto components
-  renderjs // fixed by xxxxxx renderjs
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
 
-  // fixed by xxxxxx auto components
-  if (components) {
-    if (!options.components) {
-      options.components = {}
-    }
-    var hasOwn = Object.prototype.hasOwnProperty
-    for (var name in components) {
-      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
-        options.components[name] = components[name]
+Index;exports.default = _default;
+
+/***/ }),
+
+/***/ 98:
+/*!**********************************************!*\
+  !*** D:/workspan/easyStep/static/js/base.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _config = _interopRequireDefault(__webpack_require__(/*! ./config */ 99));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var
+Base = /*#__PURE__*/function () {
+  function Base() {_classCallCheck(this, Base);
+    this.base_qequest_url = _config.default.requset_url;
+    this.base_wx_login_url = _config.default.wx_login_url;
+    this.base_wx_order_pay_url = _config.default.wx_order_pay_url;
+    this.apikey = _config.default.apikey;
+  }
+  //提示
+  _createClass(Base, [{ key: "show_loading", value: function show_loading(message) {
+      if (uni.showLoading) {
+        // 基础库 1.1.0 微信6.5.6版本开始支持，低版本需做兼容处理
+        uni.showLoading({
+          title: message,
+          mask: true });
+
+      } else {
+        // 低版本采用Toast兼容处理并将时间设为20秒以免自动消失
+        uni.showToast({
+          title: message,
+          icon: 'loading',
+          mask: true,
+          duration: 20000 });
+
       }
     }
-  }
-  // fixed by xxxxxx renderjs
-  if (renderjs) {
-    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
-      this[renderjs.__module] = this
-    });
-    (options.mixins || (options.mixins = [])).push(renderjs)
-  }
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
+    //隐藏
+  }, { key: "hide_loading", value: function hide_loading() {
+      if (uni.hideLoading) {
+        // 基础库 1.1.0 微信6.5.6版本开始支持，低版本需做兼容处理
+        uni.hideLoading();
+      } else {
+        uni.hideToast();
       }
     }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
-      : injectStyles
-  }
+    //网络请求
+  }, { key: "request", value: function request(params) {
+      var that = this;
+      that.show_loading('加载中...');
+      var url = that.base_qequest_url + params.url;
+      var token = '';
+      var token_type = '';
+      that.get_storage('token', function (res) {
+        token = res;
+        that.get_storage('token_type', function (res) {
+          token_type = res;
+          uni.request({
+            url: url,
+            data: params.data || {},
+            header: {
+              'content-type': 'application/json',
+              'apikey': that.apikey,
+              'Authorization': token_type + ' ' + token },
 
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
+            method: params.method || 'GET',
+            success: function success(ret) {
+              var code = ret.statusCode.toString().charAt(0);
+              if (code == '2' || code == '4') {
+                that.hide_loading();
+                if (ret.data.code == 1001 || ret.data.code == 1002 || ret.data.code == 1004) {
+                  that.navigate_to('../../pages/login/login');return;
+                }if (ret.data.code == 1008) {
+                  that.navigate_to('../../pages/user_address/user_address');return;
+                } else if (ret.data.code == 1003) {
+                  that.refresh_token(params);return;
+                } else if (ret.data.code == 4444 || ret.data.code == 4222) {
+                  that.show_tips({ title: ret.data.msg });
+                  params.sCallBack && params.sCallBack(ret);return;
+                }
+
+                params.sCallBack && params.sCallBack(ret);return;
+              }
+
+            },
+            fail: function fail(err) {
+              that.remove_storage('token');
+              that.remove_storage('token_type');
+              //that.hide_loading();
+            } });
+
+        });
+      });
     }
-  }
+    //图片上传
+  }, { key: "upload", value: function upload(count, callBack) {
+      var that = this;
+      var url = that.base_qequest_url + 'upload/upload_file';
+      var token = '';
+      var token_type = '';
+      that.get_storage('token', function (res) {
+        token = res;
+        that.get_storage('token_type', function (res) {
+          token_type = res;
+          uni.chooseImage({
+            count: count,
+            success: function success(res) {
+              for (var i = 0; i < res.tempFilePaths.length; i++) {
+                uni.uploadFile({
+                  url: url,
+                  filePath: res.tempFilePaths[i],
+                  name: 'file',
+                  header: {
+                    'apikey': that.apikey,
+                    'Authorization': token_type + ' ' + token },
 
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
+                  success: function success(uploadFileRes) {
+                    var data = JSON.parse(uploadFileRes.data);
+                    if (data.code == 1001 || data.code == 1002 || data.code == 1004) {
+                      that.show_modal({ content: ret.data.msg }, function (res) {
+                        if (res.confirm) {
+                          that.switch_tab('../../pages/my/my');return;
+                        }
+                      });
+                    } else if (data.code == 1003) {
+                      that.request({
+                        url: 'login/refresh',
+                        method: 'PUT',
+                        sCallBack: function sCallBack(res) {
+                          if (res.data.code == 8888) {
+                            that.set_storage('token', res.data.data.token);
+                            that.set_storage('token_type', res.data.data.token_type);
+                          } else {
+                            that.show_modal({ content: '请先登录！' }, function (res) {
+                              if (res.confirm) {
+                                that.navigate_to('../../pages/login/login');return;
+                              }
+                            });
+                          }
+                        } });
+                      return;
+                    } else if (data.code == 4444) {
+                      that.show_tips({ title: ret.data.msg });return;
+                    }
+                    callBack(data);
+                  } });
 
+              }
+            } });
+
+        });
+      });
+    }
+    //刷新token
+  }, { key: "refresh_token", value: function refresh_token(params) {
+      var that = this;
+      that.request({
+        url: 'auth/refresh',
+        method: 'PUT',
+        sCallBack: function sCallBack(res) {
+          if (res.data.code == 8888) {
+            that.set_storage('token', res.data.data.token);
+            that.set_storage('token_type', res.data.data.token_type);
+          } else {
+            that.remove_storage('token');
+            that.remove_storage('token_type');
+          }
+          that.request(params);
+        } });
+
+    }
+    //跳转tab
+  }, { key: "switch_tab", value: function switch_tab(url) {
+      uni.switchTab({
+        url: url });
+
+    }
+    //跳转页面
+  }, { key: "navigate_to", value: function navigate_to(url) {
+      uni.navigateTo({
+        url: url });
+
+    }
+    //页面返回
+  }, { key: "navigate_back", value: function navigate_back(delta) {
+      uni.navigateBack({
+        delta: delta || 1 });
+
+    }
+    //设置缓存
+  }, { key: "set_storage", value: function set_storage(key, value) {
+      uni.setStorage({
+        key: key,
+        data: value });
+
+    }
+    //获取缓存
+  }, { key: "get_storage", value: function get_storage(key, callBack) {
+      uni.getStorage({
+        key: key,
+        success: function success(res) {
+          callBack(res.data);
+        },
+        fail: function fail(e) {
+          callBack('');
+        } });
+
+    }
+    //删除缓存
+  }, { key: "remove_storage", value: function remove_storage(key) {
+      uni.removeStorage({
+        key: key });
+
+    }
+
+    //弹出框
+  }, { key: "show_modal", value: function show_modal(params, callBack) {
+      uni.showModal({
+        title: params.title || '提示',
+        content: params.content || '网络错误...',
+        showCancel: params.showCancel === false ? false : true,
+        cancelText: params.cancelText || '取消',
+        success: function success(res) {
+          callBack(res);
+        } });
+
+    }
+    //获取标签中的参数
+  }, { key: "get_data_set", value: function get_data_set(event, key) {
+      return event.currentTarget.dataset[key];
+    } }, { key: "get_input_val",
+    //获取input的值
+    value: function get_input_val(event) {
+      return event.target.value;
+    } }, { key: "unique_arr",
+    //数组去重
+    value: function unique_arr(arr) {
+      var hash = [];
+      for (var i = 0; i < arr.length; i++) {
+        if (hash.indexOf(arr[i]) == -1) {
+          hash.push(arr[i]);
+        }
+      }
+      return hash;
+    }
+    //判断是否为手机号
+  }, { key: "is_phone_number", value: function is_phone_number(tel) {
+      var reg = /^1[3|4|5|6|7|8][0-9]{9}$/;
+      return reg.test(tel);
+    }
+    //判断验证码是否正确
+  }, { key: "is_code_number", value: function is_code_number(code) {
+      var reg = /^[0-9]{6}$/;
+      return reg.test(code);
+    }
+
+    //提示框
+  }, { key: "show_tips", value: function show_tips(options) {
+      uni.showToast({
+        title: options.title || '加载中...',
+        icon: 'none',
+        duration: 2000 });
+
+    }
+    //根据下标删除数组元素
+  }, { key: "delete_arr_index", value: function delete_arr_index(arr, index) {
+      arr.splice(index, 1);
+      return arr;
+    }
+    //图片预览
+  }, { key: "previewImage", value: function previewImage(urls) {
+      uni.previewImage({
+        urls: urls });
+
+    }
+    //打电话
+  }, { key: "make_phone_call", value: function make_phone_call(phoneNumber) {
+      uni.makePhoneCall({
+        phoneNumber: phoneNumber.toString() });
+
+    }
+    //分享
+  }, { key: "onShareAppMessage", value: function onShareAppMessage(data) {
+      return {
+        title: data.title || '万小二',
+        path: data.path || 'pages/index/index' };
+
+    } }]);return Base;}();var _default =
+
+Base;exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 99:
+/*!************************************************!*\
+  !*** D:/workspan/easyStep/static/js/config.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}var Config =
+function Config() {_classCallCheck(this, Config);
+};
+
+//接口域名
+//Config.requset_url = "https://diancan.lvacms.cn/api/v1/wap_api/";
+//微信授权域名
+//Config.wx_login_url = "https://diancan.lvacms.cn/wechat/login";
+
+
+//接口域名
+Config.requset_url = "https://cs.wanxer.com/api/v1/wap_api/";
+//微信授权域名
+Config.wx_login_url = "https://cs.wanxer.com/wechat/login";
+
+//公众号支付路径
+Config.wx_order_pay_url = "https://cs.wanxer.com/wechat/order_pay";
+//接口加密key
+Config.apikey = "123456";var _default =
+Config;exports.default = _default;
 
 /***/ })
-]]);
+
+}]);
 //# sourceMappingURL=../../.sourcemap/mp-weixin/common/vendor.js.map
