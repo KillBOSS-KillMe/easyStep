@@ -91,6 +91,19 @@
 					"titleView": false
 				}
 			}
+		}, {
+			"path": "pages/accountDetails/accountDetails",
+			"style": {
+				"navigationBarTitleText": "账户明细",
+				"enablePullDownRefresh": true,
+				// #ifdef H5
+				"navigationStyle": "custom",
+				// #endif
+				"app-plus": {
+					"bounce": "none",
+					"titleView": false
+				}
+			}
 		}
 	],
 	"globalStyle": {
