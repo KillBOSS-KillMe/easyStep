@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/activity/activity",
     "pages/user/user",
-    "pages/balance/balance"
+    "pages/balance/balance",
+    "pages/shere/shere"
   ],
   "subPackages": [],
   "window": {

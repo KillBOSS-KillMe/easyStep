@@ -52,6 +52,19 @@
 					"titleView": false
 				}
 			}
+		}, {
+			"path": "pages/shere/shere",
+			"style": {
+				"navigationBarTitleText": "分享",
+				"enablePullDownRefresh": true,
+				// #ifdef H5
+				"navigationStyle": "custom",
+				// #endif
+				"app-plus": {
+					"bounce": "none",
+					"titleView": false
+				}
+			}
 		}
 	],
 	"globalStyle": {
