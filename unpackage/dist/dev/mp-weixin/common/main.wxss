@@ -1,0 +1,188 @@
+/**
+ * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+ * http://cssreset.com
+ */
+@media only screen and (min-width: 320px){
+page {
+    font-size:10px !important;
+}
+}
+@media only screen and (min-width: 360px){
+page {
+    font-size:11.25px !important;
+}
+}
+@media only screen and (min-width: 400px){
+page {
+    font-size:12.5px !important;
+}
+}
+@media only screen and (min-width: 480px){
+page {
+    font-size:15px !important;
+}
+}
+@media only screen and (min-width: 640px){
+page {
+  font-size:20px !important;
+}
+}
+page, page, ._div, ._span, applet, ._object, ._iframe, ._h1, ._h2, ._h3, ._h4, ._h5, ._h6, ._p, ._blockquote, ._pre, ._a, ._abbr, acronym, ._address, big, ._cite, ._code, ._del, ._dfn, ._em, ._img, ._ins, ._kbd, ._q, ._s, ._samp, ._small, strike, ._strong, ._sub, ._sup, tt, ._var, ._b, ._u, ._i, center, ._dl, ._dt, ._dd, ._ol, ._ul, ._li, ._fieldset, form, label, ._legend, ._table, ._caption, ._tbody, ._tfoot, ._thead, ._tr, ._th, ._td, ._article, ._aside, canvas, ._details, ._embed, ._figure, ._figcaption, ._footer, ._header, hgroup, ._menu, ._nav, ._output, ._ruby, ._section, ._summary, ._time, ._mark, audio, video{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  font-weight: normal;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+._article, ._aside, ._details, ._figcaption, ._figure, ._footer, ._header, hgroup, ._menu, ._nav, ._section{
+  display: block;
+}
+._ol, ._ul, ._li{
+  list-style: none;
+}
+._blockquote, ._q{
+  quotes: none;
+}
+._blockquote:before, ._blockquote:after, ._q:before, ._q:after{
+  content: '';
+  content: none;
+}
+._table{
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* custom */
+._a{
+  color: #7e8c8d;
+  text-decoration: none;
+  -webkit-backface-visibility: hidden;
+}
+::-webkit-scrollbar{
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track-piece{
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:vertical{
+  height: 5px;
+  background-color: rgba(125, 125, 125, 0.7);
+  -webkit-border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:horizontal{
+  width: 5px;
+  background-color: rgba(125, 125, 125, 0.7);
+  -webkit-border-radius: 6px;
+}
+page, page{
+  width: 100%;
+  font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", "微软雅黑", sans-serif;
+}
+page{
+  line-height: 1;
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+page{
+  overflow-y: scroll;
+}
+/*清除浮动*/
+.clearfix:before,
+.clearfix:after{
+  content: " ";
+  display: inline-block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+/* .clearfix{
+  *zoom: 1;
+} */
+/*隐藏*/
+/* .dn{
+  display: none;
+} */
+@font-face {font-family: "iconfont";
+  src: url('//at.alicdn.com/t/font_1758629_wgopjd3mxl.eot?t=1587005623556'); /* IE9 */
+  src: url('//at.alicdn.com/t/font_1758629_wgopjd3mxl.eot?t=1587005623556#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,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') format('woff2'),
+  url('//at.alicdn.com/t/font_1758629_wgopjd3mxl.woff?t=1587005623556') format('woff'),
+  url('//at.alicdn.com/t/font_1758629_wgopjd3mxl.ttf?t=1587005623556') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('//at.alicdn.com/t/font_1758629_wgopjd3mxl.svg?t=1587005623556#iconfont') format('svg'); /* iOS 4.1- */
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.iconchongzhizengsong:before {
+  content: "\e64c";
+}
+.icontixianshenqing:before {
+  content: "\e64f";
+}
+.iconxiangzuo:before {
+  content: "\e682";
+}
+.iconbangzhu:before {
+  content: "\e63b";
+}
+.iconkefu:before {
+  content: "\e61b";
+}
+.iconxiangyou:before {
+  content: "\e645";
+}
+page {
+  background-color: #666666;
+  width: 100vw;
+  min-height: 100vh;
+  height: auto;
+}
+/* 微信样式 */
+checkbox .wx-checkbox-input {
+  border-radius: 50% !important;
+  color: #ffffff !important;
+}
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  color: #fff;
+  background: #9FD8F5;
+}
+.wx-checkbox-input.wx-checkbox-input-checked {
+  border: none !important;
+}
+button {
+  position: relative;
+  display: block;
+  padding: 0;
+  margin: 0;
+  line-height: auto;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  color: #000000;
+  background: none;
+}
+button::after {
+  border: none;
+}
+.iconfont {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+

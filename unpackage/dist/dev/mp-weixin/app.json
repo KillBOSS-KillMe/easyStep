@@ -1,0 +1,40 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/activity/activity",
+    "pages/user/user"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "未命名页面",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#43D182"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#43D182",
+    "backgroundColor": "#FFFFFF",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "./static/images/tabBar/home.png",
+        "selectedIconPath": "static/images/tabBar/home@selected.png"
+      },
+      {
+        "pagePath": "pages/activity/activity",
+        "text": "活动",
+        "iconPath": "static/images/tabBar/activity.png",
+        "selectedIconPath": "static/images/tabBar/activity@selected.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "static/images/tabBar/user.png",
+        "selectedIconPath": "static/images/tabBar/user@selected.png"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
