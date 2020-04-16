@@ -18,7 +18,7 @@
 					</view>
 				</view>
 				<view class="shereButton">
-					<button>立即分享</button>
+					<button>充值</button>
 				</view>
 			</view>
 		</scroll-view>

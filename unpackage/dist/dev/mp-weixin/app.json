@@ -5,7 +5,8 @@
     "pages/user/user",
     "pages/balance/balance",
     "pages/shere/shere",
-    "pages/pay/pay"
+    "pages/pay/pay",
+    "pages/help/help"
   ],
   "subPackages": [],
   "window": {

@@ -1,0 +1,65 @@
+.titleImg {
+  width: 750rpx;
+  height: 380rpx;
+  background-color: #fff;
+}
+.titleImg image {
+  width: 750rpx;
+  height: 360rpx;
+}
+.list {
+  min-height: 700rpx;
+  margin-top: 20rpx;
+  margin-bottom: 110rpx;
+}
+.list,
+.con {
+  width: 750rpx;
+  height: auto;
+  background-color: #fff;
+}
+.con .iconfont {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+.listShow {
+  width: 750rpx;
+  min-height: 80rpx;
+  line-height: 80rpx;
+  color: #333;
+  font-size: 30rpx;
+  border-bottom: 1rpx solid #e5e5e5;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+.listShow image {
+  width: 20rpx;
+  height: 30rpx;
+  margin-left: 20rpx;
+}
+.listShow view {
+  width: 650rpx;
+  font-weight: 700;
+}
+.listShowSon {
+  height: auto;
+  line-height: 30rpx;
+  padding: 20rpx 50rpx;
+  color: #333;
+  font-size: 25rpx;
+}
+.listHide .listShowSon {
+  display: none;
+}
+.listHide .iconfont {
+  -webkit-transform: rotate(0deg) !important;
+          transform: rotate(0deg) !important;
+}
+
