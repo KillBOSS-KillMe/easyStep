@@ -114,12 +114,15 @@ text-overflow: ellipsis; -->
 	.wx-checkbox-input.wx-checkbox-input-checked {
 	  border: none !important;
 	}
+	/* #endif */
+	
 	
 	button {
 	  position: relative;
 	  display: block;
 	  padding: 0;
 	  margin: 0;
+		border:none;
 	  line-height: auto;
 	  box-sizing: border-box;
 	  text-align: center;
@@ -137,6 +140,4 @@ text-overflow: ellipsis; -->
 	  align-items: center;
 	  justify-content: space-between;
 	}
-	
-	/* #endif */
 </style>

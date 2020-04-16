@@ -76,7 +76,7 @@
 				text-shadow: 0px 3px 1px #999;
 			}
 			.name {
-				font-size: 25rpx;
+				font-size: @descriptionSize;
 			}
 			.stepData {
 				font-weight: @mainFontWeight;
@@ -84,7 +84,7 @@
 			}
 		}
 		.description {
-			font-size: 25rpx;
+			font-size: @descriptionSize;
 			color: #fff;;
 		}
 	}
@@ -108,7 +108,7 @@
 			width: 670rpx;
 			height: auto;
 			margin: 0 20rpx;
-			font-size: 29rpx;
+			font-size: @titleSize_1;
 			font-weight: @mainFontWeight;
 			color: @mainFontColor;
 			display: flex;
@@ -132,11 +132,11 @@
 				flex-direction: column;
 				padding-top: 20rpx;
 				.name {
-					font-size: 25rpx;
+					font-size: @descriptionSize;
 					color: #898989;
 				}
 				.data {
-					font-size: 25rpx;
+					font-size: @descriptionSize;
 					font-weight: @mainFontWeight;
 					color: @mainFontColor;
 				}

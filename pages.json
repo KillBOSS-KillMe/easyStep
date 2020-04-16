@@ -39,6 +39,19 @@
 					"titleView": false
 				}
 			}
+		}, {
+			"path": "pages/balance/balance",
+			"style": {
+				"navigationBarTitleText": "我的余额",
+				"enablePullDownRefresh": true,
+				// #ifdef H5
+				"navigationStyle": "custom",
+				// #endif
+				"app-plus": {
+					"bounce": "none",
+					"titleView": false
+				}
+			}
 		}
 	],
 	"globalStyle": {
