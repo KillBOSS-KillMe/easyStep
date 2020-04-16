@@ -64,9 +64,12 @@ text-overflow: ellipsis; -->
 	}
 </script>
 
-<style>
-	.page {
-	  background-color: #fafafa;
+<style lang="less">
+	@import url("/static/css/reset.css");
+	@import url("/static/css/icon.css");
+	
+	page {
+	  background-color: #666666;
 	  width: 100vw;
 	  min-height: 100vh;
 	  height: auto;
