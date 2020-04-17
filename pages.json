@@ -118,7 +118,11 @@
 				}
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/withdraw/withdraw",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "未命名页面",

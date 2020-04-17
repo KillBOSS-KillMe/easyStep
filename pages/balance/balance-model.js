@@ -1,8 +1,8 @@
 import Base from '../../static/js/base'
-class Index extends Base {
+class Balance extends Base {
 	constructor() {
 		super();
 	}
 }
 
-export default Index
+export default Balance

@@ -8,24 +8,48 @@
 					<text>我的余额</text>
 					<text class="num">26591.00</text>
 				</view>
-				<view class="button">
+				<view class="button" @tap="goAccountDetails">
 					<view>账户明细</view>
 				</view>
 			</view>
 		</view>
 		<view class="operating">
-			<view>充值</view>
-			<view>提现</view>
+			<view @tap="goPay">充值</view>
+			<view @tap="goWithdraw">提现</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	// import Balance from "./balance-model.js";
+	// var balance = new Balance();
 	export default {
 		data() {
 			return {
 				
 			};
+		},
+		methods: {
+			// 充值
+			goPay(e) {
+				let url = `/pages/pay/pay`
+				uni.navigateTo({
+					url: url
+				})
+			},
+			goWithdraw() {
+				let url = `/pages/withdraw/withdraw`
+				uni.navigateTo({
+					url: url
+				})
+			},
+			// 账户明细
+			goAccountDetails() {
+				let url = `/pages/accountDetails/accountDetails`
+				uni.navigateTo({
+					url: url
+				})
+			}
 		}
 	}
 </script>
