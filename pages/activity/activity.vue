@@ -8,7 +8,7 @@
 						<text class="title">夏日瘦身的N种方法</text>
 						<text>参与签到活动，领取更多金豆</text>
 					</view>
-					<button>立即签到</button>
+					<button @tap="goDetails" :data-id="1">立即签到</button>
 					<!-- <button>立即分享</button> -->
 				</view>
 			</li>
@@ -17,11 +17,24 @@
 </template>
 
 <script>
+	// import Activity from "./activity-model.js";
+	// var activity = new Activity()
 	export default {
 		data() {
 			return {
-				
 			};
+		},
+		methods: {
+			goDetails(e) {
+				let url = `/pages/shere/shere?id=${e.currentTarget.dataset.id}`
+				console.log(url)
+				uni.navigateTo({
+					url: url
+				})
+				// const that = this;
+				// const id = activity.get_data_set(e, "id");
+				// activity.navigate_to(`pages/shere/shere?id=${id}`);
+			}
 		}
 	}
 </script>

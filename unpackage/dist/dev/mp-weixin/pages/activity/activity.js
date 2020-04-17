@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -149,13 +149,26 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
-var _default =
-{
+
+// import Activity from "./activity-model.js";
+// var activity = new Activity()
+var _default = {
   data: function data() {
     return {};
 
+  },
+  methods: {
+    goDetails: function goDetails(e) {
+      var url = "/pages/shere/shere?id=".concat(e.currentTarget.dataset.id);
+      console.log(url);
+      uni.navigateTo({
+        url: url });
 
-  } };exports.default = _default;
+      // const that = this;
+      // const id = activity.get_data_set(e, "id");
+      // activity.navigate_to(`pages/shere/shere?id=${id}`);
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
