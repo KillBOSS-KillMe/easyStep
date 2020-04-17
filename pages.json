@@ -122,6 +122,10 @@
             "path" : "pages/withdraw/withdraw",
             "style" : {}
         }
+        ,{
+            "path" : "pages/vip/vip",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

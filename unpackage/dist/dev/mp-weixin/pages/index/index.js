@@ -213,14 +213,15 @@ var index = new _indexModel.default();var _default = { data: function data() {re
   //   // 获取用户信息组件
   //   getUserInfoButton
   // },
-  onLoad: function onLoad() {this.onGetUserInfo();}, methods: { // 用户信息获取
+  onLoad: function onLoad() {this.onGetUserInfo(); // 提示开通会员
+    this.promptOpenVip();}, methods: { // 用户信息获取
     onGetUserInfo: function onGetUserInfo() {var _this = this; // 查看是否授权
       index.show_loading('加载中...');uni.getSetting({ success: function success(res) {console.log(res);if (res.authSetting['scope.userInfo']) {_this.$store.commit('updateAuthorizationButtonData', false);_this.authorizationButton = _this.$store.state.authorizationButton; // 已经授权，可以直接调用 getUserInfo 获取头像昵称
             uni.getUserInfo({ provider: 'weixin', success: function success(res) {console.log(res); // 使用vuex获取原有的用户信息
                 _this.userInfo = _this.$store.state.userInfo; // 数据合并
                 _this.userInfo = Object.assign(_this.userInfo, res.userInfo); // 把数据更新到vuex  state
                 _this.$store.commit('updateUserInfo', _this.userInfo);console.log(_this.userInfo); // 用户信息保存服务器
-                _this.setUserInfo();} });} else {_this.collectionStr = true;_this.$apply();
+                _this.setUserInfo();} });} else {_this.collectionStr = true;
           }
         } });
 
@@ -276,6 +277,24 @@ var index = new _indexModel.default();var _default = { data: function data() {re
           // 		}
           // 	})
           // })
+        } });
+
+    },
+    // 提示开通会员
+    promptOpenVip: function promptOpenVip() {
+      uni.showModal({
+        title: '系统提示',
+        content: '检测到用户未开通会员，是否开通会员',
+        success: function success(res) {
+          if (res.confirm) {
+            console.log('用户点击确定');
+            var url = "/pages/vip/vip";
+            uni.navigateTo({
+              url: url });
+
+          } else if (res.cancel) {
+            console.log('用户点击取消');
+          }
         } });
 
     } } };exports.default = _default;

@@ -48,6 +48,8 @@
 		// },
 		onLoad() {
 			this.onGetUserInfo()
+			// 提示开通会员
+			this.promptOpenVip()
 		},
 		methods: {
 			// 用户信息获取
@@ -73,12 +75,11 @@
 									this.$store.commit('updateUserInfo', this.userInfo);
 									console.log(this.userInfo)
 									// 用户信息保存服务器
-									this.setUserInfo() 
+									this.setUserInfo()
 								}
 							})
 						} else {
 							this.collectionStr = true
-							this.$apply()
 						}
 					}
 				})
@@ -86,12 +87,12 @@
 			// 用户信息保存服务器
 			setUserInfo() {
 				uni.login({
-				  provider: 'weixin',
-				  success: loginRes => {
-				    console.log(loginRes.authResult);
+					provider: 'weixin',
+					success: loginRes => {
+						console.log(loginRes.authResult);
 						// 获取运动步数
 						this.getRunData()
-				  }
+					}
 				});
 			},
 			// 获取步数
@@ -136,6 +137,24 @@
 						// })
 					}
 				})
+			},
+			// 提示开通会员
+			promptOpenVip() {
+				uni.showModal({
+					title: '系统提示',
+					content: '检测到用户未开通会员，是否开通会员',
+					success: res => {
+						if (res.confirm) {
+							console.log('用户点击确定');
+							let url = `/pages/vip/vip`
+							uni.navigateTo({
+								url: url
+							})
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}
+				});
 			}
 		}
 	}

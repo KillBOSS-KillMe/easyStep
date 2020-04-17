@@ -9,7 +9,8 @@
     "pages/help/help",
     "pages/accountDetails/accountDetails",
     "pages/signIn/signIn",
-    "pages/withdraw/withdraw"
+    "pages/withdraw/withdraw",
+    "pages/vip/vip"
   ],
   "subPackages": [],
   "window": {

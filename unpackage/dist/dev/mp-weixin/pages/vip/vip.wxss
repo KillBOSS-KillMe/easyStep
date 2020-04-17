@@ -1,0 +1,89 @@
+.headBg {
+  background-color: #43D182;
+  width: 100%;
+  height: 122rpx;
+  border-radius: 0 0 20rpx 20rpx;
+  z-index: 1;
+}
+scroll-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 750rpx;
+  height: auto;
+}
+.pay .info:nth-child(2) {
+  border-radius: 0;
+  margin-top: 30rpx;
+}
+.pay .info:nth-child(2) .description {
+  width: 100%;
+  height: auto;
+  line-height: 40rpx;
+  font-size: 25rpx;
+  color: #898989;
+}
+.pay .info {
+  width: 710rpx;
+  height: auto;
+  padding: 30rpx 20rpx;
+  border-radius: 20rpx 20rpx 0 0;
+  background-color: #fff;
+}
+.pay .info .title {
+  font-size: 29rpx;
+  font-weight: 800;
+  color: #343434;
+  padding-bottom: 30rpx;
+}
+.pay .info .setAmount {
+  width: 670rpx;
+  height: 80rpx;
+  padding: 0 20rpx;
+  margin-top: 30rpx;
+  margin-bottom: 50rpx;
+  background-color: #F1F1F1;
+  font-size: 25rpx;
+  color: #343434;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+          justify-content: flex-end;
+  border-radius: 10rpx;
+}
+.pay .info .setAmount input {
+  width: 100%;
+  height: 100%;
+  text-align: right;
+  padding: 0 20rpx;
+}
+.pay .shereButton {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+}
+.pay .shereButton button {
+  width: 710rpx;
+  height: 80rpx;
+  margin: 20rpx;
+  background: -webkit-linear-gradient(left, #37c375, #58e998);
+  background: linear-gradient(to right, #37c375, #58e998);
+  color: #fff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+
