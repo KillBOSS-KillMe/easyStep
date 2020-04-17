@@ -214,11 +214,7 @@ var user = new _userModel.default();var _default = { data: function data() {retu
     // console.log(this.userInfo)
   }, methods: { // 进入余额页
     goBalancePage: function goBalancePage(e) {user.navigate_to("../balance/balance");}, // 进入帮助页
-    goHelpPage: function goHelpPage(e) {user.navigate_to("../help/help");} // // 进入帮助页
-    // goHelpPage(e) {
-    // 	user.navigate_to("../help/help");
-    // },
-  } };exports.default = _default;
+    goHelpPage: function goHelpPage(e) {user.navigate_to("../help/help");} } };exports.default = _default;
 
 /***/ }),
 

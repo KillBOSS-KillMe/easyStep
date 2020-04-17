@@ -35,6 +35,22 @@ class Index extends Base {
 		};
 		that.request(params);
 	};
+	// 获取步数
+	getRunData(data,callBack) {
+		console.log('===============')
+		console.log(data)
+		console.log(callBack)
+		var that = this;
+		var params = {
+		  url: 'auth/me',
+		  method:'POST',
+		  data:data,
+		  sCallBack: function (res) {
+			callBack && callBack(res.data);
+		  }
+		};
+		that.request(params);
+	};
 }
 
 export default Index

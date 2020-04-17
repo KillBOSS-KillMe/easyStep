@@ -213,10 +213,24 @@ var index = new _indexModel.default();var _default = { data: function data() {re
   //   // 获取用户信息组件
   //   getUserInfoButton
   // },
-  onLoad: function onLoad() {this.wx_login(); // this.onGetUserInfo()
-    // // 提示开通会员
-    // this.promptOpenVip()
-  }, methods: { wx_login: function wx_login() {var that = this;that.authorizationButton = that.$store.state.authorizationButton;uni.login({ provider: 'weixin', success: function success(loginRes) {var code = loginRes.code;uni.getUserInfo({ provider: 'weixin', success: function success(infoRes) {that.$store.commit('updateUserInfo', that.userInfo);index.login({ code: code, headimgurl: infoRes.userInfo.avatarUrl, nickname: infoRes.userInfo.nickName, sex: infoRes.userInfo.gender }, function (res) {if (res.status_code == 'ok') {index.set_storage('token', res.access_token);index.set_storage('token_type', res.token_type);that.getUserInfo();}
+  onLoad: function onLoad() {var that = this;that._onLoad();}, onShow: function onShow() {}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.wx_login(function () {that.getUserInfo(function () {that.getRunData(function () {callBack && callBack();});});});}, wx_login: function wx_login(callBack) {var that = this;that.authorizationButton = that.$store.state.authorizationButton;uni.login({ provider: 'weixin', success: function success(loginRes) {var code = loginRes.code;console.log(code); // return false
+          uni.getUserInfo({
+            provider: 'weixin',
+            success: function success(infoRes) {
+              that.$store.commit('updateUserInfo', that.userInfo);
+              index.login({
+                code: code,
+                share_id: '',
+                headimgurl: infoRes.userInfo.avatarUrl,
+                nickname: infoRes.userInfo.nickName,
+                sex: infoRes.userInfo.gender },
+              function (res) {
+                console.log(res);
+                if (res.status_code == 'ok') {
+                  index.set_storage('token', res.access_token);
+                  index.set_storage('token_type', res.token_type);
+                }
+                callBack && callBack();
               });
             } });
 
@@ -224,36 +238,33 @@ var index = new _indexModel.default();var _default = { data: function data() {re
 
     },
     // 用户信息获取
-    getUserInfo: function getUserInfo() {
+    getUserInfo: function getUserInfo(callBack) {
       var that = this;
-      index.getUserInfo({},
-      function (res) {
+      index.getUserInfo({}, function (res) {
         if (res.status_code == 'ok') {
           var userInfo = that.$store.state.userInfo;
           that.userInfo = Object.assign(userInfo, res.data);
           that.$store.commit('updateUserInfo', that.userInfo);
         }
+        callBack && callBack();
       });
     },
-    // 用户信息保存服务器
-    setUserInfo: function setUserInfo() {var _this = this;
-      uni.login({
-        provider: 'weixin',
-        success: function success(loginRes) {
-          console.log(loginRes.authResult);
-          // 获取运动步数
-          _this.getRunData();
-        } });
-
-    },
     // 获取步数
-    getRunData: function getRunData() {
+    getRunData: function getRunData(callBack) {var _this = this;
       wx.getWeRunData({
         success: function success(res) {
           console.log(res);
           var encryptedData = res.encryptedData;
           var iv = res.iv;
-          index.hide_loading();
+          var that = _this;
+          index.getRunData({}, function (res) {
+            if (res.status_code == 'ok') {
+              var userInfo = that.$store.state.userInfo;
+              that.userInfo = Object.assign(userInfo, res.data);
+              that.$store.commit('updateUserInfo', that.userInfo);
+            }
+            callBack && callBack();
+          });
           // wepy.login().then(res => {
           // 	let code = res.code
           // 	// 提交步数(未解密)
@@ -290,7 +301,7 @@ var index = new _indexModel.default();var _default = { data: function data() {re
 
     },
     // 提示开通会员
-    promptOpenVip: function promptOpenVip() {
+    promptOpenVip: function promptOpenVip(callBack) {
       uni.showModal({
         title: '系统提示',
         content: '系统检测到用户未开通会员，是否开通会员',
@@ -305,7 +316,29 @@ var index = new _indexModel.default();var _default = { data: function data() {re
           }
         } });
 
-    } } };exports.default = _default;
+    } },
+
+  // 下拉刷新
+  onPullDownRefresh: function onPullDownRefresh() {
+    var that = this;
+    that.page = 1;
+    that._onLoad(function () {
+      uni.stopPullDownRefresh();
+    });
+  },
+  //上拉加载更多
+  // onReachBottom() {
+  //   var that = this;
+  //   if (that.last_page == that.page) {
+  //     return;
+  //   }
+  //   that.page += 1;
+  //   that.get_product_list();
+  // },
+  // 分享
+  onShareAppMessage: function onShareAppMessage() {
+    return index.onShareAppMessage({});
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

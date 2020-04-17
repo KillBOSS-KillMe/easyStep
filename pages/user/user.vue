@@ -61,10 +61,6 @@
 			goHelpPage(e) {
 				user.navigate_to("../help/help");
 			},
-			// // 进入帮助页
-			// goHelpPage(e) {
-			// 	user.navigate_to("../help/help");
-			// },
 		}
 	}
 </script>

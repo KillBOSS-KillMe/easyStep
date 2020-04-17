@@ -57,12 +57,13 @@ class Base {
 						console.log('++++++++++++++++++++++||||||||||||||||||||||||||||||++++++++++++++++++++')
 						console.log(ret)
 						var code = ret.statusCode.toString().charAt(0);
-						if (code == '2' || code == '4') {
+						if (code == '2' || code == '4' || code == '5') {
 							that.hide_loading();
+							// token实效,更新token
 							if (ret.data.status_code == 500) {
 								that.refresh_token(params); return;
 							}
-
+							// 返回请求到的数据
 							params.sCallBack && params.sCallBack(ret); return;
 						}
 
@@ -140,11 +141,15 @@ class Base {
 		var that = this;
 		that.request({
 			url: 'auth/refresh',
-			method: 'PUT',
+			method: 'POST',
 			sCallBack: function (res) {
-				if (res.data.code == 8888) {
-					that.set_storage('token', res.data.data.token);
-					that.set_storage('token_type', res.data.data.token_type);
+				console.log('+++++++++++++++++++++11111111111111+++++++++++++++++++')
+				console.log(res)
+				if (res.status_code == 'ok') {
+					// that.set_storage('token', res.data.data.token);
+					// that.set_storage('token_type', res.data.data.token_type);
+					that.set_storage('token',res.access_token);
+					that.set_storage('token_type',res.token_type);
 				} else {
 					that.remove_storage('token');
 					that.remove_storage('token_type');
@@ -183,9 +188,12 @@ class Base {
 		uni.getStorage({
 			key: key,
 			success: function (res) {
+				console.log('|+|+|+|+|+|||||||||||||||||||||||||||||||||||||')
+				console.log(res)
 				callBack(res.data);
 			},
 			fail: function (e) {
+				console.log('|||||||||||||||||||||||||||||||||||||+|+|+|+|+|')
 				callBack('');
 			}
 		});
@@ -266,7 +274,7 @@ class Base {
 	//分享
 	onShareAppMessage(data) {
 		return {
-			title: data.title || '万小二',
+			title: data.title || '益步步',
 			path: data.path || 'pages/index/index'
 		};
 	}

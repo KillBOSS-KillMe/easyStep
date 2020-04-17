@@ -47,71 +47,82 @@
 		//   getUserInfoButton
 		// },
 		onLoad() {
-			this.wx_login()
-			// this.onGetUserInfo()
-			// // 提示开通会员
-			// this.promptOpenVip()
+			const that = this
+			that._onLoad()
+		},
+		onShow() {
 		},
 		methods: {
-			wx_login(){
+			_onLoad(callBack) {
+				const that = this
+				that.wx_login(() => {
+					that.getUserInfo(() => {
+						that.getRunData(() => {
+							callBack && callBack();
+						})
+					})
+				})
+			},
+			wx_login(callBack) {
 				const that = this;
 				that.authorizationButton = that.$store.state.authorizationButton;
 				uni.login({
 					provider: 'weixin',
-					success: function (loginRes) {
+					success: function(loginRes) {
 						var code = loginRes.code;
+						console.log(code)
+						// return false
 						uni.getUserInfo({
 							provider: 'weixin',
 							success: function(infoRes) {
 								that.$store.commit('updateUserInfo', that.userInfo);
 								index.login({
-									code:code,
+									code: code,
+									share_id: '',
 									headimgurl: infoRes.userInfo.avatarUrl,
 									nickname: infoRes.userInfo.nickName,
 									sex: infoRes.userInfo.gender
-								},(res)=>{
-									if(res.status_code == 'ok'){
-										index.set_storage('token',res.access_token);
-										index.set_storage('token_type',res.token_type);
-										that.getUserInfo()
+								}, (res) => {
+									console.log(res)
+									if (res.status_code == 'ok') {
+										index.set_storage('token', res.access_token);
+										index.set_storage('token_type', res.token_type);
 									}
+									callBack && callBack();
 								})
 							}
 						})
 					}
-				});	
+				});
 			},
 			// 用户信息获取
-			getUserInfo() {
+			getUserInfo(callBack) {
 				const that = this
-				index.getUserInfo({
-				},(res)=>{
-					if(res.status_code == 'ok'){
+				index.getUserInfo({}, (res) => {
+					if (res.status_code == 'ok') {
 						let userInfo = that.$store.state.userInfo;
 						that.userInfo = Object.assign(userInfo, res.data)
 						that.$store.commit('updateUserInfo', that.userInfo);
 					}
+					callBack && callBack();
 				})
 			},
-			// 用户信息保存服务器
-			setUserInfo() {
-				uni.login({
-					provider: 'weixin',
-					success: loginRes => {
-						console.log(loginRes.authResult);
-						// 获取运动步数
-						this.getRunData()
-					}
-				});
-			},
 			// 获取步数
-			getRunData() {
+			getRunData(callBack) {
 				wx.getWeRunData({
 					success: res => {
 						console.log(res)
 						let encryptedData = res.encryptedData
 						let iv = res.iv
-						index.hide_loading()
+						const that = this
+						index.getRunData({}, (res) => {
+							if (res.status_code == 'ok') {
+								let userInfo = that.$store.state.userInfo;
+								that.userInfo = Object.assign(userInfo, res.data)
+								that.$store.commit('updateUserInfo', that.userInfo);
+							}
+							callBack && callBack();
+						})
 						// wepy.login().then(res => {
 						// 	let code = res.code
 						// 	// 提交步数(未解密)
@@ -148,7 +159,7 @@
 				})
 			},
 			// 提示开通会员
-			promptOpenVip() {
+			promptOpenVip(callBack) {
 				uni.showModal({
 					title: '系统提示',
 					content: '系统检测到用户未开通会员，是否开通会员',
@@ -164,6 +175,27 @@
 					}
 				});
 			}
+		},
+		// 下拉刷新
+		onPullDownRefresh() {
+		  var that = this;
+		  that.page = 1;
+		  that._onLoad(() => {
+		    uni.stopPullDownRefresh();
+		  });
+		},
+		//上拉加载更多
+		// onReachBottom() {
+		//   var that = this;
+		//   if (that.last_page == that.page) {
+		//     return;
+		//   }
+		//   that.page += 1;
+		//   that.get_product_list();
+		// },
+		// 分享
+		onShareAppMessage() {
+			return index.onShareAppMessage({});
 		}
 	}
 </script>

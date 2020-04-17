@@ -7758,6 +7758,22 @@ Index = /*#__PURE__*/function (_Base) {_inherits(Index, _Base);
         } };
 
       that.request(params);
+    } }, { key: "getRunData",
+    // 获取步数
+    value: function getRunData(data, callBack) {
+      console.log('===============');
+      console.log(data);
+      console.log(callBack);
+      var that = this;
+      var params = {
+        url: 'auth/me',
+        method: 'POST',
+        data: data,
+        sCallBack: function sCallBack(res) {
+          callBack && callBack(res.data);
+        } };
+
+      that.request(params);
     } }]);return Index;}(_base.default);var _default =
 
 
@@ -7832,12 +7848,13 @@ Base = /*#__PURE__*/function () {
               console.log('++++++++++++++++++++++||||||||||||||||||||||||||||||++++++++++++++++++++');
               console.log(ret);
               var code = ret.statusCode.toString().charAt(0);
-              if (code == '2' || code == '4') {
+              if (code == '2' || code == '4' || code == '5') {
                 that.hide_loading();
+                // token实效,更新token
                 if (ret.data.status_code == 500) {
                   that.refresh_token(params);return;
                 }
-
+                // 返回请求到的数据
                 params.sCallBack && params.sCallBack(ret);return;
               }
 
@@ -7915,11 +7932,15 @@ Base = /*#__PURE__*/function () {
       var that = this;
       that.request({
         url: 'auth/refresh',
-        method: 'PUT',
+        method: 'POST',
         sCallBack: function sCallBack(res) {
-          if (res.data.code == 8888) {
-            that.set_storage('token', res.data.data.token);
-            that.set_storage('token_type', res.data.data.token_type);
+          console.log('+++++++++++++++++++++11111111111111+++++++++++++++++++');
+          console.log(res);
+          if (res.status_code == 'ok') {
+            // that.set_storage('token', res.data.data.token);
+            // that.set_storage('token_type', res.data.data.token_type);
+            that.set_storage('token', res.access_token);
+            that.set_storage('token_type', res.token_type);
           } else {
             that.remove_storage('token');
             that.remove_storage('token_type');
@@ -7958,9 +7979,12 @@ Base = /*#__PURE__*/function () {
       uni.getStorage({
         key: key,
         success: function success(res) {
+          console.log('|+|+|+|+|+|||||||||||||||||||||||||||||||||||||');
+          console.log(res);
           callBack(res.data);
         },
         fail: function fail(e) {
+          console.log('|||||||||||||||||||||||||||||||||||||+|+|+|+|+|');
           callBack('');
         } });
 
@@ -8041,7 +8065,7 @@ Base = /*#__PURE__*/function () {
     //分享
   }, { key: "onShareAppMessage", value: function onShareAppMessage(data) {
       return {
-        title: data.title || '万小二',
+        title: data.title || '益步步',
         path: data.path || 'pages/index/index' };
 
     } }]);return Base;}();var _default =
