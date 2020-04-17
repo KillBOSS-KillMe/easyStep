@@ -16,14 +16,16 @@
 			</ul>
 		</view>
 		<ul class="featuresList">
-			<li class="item">
-				<view class="name">
-					<icon class="iconfont iconkefu"></icon>
-					客服
-				</view>
-				<icon class="iconfont iconxiangyou"></icon>
-			</li>
-			<li class="item" @tap="goHelpPage">	
+			<button open-type='contact' session-from=''>
+				<li class="item">
+					<view class="name">
+						<icon class="iconfont iconkefu"></icon>
+						客服
+					</view>
+					<icon class="iconfont iconxiangyou"></icon>
+				</li>
+			</button>
+			<li class="item" @tap="goHelpPage">
 				<view class="name">
 					<icon class="iconfont iconbangzhu"></icon>
 					帮助中心
@@ -40,21 +42,21 @@
 	export default {
 		data() {
 			return {
-				
+
 			};
 		},
 		methods: {
 			// 进入余额页
 			goBalancePage(e) {
-			  user.navigate_to("../balance/balance");
+				user.navigate_to("../balance/balance");
 			},
 			// 进入帮助页
 			goHelpPage(e) {
-			  user.navigate_to("../help/help");
+				user.navigate_to("../help/help");
 			},
 			// 进入帮助页
 			goHelpPage(e) {
-			  user.navigate_to("../help/help");
+				user.navigate_to("../help/help");
 			},
 		}
 	}
@@ -62,6 +64,7 @@
 
 <style lang="less">
 	@import url("../../static/css/variable.less");
+
 	.headBg {
 		background-color: @themeColor;
 		width: 100%;
@@ -69,6 +72,7 @@
 		border-radius: 0 0 20rpx 20rpx;
 		z-index: 1;
 	}
+
 	.userInfo {
 		position: absolute;
 		top: 0;
@@ -85,17 +89,20 @@
 		flex-direction: column;
 		background-color: #fff;
 		z-index: 10;
+
 		image {
 			width: 110rpx;
 			height: 110rpx;
 			border-radius: 110rpx;
 			margin: 20rpx;
 		}
+
 		.userNamer {
 			font-size: 29rpx;
 			font-weight: @mainFontWeight;
 			color: @mainFontColor;
 		}
+
 		.features {
 			width: 670rpx;
 			height: auto;
@@ -105,6 +112,7 @@
 			align-items: center;
 			justify-content: space-around;
 			border-top: 1px solid @borderColor;
+
 			li {
 				height: 70rpx;
 				display: flex;
@@ -112,10 +120,12 @@
 				justify-content: space-between;
 				flex-direction: column;
 				padding-top: 20rpx;
+
 				.name {
 					font-size: 25rpx;
 					color: #898989;
 				}
+
 				.data {
 					font-size: 25rpx;
 					font-weight: @mainFontWeight;
@@ -124,6 +134,7 @@
 			}
 		}
 	}
+
 	.featuresList {
 		width: 670rpx;
 		height: auto;
@@ -133,9 +144,11 @@
 		background-color: #fff;
 		border-top: 1px solid @borderColor;
 		border-radius: 20rpx;
-		.item:nth-child(1){
+
+		.item:nth-child(1) {
 			border-bottom: 1px solid @borderColor;
 		}
+
 		.item {
 			width: 100%;
 			height: 70rpx;
@@ -143,6 +156,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+
 			view {
 				display: flex;
 				align-items: center;
@@ -150,11 +164,13 @@
 				font-size: 29rpx;
 				font-weight: @mainFontWeight;
 				color: @mainFontColor;
+
 				.iconfont {
 					margin-right: 20rpx;
 					color: @themeColor;
 				}
 			}
+
 			.iconfont {
 				display: flex;
 				align-items: center;
