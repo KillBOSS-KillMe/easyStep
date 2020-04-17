@@ -3,8 +3,8 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				// "navigationBarTitleText": "首页",
-				// "enablePullDownRefresh": true,
+				"navigationBarTitleText": "首页",
+				"enablePullDownRefresh": true,
 				// #ifdef H5
 				"navigationStyle": "custom",
 				// #endif
@@ -128,9 +128,9 @@
         }
     ],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "未命名页面",
-		"navigationBarBackgroundColor": "#FFFFFF",
+		"navigationBarBackgroundColor": "#43D182",
 		"backgroundColor": "#43D182"
 	},
 	"tabBar": {

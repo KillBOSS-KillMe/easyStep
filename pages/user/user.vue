@@ -2,16 +2,16 @@
 	<view>
 		<view class="headBg"></view>
 		<view class="userInfo">
-			<image src="../../static/images/logo.png" mode=""></image>
-			<text class="userNamer">二狗子</text>
+			<image :src="userInfo.headimgurl" mode=""></image>
+			<text class="userNamer">{{userInfo.nickname}}</text>
 			<ul class="features">
 				<li class="item">
 					<text class="name">金豆(个)</text>
-					<text class="data">2222</text>
+					<text class="data">{{userInfo.wallet}}</text>
 				</li>
 				<li class="item" @tap="goBalancePage">
 					<text class="name">金额(元)</text>
-					<text class="data">222啊2</text>
+					<text class="data">{{userInfo.wallet}}</text>
 				</li>
 			</ul>
 		</view>
@@ -42,8 +42,15 @@
 	export default {
 		data() {
 			return {
-
+				userInfo: {}
 			};
+		},
+		onLoad() {
+			// 使用vuex获取原有的用户信息
+			this.userInfo = this.$store.state.userInfo;
+			// console.clear()
+			// console.log('------------')
+			// console.log(this.userInfo)
 		},
 		methods: {
 			// 进入余额页
@@ -54,10 +61,10 @@
 			goHelpPage(e) {
 				user.navigate_to("../help/help");
 			},
-			// 进入帮助页
-			goHelpPage(e) {
-				user.navigate_to("../help/help");
-			},
+			// // 进入帮助页
+			// goHelpPage(e) {
+			// 	user.navigate_to("../help/help");
+			// },
 		}
 	}
 </script>

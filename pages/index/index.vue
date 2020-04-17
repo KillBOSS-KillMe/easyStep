@@ -26,7 +26,7 @@
 				</ul>
 			</view>
 			<!-- <getUserInfoButton /> -->
-			<button open-type="getUserInfo" v-if="authorizationButton" id='getUserInfo' lang="zh_CN" @getuserinfo="onGotUserInfo"></button>
+			<button open-type="getUserInfo" v-if="authorizationButton" id='getUserInfo' lang="zh_CN" @getuserinfo="wx_login"></button>
 		</view>
 </template>
 
@@ -47,40 +47,49 @@
 		//   getUserInfoButton
 		// },
 		onLoad() {
-			this.onGetUserInfo()
-			// 提示开通会员
-			this.promptOpenVip()
+			this.wx_login()
+			// this.onGetUserInfo()
+			// // 提示开通会员
+			// this.promptOpenVip()
 		},
 		methods: {
+			wx_login(){
+				const that = this;
+				that.authorizationButton = that.$store.state.authorizationButton;
+				uni.login({
+					provider: 'weixin',
+					success: function (loginRes) {
+						var code = loginRes.code;
+						uni.getUserInfo({
+							provider: 'weixin',
+							success: function(infoRes) {
+								that.$store.commit('updateUserInfo', that.userInfo);
+								index.login({
+									code:code,
+									headimgurl: infoRes.userInfo.avatarUrl,
+									nickname: infoRes.userInfo.nickName,
+									sex: infoRes.userInfo.gender
+								},(res)=>{
+									if(res.status_code == 'ok'){
+										index.set_storage('token',res.access_token);
+										index.set_storage('token_type',res.token_type);
+										that.getUserInfo()
+									}
+								})
+							}
+						})
+					}
+				});	
+			},
 			// 用户信息获取
-			onGetUserInfo() {
-				// 查看是否授权
-				index.show_loading('加载中...')
-				uni.getSetting({
-					success: res => {
-						console.log(res)
-						if (res.authSetting['scope.userInfo']) {
-							this.$store.commit('updateAuthorizationButtonData', false);
-							this.authorizationButton = this.$store.state.authorizationButton;
-							// 已经授权，可以直接调用 getUserInfo 获取头像昵称
-							uni.getUserInfo({
-								provider: 'weixin',
-								success: res => {
-									console.log(res)
-									// 使用vuex获取原有的用户信息
-									this.userInfo = this.$store.state.userInfo;
-									// 数据合并
-									this.userInfo = Object.assign(this.userInfo, res.userInfo)
-									// 把数据更新到vuex  state
-									this.$store.commit('updateUserInfo', this.userInfo);
-									console.log(this.userInfo)
-									// 用户信息保存服务器
-									this.setUserInfo()
-								}
-							})
-						} else {
-							this.collectionStr = true
-						}
+			getUserInfo() {
+				const that = this
+				index.getUserInfo({
+				},(res)=>{
+					if(res.status_code == 'ok'){
+						let userInfo = that.$store.state.userInfo;
+						that.userInfo = Object.assign(userInfo, res.data)
+						that.$store.commit('updateUserInfo', that.userInfo);
 					}
 				})
 			},
@@ -145,11 +154,10 @@
 					content: '系统检测到用户未开通会员，是否开通会员',
 					success: res => {
 						if (res.confirm) {
-							console.log('用户点击确定');
-							let url = `/pages/vip/vip`
-							uni.navigateTo({
-								url: url
-							})
+							// console.log('用户点击确定');
+							// const that = this;
+							// const id = activity.get_data_set(e, "id");
+							index.navigate_to(`/pages/vip/vip`);
 						} else if (res.cancel) {
 							console.log('用户点击取消');
 						}

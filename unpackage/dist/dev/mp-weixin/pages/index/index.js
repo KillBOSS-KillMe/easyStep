@@ -213,27 +213,36 @@ var index = new _indexModel.default();var _default = { data: function data() {re
   //   // 获取用户信息组件
   //   getUserInfoButton
   // },
-  onLoad: function onLoad() {this.onGetUserInfo(); // 提示开通会员
-    this.promptOpenVip();}, methods: { // 用户信息获取
-    onGetUserInfo: function onGetUserInfo() {var _this = this; // 查看是否授权
-      index.show_loading('加载中...');uni.getSetting({ success: function success(res) {console.log(res);if (res.authSetting['scope.userInfo']) {_this.$store.commit('updateAuthorizationButtonData', false);_this.authorizationButton = _this.$store.state.authorizationButton; // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-            uni.getUserInfo({ provider: 'weixin', success: function success(res) {console.log(res); // 使用vuex获取原有的用户信息
-                _this.userInfo = _this.$store.state.userInfo; // 数据合并
-                _this.userInfo = Object.assign(_this.userInfo, res.userInfo); // 把数据更新到vuex  state
-                _this.$store.commit('updateUserInfo', _this.userInfo);console.log(_this.userInfo); // 用户信息保存服务器
-                _this.setUserInfo();} });} else {_this.collectionStr = true;
-          }
+  onLoad: function onLoad() {this.wx_login(); // this.onGetUserInfo()
+    // // 提示开通会员
+    // this.promptOpenVip()
+  }, methods: { wx_login: function wx_login() {var that = this;that.authorizationButton = that.$store.state.authorizationButton;uni.login({ provider: 'weixin', success: function success(loginRes) {var code = loginRes.code;uni.getUserInfo({ provider: 'weixin', success: function success(infoRes) {that.$store.commit('updateUserInfo', that.userInfo);index.login({ code: code, headimgurl: infoRes.userInfo.avatarUrl, nickname: infoRes.userInfo.nickName, sex: infoRes.userInfo.gender }, function (res) {if (res.status_code == 'ok') {index.set_storage('token', res.access_token);index.set_storage('token_type', res.token_type);that.getUserInfo();}
+              });
+            } });
+
         } });
 
     },
+    // 用户信息获取
+    getUserInfo: function getUserInfo() {
+      var that = this;
+      index.getUserInfo({},
+      function (res) {
+        if (res.status_code == 'ok') {
+          var userInfo = that.$store.state.userInfo;
+          that.userInfo = Object.assign(userInfo, res.data);
+          that.$store.commit('updateUserInfo', that.userInfo);
+        }
+      });
+    },
     // 用户信息保存服务器
-    setUserInfo: function setUserInfo() {var _this2 = this;
+    setUserInfo: function setUserInfo() {var _this = this;
       uni.login({
         provider: 'weixin',
         success: function success(loginRes) {
           console.log(loginRes.authResult);
           // 获取运动步数
-          _this2.getRunData();
+          _this.getRunData();
         } });
 
     },
@@ -287,11 +296,10 @@ var index = new _indexModel.default();var _default = { data: function data() {re
         content: '系统检测到用户未开通会员，是否开通会员',
         success: function success(res) {
           if (res.confirm) {
-            console.log('用户点击确定');
-            var url = "/pages/vip/vip";
-            uni.navigateTo({
-              url: url });
-
+            // console.log('用户点击确定');
+            // const that = this;
+            // const id = activity.get_data_set(e, "id");
+            index.navigate_to("/pages/vip/vip");
           } else if (res.cancel) {
             console.log('用户点击取消');
           }

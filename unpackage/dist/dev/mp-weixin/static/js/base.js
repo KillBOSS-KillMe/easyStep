@@ -54,18 +54,13 @@ class Base {
 					},
 					method: params.method || 'GET',
 					success: function (ret) {
+						console.log('++++++++++++++++++++++||||||||||||||||||||||||||||||++++++++++++++++++++')
+						console.log(ret)
 						var code = ret.statusCode.toString().charAt(0);
 						if (code == '2' || code == '4') {
 							that.hide_loading();
-							if (ret.data.code == 1001 || ret.data.code == 1002 || ret.data.code == 1004) {
-								that.navigate_to('../../pages/login/login'); return;
-							} if (ret.data.code == 1008) {
-								that.navigate_to('../../pages/user_address/user_address'); return;
-							} else if (ret.data.code == 1003) {
+							if (ret.data.status_code == 500) {
 								that.refresh_token(params); return;
-							} else if (ret.data.code == 4444 || ret.data.code == 4222) {
-								that.show_tips({ title: ret.data.msg });
-								params.sCallBack && params.sCallBack(ret); return;
 							}
 
 							params.sCallBack && params.sCallBack(ret); return;

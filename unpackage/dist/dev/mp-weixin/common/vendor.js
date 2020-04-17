@@ -7722,11 +7722,43 @@ internalMixin(Vue);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _base = _interopRequireDefault(__webpack_require__(/*! ../../static/js/base */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}var
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _base = _interopRequireDefault(__webpack_require__(/*! ../../static/js/base */ 22));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}var
 Index = /*#__PURE__*/function (_Base) {_inherits(Index, _Base);
   function Index() {_classCallCheck(this, Index);return _possibleConstructorReturn(this, _getPrototypeOf(Index).call(this));
 
-  }return Index;}(_base.default);var _default =
+  }
+  // 登录
+  _createClass(Index, [{ key: "login", value: function login(data, callBack) {
+      console.log('===============');
+      console.log(data);
+      console.log(callBack);
+      var that = this;
+      var params = {
+        url: 'auth/login',
+        method: 'POST',
+        data: data,
+        sCallBack: function sCallBack(res) {
+          callBack && callBack(res.data);
+        } };
+
+      that.request(params);
+    } }, { key: "getUserInfo",
+    // 获取用户信息
+    value: function getUserInfo(data, callBack) {
+      console.log('===============');
+      console.log(data);
+      console.log(callBack);
+      var that = this;
+      var params = {
+        url: 'auth/me',
+        method: 'POST',
+        data: data,
+        sCallBack: function sCallBack(res) {
+          callBack && callBack(res.data);
+        } };
+
+      that.request(params);
+    } }]);return Index;}(_base.default);var _default =
 
 
 Index;exports.default = _default;
@@ -7797,18 +7829,13 @@ Base = /*#__PURE__*/function () {
 
             method: params.method || 'GET',
             success: function success(ret) {
+              console.log('++++++++++++++++++++++||||||||||||||||||||||||||||||++++++++++++++++++++');
+              console.log(ret);
               var code = ret.statusCode.toString().charAt(0);
               if (code == '2' || code == '4') {
                 that.hide_loading();
-                if (ret.data.code == 1001 || ret.data.code == 1002 || ret.data.code == 1004) {
-                  that.navigate_to('../../pages/login/login');return;
-                }if (ret.data.code == 1008) {
-                  that.navigate_to('../../pages/user_address/user_address');return;
-                } else if (ret.data.code == 1003) {
+                if (ret.data.status_code == 500) {
                   that.refresh_token(params);return;
-                } else if (ret.data.code == 4444 || ret.data.code == 4222) {
-                  that.show_tips({ title: ret.data.msg });
-                  params.sCallBack && params.sCallBack(ret);return;
                 }
 
                 params.sCallBack && params.sCallBack(ret);return;
@@ -8037,15 +8064,15 @@ function Config() {_classCallCheck(this, Config);
 };
 
 //接口域名
-//Config.requset_url = "https://diancan.lvacms.cn/api/v1/wap_api/";
-//微信授权域名
+Config.requset_url = "http://www.ybb.cc/api/";
+//微信授权域名192.168.1.168
 //Config.wx_login_url = "https://diancan.lvacms.cn/wechat/login";
 
 
 //接口域名
-Config.requset_url = "https://cs.wanxer.com/api/v1/wap_api/";
+// Config.requset_url = "https://www.ybb.cc/api/";
 //微信授权域名
-Config.wx_login_url = "https://cs.wanxer.com/wechat/login";
+// Config.wx_login_url = "https://cs.wanxer.com/wechat/login";
 
 //公众号支付路径
 Config.wx_order_pay_url = "https://cs.wanxer.com/wechat/order_pay";
@@ -9023,7 +9050,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/activity/activity": { "navigationBarTitleText": "活动", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/user": { "navigationBarTitleText": "我的", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/balance/balance": { "navigationBarTitleText": "我的余额", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shere/shere": { "navigationBarTitleText": "分享", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/pay/pay": { "navigationBarTitleText": "充值", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/help/help": { "navigationBarTitleText": "帮助", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/accountDetails/accountDetails": { "navigationBarTitleText": "账户明细", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/signIn/signIn": { "navigationBarTitleText": "签到", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/withdraw/withdraw": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/vip/vip": {} }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "未命名页面", "navigationBarBackgroundColor": "#FFFFFF", "backgroundColor": "#43D182" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/activity/activity": { "navigationBarTitleText": "活动", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/user": { "navigationBarTitleText": "我的", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/balance/balance": { "navigationBarTitleText": "我的余额", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shere/shere": { "navigationBarTitleText": "分享", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/pay/pay": { "navigationBarTitleText": "充值", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/help/help": { "navigationBarTitleText": "帮助", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/accountDetails/accountDetails": { "navigationBarTitleText": "账户明细", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/signIn/signIn": { "navigationBarTitleText": "签到", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/withdraw/withdraw": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/vip/vip": { "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "未命名页面", "navigationBarBackgroundColor": "#43D182", "backgroundColor": "#43D182" } };exports.default = _default;
 
 /***/ }),
 

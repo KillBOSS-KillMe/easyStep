@@ -14,7 +14,7 @@
 			<view class="info">
 				<icon class="iconfont iconchongzhi1"></icon>
 				<view class="details">
-					<view>充值到账</view>
+					<view>提现扣除</view>
 					<text>09-12 13：22</text>
 				</view>
 			</view>

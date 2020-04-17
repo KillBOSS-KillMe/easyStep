@@ -14,9 +14,9 @@
   ],
   "subPackages": [],
   "window": {
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "navigationBarTitleText": "未命名页面",
-    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarBackgroundColor": "#43D182",
     "backgroundColor": "#43D182"
   },
   "tabBar": {
