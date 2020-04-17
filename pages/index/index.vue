@@ -142,7 +142,7 @@
 			promptOpenVip() {
 				uni.showModal({
 					title: '系统提示',
-					content: '检测到用户未开通会员，是否开通会员',
+					content: '系统检测到用户未开通会员，是否开通会员',
 					success: res => {
 						if (res.confirm) {
 							console.log('用户点击确定');
