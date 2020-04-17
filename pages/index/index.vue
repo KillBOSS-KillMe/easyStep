@@ -34,7 +34,7 @@
 	// 公共组件
 	// import getUserInfoButton from "@/components/getUserInfoButton.vue";
 	import Index from "./index-model.js";
-	var index = new Index();
+	const index = new Index();
 	export default {
 		data() {
 			return {
@@ -49,8 +49,6 @@
 		onLoad() {
 			const that = this
 			that._onLoad()
-		},
-		onShow() {
 		},
 		methods: {
 			_onLoad(callBack) {

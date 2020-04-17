@@ -23,6 +23,8 @@
 </template>
 
 <script>
+	import Vip from "./vip-model.js";
+	const vip = new Vip()
 	export default {
 		data() {
 			return {

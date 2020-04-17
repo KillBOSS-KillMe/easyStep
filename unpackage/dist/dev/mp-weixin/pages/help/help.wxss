@@ -50,7 +50,7 @@
 }
 .listShowSon {
   height: auto;
-  line-height: 30rpx;
+  line-height: 45rpx;
   padding: 20rpx 50rpx;
   color: #333;
   font-size: 25rpx;

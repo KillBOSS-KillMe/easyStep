@@ -26,6 +26,8 @@
 </template>
 
 <script>
+	import SignIn from "./signIn-model.js";
+	const signIn = new SignIn()
 	export default {
 		data() {
 			return {

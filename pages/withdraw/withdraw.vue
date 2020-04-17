@@ -20,6 +20,8 @@
 </template>
 
 <script>
+	import Withdraw from "./withdraw-model.js";
+	const withdraw = new Withdraw()
 	export default {
 		data() {
 			return {

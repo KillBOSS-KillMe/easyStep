@@ -17,8 +17,8 @@
 </template>
 
 <script>
-	// import Activity from "./activity-model.js";
-	// var activity = new Activity()
+	import Activity from "./activity-model.js";
+	const activity = new Activity()
 	export default {
 		data() {
 			return {
@@ -26,14 +26,9 @@
 		},
 		methods: {
 			goDetails(e) {
-				let url = `/pages/shere/shere?id=${e.currentTarget.dataset.id}`
-				console.log(url)
-				uni.navigateTo({
-					url: url
-				})
-				// const that = this;
-				// const id = activity.get_data_set(e, "id");
-				// activity.navigate_to(`pages/shere/shere?id=${id}`);
+				const that = this;
+				const id = activity.get_data_set(e, "id");
+				activity.navigate_to(`/pages/shere/shere?id=${id}`);
 			}
 		}
 	}

@@ -21,8 +21,8 @@
 </template>
 
 <script>
-	// import Balance from "./balance-model.js";
-	// var balance = new Balance();
+	import Balance from "./balance-model.js";
+	var balance = new Balance();
 	export default {
 		data() {
 			return {

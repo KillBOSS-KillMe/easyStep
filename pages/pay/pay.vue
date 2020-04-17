@@ -26,6 +26,8 @@
 </template>
 
 <script>
+	import Pay from "./pay-model.js";
+	const pay = new Pay()
 	export default {
 		data() {
 			return {

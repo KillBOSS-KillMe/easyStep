@@ -24,6 +24,8 @@
 </template>
 
 <script>
+	import AccountDetails from "./accountDetails-model.js";
+	const accountDetails = new AccountDetails()
 	export default {
 		data() {
 			return {

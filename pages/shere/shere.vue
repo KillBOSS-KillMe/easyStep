@@ -20,6 +20,8 @@
 </template>
 
 <script>
+	import Shere from "./shere-model.js";
+	const shere = new Shere()
 	export default {
 		data() {
 			return {
