@@ -4,11 +4,13 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false
+		"urlCheck": false,
+		"es6": true,
+		"minified": true
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.9.2",
-	"appid": "touristappid",
+	"appid": "wx782fc2eedb134380",
 	"projectname": "easyStep",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},

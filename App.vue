@@ -74,6 +74,17 @@ text-overflow: ellipsis; -->
 	  min-height: 100vh;
 	  height: auto;
 	}
+	#getUserInfo {
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		opacity: 0;
+		width: 100vw;
+		height: 100vh;
+		z-index: 999;
+	}
 	/* #ifdef H5 */
 	uni-checkbox .uni-checkbox-input {
 	  border-radius: 50% !important;

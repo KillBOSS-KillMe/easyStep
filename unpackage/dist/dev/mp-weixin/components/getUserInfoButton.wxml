@@ -1,0 +1,1 @@
+<view>123123123123<block wx:if="{{authorizationButton}}"><button open-type="getUserInfo" id="getUserInfo" lang="zh_CN" data-event-opts="{{[['getuserinfo',[['onGotUserInfo',['$event']]]]]}}" bindgetuserinfo="__e"></button></block></view>

@@ -140,7 +140,11 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
 
 
 
@@ -201,7 +205,81 @@ var _indexModel = _interopRequireDefault(__webpack_require__(/*! ./index-model.j
 //
 //
 //
-var index = new _indexModel.default();var _default = { data: function data() {return { title: 'Hello' };}, onLoad: function onLoad() {}, methods: {} };exports.default = _default;
+//
+//
+// 公共组件
+// import getUserInfoButton from "@/components/getUserInfoButton.vue";
+var index = new _indexModel.default();var _default = { data: function data() {return { title: 'Hello', authorizationButton: null };}, // components: {
+  //   // 获取用户信息组件
+  //   getUserInfoButton
+  // },
+  onLoad: function onLoad() {this.onGetUserInfo();}, methods: { // 用户信息获取
+    onGetUserInfo: function onGetUserInfo() {var _this = this; // 查看是否授权
+      index.show_loading('加载中...');uni.getSetting({ success: function success(res) {console.log(res);if (res.authSetting['scope.userInfo']) {_this.$store.commit('updateAuthorizationButtonData', false);_this.authorizationButton = _this.$store.state.authorizationButton; // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+            uni.getUserInfo({ provider: 'weixin', success: function success(res) {console.log(res); // 使用vuex获取原有的用户信息
+                _this.userInfo = _this.$store.state.userInfo; // 数据合并
+                _this.userInfo = Object.assign(_this.userInfo, res.userInfo); // 把数据更新到vuex  state
+                _this.$store.commit('updateUserInfo', _this.userInfo);console.log(_this.userInfo); // 用户信息保存服务器
+                _this.setUserInfo();} });} else {_this.collectionStr = true;_this.$apply();
+          }
+        } });
+
+    },
+    // 用户信息保存服务器
+    setUserInfo: function setUserInfo() {var _this2 = this;
+      uni.login({
+        provider: 'weixin',
+        success: function success(loginRes) {
+          console.log(loginRes.authResult);
+          // 获取运动步数
+          _this2.getRunData();
+        } });
+
+    },
+    // 获取步数
+    getRunData: function getRunData() {
+      wx.getWeRunData({
+        success: function success(res) {
+          console.log(res);
+          var encryptedData = res.encryptedData;
+          var iv = res.iv;
+          index.hide_loading();
+          // wepy.login().then(res => {
+          // 	let code = res.code
+          // 	// 提交步数(未解密)
+          // 	wx.request({
+          // 		url: `${this.$parent.globalData.requestUrl}/api/getStepInformation`,
+          // 		method: 'POST',
+          // 		header: {
+          // 			AuthrizeOpenId: this.$parent.globalData.openId
+          // 		},
+          // 		data: {
+          // 			code: code,
+          // 			encryptedData: encryptedData,
+          // 			iv: iv
+          // 		},
+          // 		success: data => {
+          // 			if (data.data.success) {
+          // 				this.todayStep = data.data.data.today_step
+          // 				this.$parent.globalData.todayStep = this.todayStep
+          // 				let getStep = data.data.data.get_step
+          // 				let costStep = data.data.data.cost_step
+          // 				this.$parent.globalData.total = this.todayStep + costStep - getStep
+          // 				console.log(this.$parent.globalData.allStep)
+          // 				this.$apply()
+          // 			} else {
+          // 				wx.showModal({
+          // 					title: '',
+          // 					content: data.data.errmsg
+          // 				})
+          // 			}
+          // 		}
+          // 	})
+          // })
+        } });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 21 */,
