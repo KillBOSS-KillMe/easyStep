@@ -175,7 +175,8 @@ var _withdrawModel = _interopRequireDefault(__webpack_require__(/*! ./withdraw-m
 //
 //
 var withdraw = new _withdrawModel.default();var _default = { data: function data() {return { userInfo: {}, defaultAmount: 100, amountList: [100, 200, 300, 400, 500, 600] };}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {// 使用vuex获取原有的用户信息
-      this.userInfo = this.$store.state.userInfo;console.clear();console.log('1111111111------------');console.log(this.userInfo);that.getListData(function () {callBack && callBack();
+      var that = this;that.userInfo = that.$store.state.userInfo;console.clear();console.log('1111111111------------');console.log(this.userInfo);that.getListData(function () {
+        callBack && callBack();
       });
     },
     getListData: function getListData() {

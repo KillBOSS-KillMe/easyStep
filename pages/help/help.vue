@@ -36,6 +36,7 @@
 		methods:{
 			_onLoad(callBack) {
 				const that = this
+				that.userInfo = that.$store.state.userInfo;
 				that.getHelpsList(() => {
 					callBack && callBack();
 				})

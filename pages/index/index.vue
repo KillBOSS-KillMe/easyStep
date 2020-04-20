@@ -80,6 +80,7 @@
 		methods: {
 			_onLoad(callBack) {
 				const that = this
+				that.userInfo = that.$store.state.userInfo;
 				that.wx_login(() => {
 					that.getUserInfo(() => {
 						that.getRunData(() => {

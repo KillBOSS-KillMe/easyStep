@@ -213,7 +213,8 @@ var index = new _indexModel.default();var _default = { data: function data() {re
     // 		})
     // 	})
     // }
-  }, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.wx_login(function () {
+  }, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.userInfo = that.$store.state.userInfo;
+      that.wx_login(function () {
         that.getUserInfo(function () {
           that.getRunData(function () {
             that.runExchangeBeans(function () {

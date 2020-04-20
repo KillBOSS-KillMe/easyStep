@@ -188,8 +188,9 @@ var _activityModel = _interopRequireDefault(__webpack_require__(/*! ./activity-m
 //
 var activity = new _activityModel.default();var _default = { data: function data() {return { userInfo: {} };}, onLoad: function onLoad() {// const that = this
     // that._onLoad()
-  }, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.getListData(function () {callBack && callBack();});}, // 获取列表
-    getListData: function getListData(callBack) {var that = this;activity.getListData({}, function (res) {if (res.status_code == 'ok') {var userInfo = that.$store.state.userInfo;that.userInfo = Object.assign(userInfo, res.data);that.$store.commit('updateUserInfo', that.userInfo);}callBack && callBack();});},
+  }, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.userInfo = that.$store.state.userInfo;that.getListData(function () {callBack && callBack();});}, // 获取列表
+    getListData: function getListData(callBack) {var that = this;activity.getListData({}, function (res) {if (res.status_code == 'ok') {var userInfo = that.$store.state.userInfo;that.userInfo = Object.assign(userInfo, res.data);that.$store.commit('updateUserInfo', that.userInfo);}callBack && callBack();});
+    },
 
     goSignIn: function goSignIn(e) {
       // const that = this;

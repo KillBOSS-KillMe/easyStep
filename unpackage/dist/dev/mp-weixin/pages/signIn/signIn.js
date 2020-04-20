@@ -199,9 +199,9 @@ var _signInModel = _interopRequireDefault(__webpack_require__(/*! ./signIn-model
 //
 //
 //
-var signIn = new _signInModel.default();var _default = { data: function data() {return { userInfo: {}, continuousDays: 0, signinStatus: '立即签到', signinClass: 'signin', selShowData: 0, reward: [] };}, components: {}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {// 使用vuex获取原有的用户信息
-      this.userInfo = this.$store.state.userInfo; // 签到信息查询
-      this.getUserSignin();console.clear();console.log('1111111111------------');console.log(this.userInfo);that.getListData(function () {
+var signIn = new _signInModel.default();var _default = { data: function data() {return { userInfo: {}, continuousDays: 0, signinStatus: '立即签到', signinClass: 'signin', selShowData: 0, reward: [] };}, components: {}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.userInfo = that.$store.state.userInfo; // 签到信息查询
+      this.getUserSignin();console.clear();console.log('1111111111------------');console.log(this.userInfo);
+      that.getListData(function () {
         callBack && callBack();
       });
     },

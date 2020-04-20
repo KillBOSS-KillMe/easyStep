@@ -177,8 +177,9 @@ var _balanceModel = _interopRequireDefault(__webpack_require__(/*! ./balance-mod
 //
 //
 var balance = new _balanceModel.default();var _default = { data: function data() {return { userInfo: {} };}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {// 使用vuex获取原有的用户信息
-      this.userInfo = this.$store.state.userInfo;console.clear();console.log('1111111111------------');console.log(this.userInfo);}, // 充值
-    goPay: function goPay(e) {balance.navigate_to("/pages/pay/pay");}, goWithdraw: function goWithdraw() {
+      var that = this;that.userInfo = that.$store.state.userInfo;console.clear();console.log('1111111111------------');console.log(this.userInfo);}, // 充值
+    goPay: function goPay(e) {balance.navigate_to("/pages/pay/pay");},
+    goWithdraw: function goWithdraw() {
       balance.navigate_to("/pages/withdraw/withdraw");
     },
     // 账户明细

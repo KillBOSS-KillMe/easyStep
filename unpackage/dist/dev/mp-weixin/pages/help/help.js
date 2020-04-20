@@ -172,7 +172,8 @@ var _helpModel = _interopRequireDefault(__webpack_require__(/*! ./help-model.js 
 //
 //
 //
-var help = new _helpModel.default();var _default = { data: function data() {return { helpList: [], selId: null, imgUrl: '' };}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.getHelpsList(function () {callBack && callBack();});},
+var help = new _helpModel.default();var _default = { data: function data() {return { helpList: [], selId: null, imgUrl: '' };}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.userInfo = that.$store.state.userInfo;that.getHelpsList(function () {callBack && callBack();});
+    },
     // 用户信息获取
     getHelpsList: function getHelpsList(callBack) {
       var that = this;

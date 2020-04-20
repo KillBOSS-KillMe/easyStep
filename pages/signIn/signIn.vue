@@ -48,8 +48,8 @@
 		},
 		methods: {
 			_onLoad(callBack) {
-				// 使用vuex获取原有的用户信息
-				this.userInfo = this.$store.state.userInfo;
+				const that = this
+				that.userInfo = that.$store.state.userInfo;
 				// 签到信息查询
 				this.getUserSignin()
 				console.clear()
