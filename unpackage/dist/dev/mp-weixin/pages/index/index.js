@@ -203,11 +203,7 @@ var _indexModel = _interopRequireDefault(__webpack_require__(/*! ./index-model.j
 var index = new _indexModel.default();var _default = { data: function data() {return { title: 'Hello', authorizationButton: null, userInfoAll: {}, weRunData: { calorie: "0", // 昨日消耗卡路里
         lastDayStep: 0, // 昨日步数
         todayStep: 0 // 今日步数
-      } };}, // components: {
-  //   // 获取用户信息组件
-  //   getUserInfoButton
-  // },
-  onLoad: function onLoad() {var that = this;that._onLoad();}, onShow: function onShow() {// 获取已授权类别
+      } };}, onLoad: function onLoad() {var that = this;that._onLoad();}, onShow: function onShow() {// 获取已授权类别
     var that = this;uni.getSetting({ success: function success(res) {if (res.authSetting['scope.userInfo']) {// 隐藏授权按钮
           that.authorizationButton = false;that.$store.commit('updateAuthorizationButtonData', false);}}, fail: function fail() {console.log("获取授权信息授权失败");} }); // let token = index.get_storage('token_type', callBack);
     // if(token) {

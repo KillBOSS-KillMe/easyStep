@@ -1,15 +1,24 @@
 <template>
 	<view>
 		<ul class="list">
-			<li class="item" v-for="(item,index) in 5" :key="item">
+			<li class="item">
 				<image src="../../static/images/logo.png" mode=""></image>
 				<view class="description">
 					<view class="info">
 						<text class="title">夏日瘦身的N种方法</text>
 						<text>参与签到活动，领取更多金豆</text>
 					</view>
-					<button @tap="goDetails" :data-id="1">立即签到</button>
-					<!-- <button>立即分享</button> -->
+					<button @tap="goSignIn" :data-id="1">立即签到</button>
+				</view>
+			</li>
+			<li class="item">
+				<image src="../../static/images/logo.png" mode=""></image>
+				<view class="description">
+					<view class="info">
+						<text class="title">夏日瘦身的N种方法</text>
+						<text>参与签到活动，领取更多金豆</text>
+					</view>
+					<button @tap="goShere" :data-id="1">立即分享</button>
 				</view>
 			</li>
 		</ul>
@@ -26,8 +35,8 @@
 			};
 		},
 		onLoad() {
-			const that = this
-			that._onLoad()
+			// const that = this
+			// that._onLoad()
 		},
 		methods: {
 			_onLoad(callBack) {
@@ -48,11 +57,17 @@
 					callBack && callBack();
 				})
 			},
-			goDetails(e) {
-				const that = this;
-				const id = activity.get_data_set(e, "id");
-				activity.navigate_to(`/pages/shere/shere?id=${id}`);
-			}
+			
+			goSignIn(e) {
+				// const that = this;
+				// const id = activity.get_data_set(e, "id");
+				activity.navigate_to(`/pages/signIn/signIn`);
+			},
+			goShere(e) {
+				// const that = this;
+				// const id = activity.get_data_set(e, "id");
+				activity.navigate_to(`/pages/shere/shere`);
+			},
 		},
 		// 下拉刷新
 		onPullDownRefresh() {

@@ -48,10 +48,6 @@
 				}
 			}
 		},
-		// components: {
-		//   // 获取用户信息组件
-		//   getUserInfoButton
-		// },
 		onLoad() {
 			const that = this
 			that._onLoad()

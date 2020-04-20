@@ -7,7 +7,7 @@
 			<ul class="features">
 				<li class="item">
 					<text class="name">金豆(个)</text>
-					<text class="data">{{userInfo.wallet}}</text>
+					<text class="data">{{userInfo.bean}}</text>
 				</li>
 				<li class="item" @tap="goBalancePage">
 					<text class="name">金额(元)</text>

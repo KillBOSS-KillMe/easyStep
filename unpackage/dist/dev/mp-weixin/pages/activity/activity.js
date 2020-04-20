@@ -150,6 +150,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
 var _activityModel = _interopRequireDefault(__webpack_require__(/*! ./activity-model.js */ 35));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -168,23 +177,29 @@ var _activityModel = _interopRequireDefault(__webpack_require__(/*! ./activity-m
 //
 //
 //
-var activity = new _activityModel.default();var _default = { data: function data() {return { userInfo: {} };}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.getListData(function () {callBack && callBack();});},
-    // 获取列表
-    getListData: function getListData(callBack) {
-      var that = this;
-      activity.getListData({}, function (res) {
-        if (res.status_code == 'ok') {
-          var userInfo = that.$store.state.userInfo;
-          that.userInfo = Object.assign(userInfo, res.data);
-          that.$store.commit('updateUserInfo', that.userInfo);
-        }
-        callBack && callBack();
-      });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var activity = new _activityModel.default();var _default = { data: function data() {return { userInfo: {} };}, onLoad: function onLoad() {// const that = this
+    // that._onLoad()
+  }, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.getListData(function () {callBack && callBack();});}, // 获取列表
+    getListData: function getListData(callBack) {var that = this;activity.getListData({}, function (res) {if (res.status_code == 'ok') {var userInfo = that.$store.state.userInfo;that.userInfo = Object.assign(userInfo, res.data);that.$store.commit('updateUserInfo', that.userInfo);}callBack && callBack();});},
+
+    goSignIn: function goSignIn(e) {
+      // const that = this;
+      // const id = activity.get_data_set(e, "id");
+      activity.navigate_to("/pages/signIn/signIn");
     },
-    goDetails: function goDetails(e) {
-      var that = this;
-      var id = activity.get_data_set(e, "id");
-      activity.navigate_to("/pages/shere/shere?id=".concat(id));
+    goShere: function goShere(e) {
+      // const that = this;
+      // const id = activity.get_data_set(e, "id");
+      activity.navigate_to("/pages/shere/shere");
     } },
 
   // 下拉刷新
