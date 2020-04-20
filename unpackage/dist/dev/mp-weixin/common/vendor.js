@@ -10385,7 +10385,7 @@ SignIn = /*#__PURE__*/function (_Base) {_inherits(SignIn, _Base);
   _createClass(SignIn, [{ key: "getUserSignin", value: function getUserSignin(data, callBack) {
       var that = this;
       var params = {
-        url: 'auth/me',
+        url: 'sign_in/getSignInInfo',
         method: 'POST',
         data: data,
         sCallBack: function sCallBack(res) {
@@ -10398,7 +10398,7 @@ SignIn = /*#__PURE__*/function (_Base) {_inherits(SignIn, _Base);
     value: function runSignin(data, callBack) {
       var that = this;
       var params = {
-        url: 'auth/me',
+        url: 'sign_in/SignIn',
         method: 'POST',
         data: data,
         sCallBack: function sCallBack(res) {

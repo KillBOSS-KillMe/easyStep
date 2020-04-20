@@ -4,21 +4,24 @@
 			<view class="dayNmu">
 				<text class="title">连续签到</text>
 				<view>
-					{{continuousDays}}
+					{{signInInfo.continuity}}
 					<text>天</text>
 				</view>
 			</view>
 			<!-- 删除already属性，即为可点击状态 -->
-			<view :class="'signinButton ' + signinClass" @tap="signin">{{signinStatus}}</view>
+			<view class="signinButton already" @tap="signin" v-if="signInInfo.today == 1">已签到</view>
+			<view class="signinButton signin" @tap="signin" v-else>立即签到</view>
 		</view>
 		<view class="dayShow">
-			<view :class="selShowData <= index?'list':'list dayShowSelected'" v-for="(item,index) in 7" :key="item">
+			<view :class="item.str == true?'list dayShowSelected':'list'" v-for="(item,index) in signInInfo.list" :key="item">
 				<view>第{{index + 1 }}天</view>
 				<view>
-					<image src="../../static/images/logo.png" mode=""></image>
+					<!-- 已经签到图 -->
+					<image src="../../static/images/logo.png" data-aa="1" v-if="item.str"></image>
+					<!-- 未签到图 -->
+					<image src="../../static/images/logo.png" data-aa="2" v-else></image>
 				</view>
-				<!-- <view>+{{reward[index]}}</view> -->
-				<view>+20</view>
+				<view>+{{item.signInBean}}</view>
 			</view>
 		</view>
 
@@ -32,11 +35,19 @@
 		data() {
 			return {
 				userInfo: {},
-				continuousDays: 0,
-				signinStatus: '立即签到',
-				signinClass: 'signin',
-				selShowData: 0,
-				reward: []
+				signInInfo: {
+					list: [
+						{str: false, signInBean: 0},
+						{str: false, signInBean: 0},
+						{str: false, signInBean: 0},
+						{str: false, signInBean: 0},
+						{str: false, signInBean: 0},
+						{str: false, signInBean: 0},
+						{str: false, signInBean: 0}
+						],
+					continuity: 0,
+					today: 0
+				}
 			};
 		},
 		components: {
@@ -57,6 +68,10 @@
 			},
 			signin() {
 				const that = this
+				if (that.signInInfo.today == 1) {
+					signin.show_tips('今天已签到')
+					return false
+				}
 				that.runSignin(() => {
 					that.getUserSignin(() => {
 						callBack && callBack();
@@ -74,14 +89,27 @@
 			},
 			// 签到信息查询
 			getUserSignin(callBack) {
-				// if (data.data.data.continuous_day.status === '已签到') {
-				// 	this.signinClass = 'already'
-				// 	this.signinStatus = '已签到'
-				// }
 				const that = this
 				signin.getUserSignin({}, (res) => {
-					if (res.status_code == 'ok') {
-						that.signinInfo = res.data
+					let data = res.data
+					let cycleDays = data.continuity % 7
+					let cycleList = []
+					let signInBean = parseInt(data.startSignInBean)
+					let increase = parseInt(data.increase)
+					for (let i = 0; i < 7; i++) {
+						let dayInfo = {}
+						if (i >= cycleDays) {
+							dayInfo['str'] = false
+						} else {
+							dayInfo['str'] = true
+						}
+						dayInfo['signInBean'] = signInBean + increase * i
+						cycleList.push(dayInfo)
+					}
+					that.signInInfo = {
+						list: cycleList,
+						continuity: data.continuity,
+						today: data.today
 					}
 				})
 			}

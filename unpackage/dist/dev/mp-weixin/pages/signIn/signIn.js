@@ -172,6 +172,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 var _signInModel = _interopRequireDefault(__webpack_require__(/*! ./signIn-model.js */ 98));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -199,10 +202,22 @@ var _signInModel = _interopRequireDefault(__webpack_require__(/*! ./signIn-model
 //
 //
 //
-var signin = new _signInModel.default();var _default = { data: function data() {return { userInfo: {}, continuousDays: 0, signinStatus: '立即签到', signinClass: 'signin', selShowData: 0, reward: [] };}, components: {}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.userInfo = that.$store.state.userInfo; // 签到信息查询
-      that.getUserSignin(function () {callBack && callBack();});},
+//
+//
+//
+var _signin = new _signInModel.default();var _default = { data: function data() {return { userInfo: {}, signInInfo: { list: [{ str: false, signInBean: 0 }, { str: false, signInBean: 0 }, { str: false, signInBean: 0 }, { str: false, signInBean: 0 }, { str: false, signInBean: 0 }, { str: false, signInBean: 0 }, { str: false, signInBean: 0 }], continuity: 0, today: 0 } };}, components: {}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;
+      that.userInfo = that.$store.state.userInfo;
+      // 签到信息查询
+      that.getUserSignin(function () {
+        callBack && callBack();
+      });
+    },
     signin: function signin() {
       var that = this;
+      if (that.signInInfo.today == 1) {
+        _signin.show_tips('今天已签到');
+        return false;
+      }
       that.runSignin(function () {
         that.getUserSignin(function () {
           callBack && callBack();
@@ -212,7 +227,7 @@ var signin = new _signInModel.default();var _default = { data: function data() {
     // 签到
     runSignin: function runSignin(callBack) {
       var that = this;
-      signin.runSignin({}, function (res) {
+      _signin.runSignin({}, function (res) {
         if (res.status_code == 'ok') {
           callBack && callBack();
         }
@@ -220,15 +235,28 @@ var signin = new _signInModel.default();var _default = { data: function data() {
     },
     // 签到信息查询
     getUserSignin: function getUserSignin(callBack) {
-      // if (data.data.data.continuous_day.status === '已签到') {
-      // 	this.signinClass = 'already'
-      // 	this.signinStatus = '已签到'
-      // }
       var that = this;
-      signin.getUserSignin({}, function (res) {
-        if (res.status_code == 'ok') {
-          that.signinInfo = res.data;
+      _signin.getUserSignin({}, function (res) {
+        var data = res.data;
+        var cycleDays = data.continuity % 7;
+        var cycleList = [];
+        var signInBean = parseInt(data.startSignInBean);
+        var increase = parseInt(data.increase);
+        for (var i = 0; i < 7; i++) {
+          var dayInfo = {};
+          if (i >= cycleDays) {
+            dayInfo['str'] = false;
+          } else {
+            dayInfo['str'] = true;
+          }
+          dayInfo['signInBean'] = signInBean + increase * i;
+          cycleList.push(dayInfo);
         }
+        that.signInInfo = {
+          list: cycleList,
+          continuity: data.continuity,
+          today: data.today };
+
       });
     } },
 

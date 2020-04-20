@@ -7,7 +7,7 @@ class SignIn extends Base{
 	getUserSignin(data,callBack) {
 		var that = this;
 		var params = {
-		  url: 'auth/me',
+		  url: 'sign_in/getSignInInfo',
 		  method:'POST',
 		  data:data,
 		  sCallBack: function (res) {
@@ -20,7 +20,7 @@ class SignIn extends Base{
 	runSignin(data,callBack) {
 		var that = this;
 		var params = {
-		  url: 'auth/me',
+		  url: 'sign_in/SignIn',
 		  method:'POST',
 		  data:data,
 		  sCallBack: function (res) {
