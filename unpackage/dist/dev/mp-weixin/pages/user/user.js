@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -211,7 +211,21 @@ var _userModel = _interopRequireDefault(__webpack_require__(/*! ./user-model.js 
 var user = new _userModel.default();var _default = { data: function data() {return { userInfo: {} };}, onShow: function onShow() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {// 使用vuex获取原有的用户信息
       this.userInfo = this.$store.state.userInfo;console.clear();console.log('------------');console.log(this.userInfo);}, // 进入余额页
     goBalancePage: function goBalancePage(e) {user.navigate_to("../balance/balance");}, // 进入帮助页
-    goHelpPage: function goHelpPage(e) {user.navigate_to("../help/help");} } };exports.default = _default;
+    goHelpPage: function goHelpPage(e) {user.navigate_to("../help/help");} }, // 下拉刷新
+  onPullDownRefresh: function onPullDownRefresh() {var that = this;that.page = 1;that._onLoad(function () {uni.stopPullDownRefresh();});}, //上拉加载更多
+  // onReachBottom() {
+  //   var that = this;
+  //   if (that.last_page == that.page) {
+  //     return;
+  //   }
+  //   that.page += 1;
+  //   that.getListData();
+  // },
+  // 分享
+  onShareAppMessage: function onShareAppMessage() {var shareData = { title: '', path: "pages/index/index?".concat(this.userInfo.id), imageUrl: '' };
+    return user.onShareAppMessage(shareData);
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

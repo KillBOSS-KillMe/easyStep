@@ -65,6 +65,32 @@
 			goHelpPage(e) {
 				user.navigate_to("../help/help");
 			},
+		},
+		// 下拉刷新
+		onPullDownRefresh() {
+		  var that = this;
+		  that.page = 1;
+		  that._onLoad(() => {
+		    uni.stopPullDownRefresh();
+		  });
+		},
+		//上拉加载更多
+		// onReachBottom() {
+		//   var that = this;
+		//   if (that.last_page == that.page) {
+		//     return;
+		//   }
+		//   that.page += 1;
+		//   that.getListData();
+		// },
+		// 分享
+		onShareAppMessage() {
+			let shareData = {
+				title: '',
+				path: `pages/index/index?${this.userInfo.id}`,
+				imageUrl: ''
+			}
+			return user.onShareAppMessage(shareData);
 		}
 	}
 </script>

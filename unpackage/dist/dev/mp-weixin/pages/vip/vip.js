@@ -182,7 +182,7 @@ var _vipModel = _interopRequireDefault(__webpack_require__(/*! ./vip-model.js */
 //
 var vip = new _vipModel.default();var _default = { data: function data() {return { userInfo: {}, amount: 99 };}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {// 使用vuex获取原有的用户信息
       this.userInfo = this.$store.state.userInfo;console.clear();console.log('1111111111------------');console.log(this.userInfo);that.getListData(function () {callBack && callBack();});}, getListData: function getListData() {var that = this;
-      accountDetails.getListData({}, function (res) {
+      vip.getListData({}, function (res) {
         if (res.status_code == 'ok') {
           var userInfo = that.$store.state.userInfo;
           that.userInfo = Object.assign(userInfo, res.data);
@@ -212,7 +212,12 @@ var vip = new _vipModel.default();var _default = { data: function data() {return
   // },
   // 分享
   onShareAppMessage: function onShareAppMessage() {
-    return activity.onShareAppMessage({});
+    var shareData = {
+      title: '',
+      path: "pages/index/index?".concat(this.userInfo.id),
+      imageUrl: '' };
+
+    return vip.onShareAppMessage(shareData);
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

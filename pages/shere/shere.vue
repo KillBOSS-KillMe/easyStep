@@ -62,7 +62,12 @@
 		},
 		// 分享
 		onShareAppMessage() {
-			return shere.onShareAppMessage({});
+			let shareData = {
+				title: '',
+				path: `pages/index/index?${this.userInfo.id}`,
+				imageUrl: ''
+			}
+			return shere.onShareAppMessage(shareData);
 		}
 		// onShareAppMessage(res) {
 		// 	var shareObj = {

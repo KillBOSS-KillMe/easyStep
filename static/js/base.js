@@ -273,9 +273,11 @@ class Base {
 	}
 	//分享
 	onShareAppMessage(data) {
+		console.log(data)
 		return {
 			title: data.title || '益步步',
-			path: data.path || 'pages/index/index'
+			path: data.path || 'pages/index/index',
+			imageUrl: data.img || '../../static/images/stepBg.png'
 		};
 	}
 }

@@ -9158,9 +9158,11 @@ Base = /*#__PURE__*/function () {
     }
     //分享
   }, { key: "onShareAppMessage", value: function onShareAppMessage(data) {
+      console.log(data);
       return {
         title: data.title || '益步步',
-        path: data.path || 'pages/index/index' };
+        path: data.path || 'pages/index/index',
+        imageUrl: data.img || '../../static/images/stepBg.png' };
 
     } }]);return Base;}();var _default =
 

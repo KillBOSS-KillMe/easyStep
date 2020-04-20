@@ -200,7 +200,7 @@ var _indexModel = _interopRequireDefault(__webpack_require__(/*! ./index-model.j
 //
 // 公共组件
 // import getUserInfoButton from "@/components/getUserInfoButton.vue";
-var index = new _indexModel.default();var _default = { data: function data() {return { title: 'Hello', authorizationButton: null, userInfoAll: {}, weRunData: { calorie: "0", // 昨日消耗卡路里
+var index = new _indexModel.default();var _default = { data: function data() {return { title: 'Hello', authorizationButton: null, userInfo: {}, userInfoAll: {}, weRunData: { calorie: "0", // 昨日消耗卡路里
         lastDayStep: 0, // 昨日步数
         todayStep: 0 // 今日步数
       } };}, onLoad: function onLoad() {var that = this;that._onLoad();}, onShow: function onShow() {// 获取已授权类别
@@ -213,7 +213,8 @@ var index = new _indexModel.default();var _default = { data: function data() {re
     // 		})
     // 	})
     // }
-  }, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.wx_login(function () {that.getUserInfo(function () {
+  }, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.wx_login(function () {
+        that.getUserInfo(function () {
           that.getRunData(function () {
             that.runExchangeBeans(function () {
               callBack && callBack();
@@ -347,7 +348,12 @@ var index = new _indexModel.default();var _default = { data: function data() {re
   // },
   // 分享
   onShareAppMessage: function onShareAppMessage() {
-    return index.onShareAppMessage({});
+    var shareData = {
+      title: '',
+      path: "pages/index/index?".concat(this.userInfo.id),
+      imageUrl: '' };
+
+    return index.onShareAppMessage(shareData);
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

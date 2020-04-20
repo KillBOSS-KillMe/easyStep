@@ -40,6 +40,7 @@
 			return {
 				title: 'Hello',
 				authorizationButton: null,
+				userInfo: {},
 				userInfoAll: {},
 				weRunData: {
 					calorie: "0", // 昨日消耗卡路里
@@ -214,7 +215,12 @@
 		// },
 		// 分享
 		onShareAppMessage() {
-			return index.onShareAppMessage({});
+			let shareData = {
+				title: '',
+				path: `pages/index/index?${this.userInfo.id}`,
+				imageUrl: ''
+			}
+			return index.onShareAppMessage(shareData);
 		}
 	}
 </script>

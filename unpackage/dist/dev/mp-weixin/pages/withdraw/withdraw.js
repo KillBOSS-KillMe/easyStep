@@ -180,7 +180,7 @@ var withdraw = new _withdrawModel.default();var _default = { data: function data
     },
     getListData: function getListData() {
       var that = this;
-      accountDetails.getListData({}, function (res) {
+      withdraw.getListData({}, function (res) {
         if (res.status_code == 'ok') {
           var userInfo = that.$store.state.userInfo;
           that.userInfo = Object.assign(userInfo, res.data);
@@ -209,7 +209,12 @@ var withdraw = new _withdrawModel.default();var _default = { data: function data
   // },
   // 分享
   onShareAppMessage: function onShareAppMessage() {
-    return activity.onShareAppMessage({});
+    var shareData = {
+      title: '',
+      path: "pages/index/index?".concat(this.userInfo.id),
+      imageUrl: '' };
+
+    return withdraw.onShareAppMessage(shareData);
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

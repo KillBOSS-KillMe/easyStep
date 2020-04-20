@@ -79,7 +79,12 @@
 		// },
 		// 分享
 		onShareAppMessage() {
-			return activity.onShareAppMessage({});
+			let shareData = {
+				title: '',
+				path: `pages/index/index?${this.userInfo.id}`,
+				imageUrl: ''
+			}
+			return accountDetails.onShareAppMessage(shareData);
 		}
 	}
 </script>

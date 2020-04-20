@@ -195,7 +195,12 @@ var shere = new _shereModel.default();var _default = { data: function data() {re
   },
   // 分享
   onShareAppMessage: function onShareAppMessage() {
-    return shere.onShareAppMessage({});
+    var shareData = {
+      title: '',
+      path: "pages/index/index?".concat(this.userInfo.id),
+      imageUrl: '' };
+
+    return shere.onShareAppMessage(shareData);
   }
   // onShareAppMessage(res) {
   // 	var shareObj = {

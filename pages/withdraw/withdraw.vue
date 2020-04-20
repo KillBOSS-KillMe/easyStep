@@ -47,7 +47,7 @@
 			},
 			getListData() {
 				const that = this
-				accountDetails.getListData({}, (res) => {
+				withdraw.getListData({}, (res) => {
 					if (res.status_code == 'ok') {
 						let userInfo = that.$store.state.userInfo;
 						that.userInfo = Object.assign(userInfo, res.data)
@@ -76,7 +76,12 @@
 		// },
 		// 分享
 		onShareAppMessage() {
-			return activity.onShareAppMessage({});
+			let shareData = {
+				title: '',
+				path: `pages/index/index?${this.userInfo.id}`,
+				imageUrl: ''
+			}
+			return withdraw.onShareAppMessage(shareData);
 		}
 	}
 </script>

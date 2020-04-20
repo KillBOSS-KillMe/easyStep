@@ -215,7 +215,12 @@ var pay = new _payModel.default();var _default = { data: function data() {return
   // },
   // 分享
   onShareAppMessage: function onShareAppMessage() {
-    return activity.onShareAppMessage({});
+    var shareData = {
+      title: '',
+      path: "pages/index/index?".concat(this.userInfo.id),
+      imageUrl: '' };
+
+    return pay.onShareAppMessage(shareData);
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
