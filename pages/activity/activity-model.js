@@ -4,7 +4,7 @@ class Activity extends Base{
 		super();
 	}
 	// 获取列表
-	getLIstData(data,callBack) {
+	getListData(data,callBack) {
 		var that = this;
 		var params = {
 		  url: 'auth/me',

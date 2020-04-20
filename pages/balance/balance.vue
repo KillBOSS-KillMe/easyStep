@@ -26,30 +26,53 @@
 	export default {
 		data() {
 			return {
-				
+				userInfo: {}
 			};
 		},
+		onLoad() {
+			const that = this
+			that._onLoad()
+		},
 		methods: {
+			_onLoad(callBack) {
+				// 使用vuex获取原有的用户信息
+				this.userInfo = this.$store.state.userInfo;
+				console.clear()
+				console.log('1111111111------------')
+				console.log(this.userInfo)
+			},
 			// 充值
 			goPay(e) {
-				let url = `/pages/pay/pay`
-				uni.navigateTo({
-					url: url
-				})
+				balance.navigate_to(`/pages/pay/pay`);
 			},
 			goWithdraw() {
-				let url = `/pages/withdraw/withdraw`
-				uni.navigateTo({
-					url: url
-				})
+				balance.navigate_to(`/pages/withdraw/withdraw`);
 			},
 			// 账户明细
 			goAccountDetails() {
-				let url = `/pages/accountDetails/accountDetails`
-				uni.navigateTo({
-					url: url
-				})
+				balance.navigate_to(`/pages/accountDetails/accountDetails`);
 			}
+		},
+		// 下拉刷新
+		onPullDownRefresh() {
+		  var that = this;
+		  that.page = 1;
+		  that._onLoad(() => {
+		    uni.stopPullDownRefresh();
+		  });
+		},
+		//上拉加载更多
+		// onReachBottom() {
+		//   var that = this;
+		//   if (that.last_page == that.page) {
+		//     return;
+		//   }
+		//   that.page += 1;
+		//   that.getListData();
+		// },
+		// 分享
+		onShareAppMessage() {
+			return activity.onShareAppMessage({});
 		}
 	}
 </script>

@@ -45,14 +45,18 @@
 				userInfo: {}
 			};
 		},
-		onLoad() {
-			// 使用vuex获取原有的用户信息
-			this.userInfo = this.$store.state.userInfo;
-			// console.clear()
-			console.log('------------')
-			console.log(this.userInfo)
+		onShow() {
+			const that = this
+			that._onLoad()
 		},
 		methods: {
+			_onLoad(callBack) {
+				// 使用vuex获取原有的用户信息
+				this.userInfo = this.$store.state.userInfo;
+				console.clear()
+				console.log('------------')
+				console.log(this.userInfo)
+			},
 			// 进入余额页
 			goBalancePage(e) {
 				user.navigate_to("../balance/balance");

@@ -31,7 +31,7 @@
 	export default {
 		data() {
 			return {
-				userInfo: null,
+				userInfo: {},
 				continuousDays: 0,
 				signinStatus: '立即签到',
 				signinClass: 'signin',
@@ -42,12 +42,34 @@
 		components: {
 
 		},
-		onLoad(options) {
-			this.userInfo = this.$parent.globalData.userInfo
-			// 签到信息查询
-			this.getUserSignin()
+		onLoad() {
+			const that = this
+			that._onLoad()
 		},
 		methods: {
+			_onLoad(callBack) {
+				// 使用vuex获取原有的用户信息
+				this.userInfo = this.$store.state.userInfo;
+				// 签到信息查询
+				this.getUserSignin()
+				console.clear()
+				console.log('1111111111------------')
+				console.log(this.userInfo)
+				that.getListData(() => {
+						callBack && callBack();
+					})
+				},
+				getListData() {
+					const that = this
+					accountDetails.getListData({}, (res) => {
+						if (res.status_code == 'ok') {
+							let userInfo = that.$store.state.userInfo;
+							that.userInfo = Object.assign(userInfo, res.data)
+							that.$store.commit('updateUserInfo', that.userInfo);
+						}
+						callBack && callBack();
+					})
+				},
 			// 签到
 			signin() {
 				wx.request({
@@ -121,6 +143,27 @@
 					}
 				})
 			}
+		},
+		// 下拉刷新
+		onPullDownRefresh() {
+		  var that = this;
+		  that.page = 1;
+		  that._onLoad(() => {
+		    uni.stopPullDownRefresh();
+		  });
+		},
+		//上拉加载更多
+		// onReachBottom() {
+		//   var that = this;
+		//   if (that.last_page == that.page) {
+		//     return;
+		//   }
+		//   that.page += 1;
+		//   that.getListData();
+		// },
+		// 分享
+		onShareAppMessage() {
+			return activity.onShareAppMessage({});
 		}
 	}
 </script>

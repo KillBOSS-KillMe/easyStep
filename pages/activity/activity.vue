@@ -22,6 +22,7 @@
 	export default {
 		data() {
 			return {
+				userInfo: {}
 			};
 		},
 		onLoad() {
@@ -31,14 +32,14 @@
 		methods: {
 			_onLoad(callBack) {
 				const that = this
-				that.getLIstData(() => {
+				that.getListData(() => {
 					callBack && callBack();
 				})
 			},
 			// 获取列表
-			getLIstData(callBack) {
+			getListData(callBack) {
 				const that = this
-				activity.getLIstData({}, (res) => {
+				activity.getListData({}, (res) => {
 					if (res.status_code == 'ok') {
 						let userInfo = that.$store.state.userInfo;
 						that.userInfo = Object.assign(userInfo, res.data)
@@ -68,7 +69,7 @@
 		//     return;
 		//   }
 		//   that.page += 1;
-		//   that.getLIstData();
+		//   that.getListData();
 		// },
 		// 分享
 		onShareAppMessage() {

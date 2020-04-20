@@ -168,10 +168,10 @@ var _activityModel = _interopRequireDefault(__webpack_require__(/*! ./activity-m
 //
 //
 //
-var activity = new _activityModel.default();var _default = { data: function data() {return {};}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.getLIstData(function () {callBack && callBack();});}, // 获取列表
-    getLIstData: function getLIstData(callBack) {
+var activity = new _activityModel.default();var _default = { data: function data() {return {};}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.getListData(function () {callBack && callBack();});}, // 获取列表
+    getListData: function getListData(callBack) {
       var that = this;
-      activity.getLIstData({}, function (res) {
+      activity.getListData({}, function (res) {
         if (res.status_code == 'ok') {
           var userInfo = that.$store.state.userInfo;
           that.userInfo = Object.assign(userInfo, res.data);
@@ -201,7 +201,7 @@ var activity = new _activityModel.default();var _default = { data: function data
   //     return;
   //   }
   //   that.page += 1;
-  //   that.getLIstData();
+  //   that.getListData();
   // },
   // 分享
   onShareAppMessage: function onShareAppMessage() {

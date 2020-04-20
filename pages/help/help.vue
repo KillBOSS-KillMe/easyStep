@@ -53,6 +53,27 @@
 			selShow(e) {
 			    this.selId = help.get_data_set(e, "id");
 			  }
+		},
+		// 下拉刷新
+		onPullDownRefresh() {
+		  var that = this;
+		  that.page = 1;
+		  that._onLoad(() => {
+		    uni.stopPullDownRefresh();
+		  });
+		},
+		//上拉加载更多
+		// onReachBottom() {
+		//   var that = this;
+		//   if (that.last_page == that.page) {
+		//     return;
+		//   }
+		//   that.page += 1;
+		//   that.getListData();
+		// },
+		// 分享
+		onShareAppMessage() {
+			return activity.onShareAppMessage({});
 		}
 	}
 </script>
