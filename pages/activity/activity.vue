@@ -2,7 +2,7 @@
 	<view>
 		<ul class="list">
 			<li class="item">
-				<image src="../../static/images/logo.png" mode=""></image>
+				<image src="../../static/images/helpPageImg.png" mode=""></image>
 				<view class="description">
 					<view class="info">
 						<text class="title">夏日瘦身的N种方法</text>
@@ -12,7 +12,7 @@
 				</view>
 			</li>
 			<li class="item">
-				<image src="../../static/images/logo.png" mode=""></image>
+				<image src="../../static/images/activityPageImg_2.png" mode=""></image>
 				<view class="description">
 					<view class="info">
 						<text class="title">夏日瘦身的N种方法</text>

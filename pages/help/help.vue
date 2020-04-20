@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="titleImg">
-			<image src="../../static/images/logo.png" mode=""></image>
+			<image src="../../static/images/helpPageImg.png" mode=""></image>
 		</view>
 		<view class="list">
 			<view class="listCon">

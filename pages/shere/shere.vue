@@ -3,7 +3,7 @@
 		<view class="headBg"></view>
 		<scroll-view scroll-y="true">
 			<view class="article">
-				<image src="../../static/images/logo.png" mode=""></image>
+				<image src="../../static/images/sherePageImg.png" mode=""></image>
 				<view class="info">
 					<text>夏日瘦身的N种方法</text>
 					<p>炎热夏季，总有小伙伴抱怨肥肉太多不敢穿清凉美衣，那么现在你不用怕啦，贴心的多学多用为你准备N 种可以瘦的方法，总有一种让你瘦成一道闪电！</p>
