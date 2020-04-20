@@ -69,7 +69,7 @@ text-overflow: ellipsis; -->
 	@import url("/static/css/icon.css");
 	
 	page {
-	  background-color: #666666;
+	  background-color: #F1F1F1;
 	  width: 100vw;
 	  min-height: 100vh;
 	  height: auto;
