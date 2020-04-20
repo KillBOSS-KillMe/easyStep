@@ -32,6 +32,13 @@
 				</view>
 				<icon class="iconfont iconxiangyou"></icon>
 			</li>
+			<li class="item" @tap="goVIP" v-if="userInfo.type != 'member'">
+				<view class="name">
+					<icon class="iconfont iconbangzhu"></icon>
+					开通会员
+				</view>
+				<icon class="iconfont iconxiangyou"></icon>
+			</li>
 		</ul>
 	</view>
 </template>
@@ -63,8 +70,11 @@
 			},
 			// 进入帮助页
 			goHelpPage(e) {
-				user.navigate_to("../help/help");
+				user.navigate_to("/pages/help/help");
 			},
+			goVIP() {
+				user.navigate_to("/pages/vip/vip");
+			}
 		},
 		// 下拉刷新
 		onPullDownRefresh() {

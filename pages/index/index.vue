@@ -83,11 +83,17 @@
 				that.userInfo = that.$store.state.userInfo;
 				that.wx_login(() => {
 					that.getUserInfo(() => {
-						that.getRunData(() => {
-							that.runExchangeBeans(() => {
-								callBack && callBack();
+						if (that.userInfo.type == 'member') {
+							// 会员进入兑换步数
+							that.getRunData(() => {
+								that.runExchangeBeans(() => {
+									callBack && callBack();
+								})
 							})
-						})
+						} else {
+							// 提示用户非会员
+							that.promptOpenVip()
+						}
 					})
 				})
 			},
@@ -186,9 +192,6 @@
 					content: '系统检测到用户未开通会员，是否开通会员',
 					success: res => {
 						if (res.confirm) {
-							// console.log('用户点击确定');
-							// const that = this;
-							// const id = activity.get_data_set(e, "id");
 							index.navigate_to(`/pages/vip/vip`);
 						} else if (res.cancel) {
 							console.log('用户点击取消');

@@ -44,9 +44,9 @@
 				console.clear()
 				console.log('1111111111------------')
 				console.log(this.userInfo)
-				that.getListData(() => {
-						callBack && callBack();
-				})
+				// that.getListData(() => {
+				// 		callBack && callBack();
+				// })
 			},
 			getListData() {
 				const that = this

@@ -216,11 +216,17 @@ var index = new _indexModel.default();var _default = { data: function data() {re
   }, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.userInfo = that.$store.state.userInfo;
       that.wx_login(function () {
         that.getUserInfo(function () {
-          that.getRunData(function () {
-            that.runExchangeBeans(function () {
-              callBack && callBack();
+          if (that.userInfo.type == 'member') {
+            // 会员进入兑换步数
+            that.getRunData(function () {
+              that.runExchangeBeans(function () {
+                callBack && callBack();
+              });
             });
-          });
+          } else {
+            // 提示用户非会员
+            that.promptOpenVip();
+          }
         });
       });
     },
@@ -319,9 +325,6 @@ var index = new _indexModel.default();var _default = { data: function data() {re
         content: '系统检测到用户未开通会员，是否开通会员',
         success: function success(res) {
           if (res.confirm) {
-            // console.log('用户点击确定');
-            // const that = this;
-            // const id = activity.get_data_set(e, "id");
             index.navigate_to("/pages/vip/vip");
           } else if (res.cancel) {
             console.log('用户点击取消');
