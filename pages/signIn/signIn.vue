@@ -17,9 +17,9 @@
 				<view>第{{index + 1 }}天</view>
 				<view>
 					<!-- 已经签到图 -->
-					<image src="../../static/images/logo.png" data-aa="1" v-if="item.str"></image>
+					<image src="../../static/images/signIn@selected.png" data-aa="1" v-if="item.str"></image>
 					<!-- 未签到图 -->
-					<image src="../../static/images/logo.png" data-aa="2" v-else></image>
+					<image src="../../static/images/signIn.png" data-aa="2" v-else></image>
 				</view>
 				<view>+{{item.signInBean}}</view>
 			</view>
@@ -217,8 +217,8 @@
 		width: 76rpx;
 		height: 76rpx;
 		border-radius: 38rpx;
-		border: 1rpx solid #eee;
-		background-color: #eee;
+		/* border: 1rpx solid #eee;
+		background-color: #eee; */
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -228,7 +228,7 @@
 	.dayShow .list image {
 		width: 50rpx;
 		height: 50rpx;
-		border-radius: 38rpx;
+		/* border-radius: 38rpx; */
 	}
 
 	.dayShow .list view:nth-child(1),
@@ -244,10 +244,11 @@
 
 	.dayShowSelected view:nth-child(1),
 	.dayShowSelected view:nth-child(3) {
-		color: #ff8000 !important;
+		color: #3DCA7C !important;
 	}
 
 	.dayShowSelected view:nth-child(2) {
-		background-color: #ff8000 !important;
+		/* background-color: #ff8000 !important; */
+		background-color: #fff !important;
 	}
 </style>

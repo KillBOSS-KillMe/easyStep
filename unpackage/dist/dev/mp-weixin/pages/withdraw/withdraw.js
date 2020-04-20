@@ -128,96 +128,9 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/workspan/easyStep/pages/withdraw/withdraw.vue?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _withdrawModel = _interopRequireDefault(__webpack_require__(/*! ./withdraw-model.js */ 107));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var withdraw = new _withdrawModel.default();var _default = { data: function data() {return { userInfo: {}, defaultAmount: 100, amountList: [100, 200, 300, 400, 500, 600] };}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {// 使用vuex获取原有的用户信息
-      var that = this;that.userInfo = that.$store.state.userInfo;console.clear();console.log('1111111111------------');console.log(this.userInfo);that.getListData(function () {
-        callBack && callBack();
-      });
-    },
-    getListData: function getListData() {
-      var that = this;
-      withdraw.getListData({}, function (res) {
-        if (res.status_code == 'ok') {
-          var userInfo = that.$store.state.userInfo;
-          that.userInfo = Object.assign(userInfo, res.data);
-          that.$store.commit('updateUserInfo', that.userInfo);
-        }
-        callBack && callBack();
-      });
-    } },
-
-  // 下拉刷新
-  onPullDownRefresh: function onPullDownRefresh() {
-    var that = this;
-    that.page = 1;
-    that._onLoad(function () {
-      uni.stopPullDownRefresh();
-    });
-  },
-  //上拉加载更多
-  // onReachBottom() {
-  //   var that = this;
-  //   if (that.last_page == that.page) {
-  //     return;
-  //   }
-  //   that.page += 1;
-  //   that.getListData();
-  // },
-  // 分享
-  onShareAppMessage: function onShareAppMessage() {
-    var shareData = {
-      title: '',
-      path: "pages/index/index?".concat(this.userInfo.id),
-      imageUrl: '' };
-
-    return withdraw.onShareAppMessage(shareData);
-  } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+throw new Error("Module build failed (from ./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js):\nSyntaxError: Unexpected token (52:2)\n    at Object.raise (D:\\soft\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:7017:17)\n    at Object.unexpected (D:\\soft\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:8395:16)\n    at Object.parseExprAtom (D:\\soft\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:9673:20)\n    at Object.parseExprSubscripts (D:\\soft\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:9259:23)\n    at Object.parseMaybeUnary (D:\\soft\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:9239:21)\n    at Object.parseMaybeUnary (D:\\soft\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:6269:20)\n    at Object.parseExprOps (D:\\soft\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:9109:23)\n    at Object.parseMaybeConditional (D:\\soft\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:9082:23)\n    at Object.parseMaybeAssign (D:\\soft\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:9037:21)\n    at Object.parseMaybeAssign (D:\\soft\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:6216:20)\n    at Object.parseMaybeAssign (D:\\soft\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:9069:25)\n    at Object.parseMaybeAssign (D:\\soft\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:6216:20)\n    at Object.parseExpression (D:\\soft\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:8989:23)\n    at Object.parseStatementContent (D:\\soft\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:10819:23)\n    at Object.parseStatementContent (D:\\soft\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:5976:18)\n    at Object.parseStatement (D:\\soft\\HBuilderX\\plugins\\uniapp-cli\\node_modules\\@babel\\parser\\lib\\index.js:10690:17)");
 
 /***/ }),
 

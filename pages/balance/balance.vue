@@ -6,7 +6,7 @@
 			<view class="details">
 				<view class="data">
 					<text>我的余额</text>
-					<text class="num">26591.00</text>
+					<text class="num">{{userInfo.wallet}}</text>
 				</view>
 				<view class="button" @tap="goAccountDetails">
 					<view>账户明细</view>

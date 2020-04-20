@@ -7,9 +7,10 @@
 					<view class="title">提现至微信</view>
 					<view class="setAmount">
 						<text>￥</text>
-						<input type="number" placeholder="提现金额" value="" />
+						<input type="number" placeholder="提现金额" @input="getWithdrawNum" />
 					</view>
-					<view class="description">可提现金额20159.00元，今日最低限额1000.00元，最高限额 10000.00元</view>
+					<view class="description">可提现金额{{userInfo.wallet}}元</view>
+					<!-- <view class="description">可提现金额20159.00元，今日最低限额1000.00元，最高限额 10000.00元</view> -->
 				</view>
 				<view class="shereButton">
 					<button>提现</button>
@@ -26,8 +27,7 @@
 		data() {
 			return {
 				userInfo: {},
-				defaultAmount: 100,
-				amountList: [100, 200, 300, 400, 500, 600]
+				withdrawNum: 0
 			}
 		},
 		onLoad() {
@@ -45,6 +45,10 @@
 				that.getListData(() => {
 					callBack && callBack();
 				})
+			},
+			getWithdrawNum() {
+				const that = this
+				that.withdrawNum = 
 			},
 			getListData() {
 				const that = this
