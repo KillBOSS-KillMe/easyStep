@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -180,7 +180,41 @@ var _vipModel = _interopRequireDefault(__webpack_require__(/*! ./vip-model.js */
 //
 //
 //
-var vip = new _vipModel.default();var _default = { data: function data() {return { amount: 99 };}, methods: {} };exports.default = _default;
+var vip = new _vipModel.default();var _default = { data: function data() {return { userInfo: {}, amount: 99 };}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {// 使用vuex获取原有的用户信息
+      this.userInfo = this.$store.state.userInfo;console.clear();console.log('1111111111------------');console.log(this.userInfo);that.getListData(function () {callBack && callBack();});}, getListData: function getListData() {var that = this;
+      accountDetails.getListData({}, function (res) {
+        if (res.status_code == 'ok') {
+          var userInfo = that.$store.state.userInfo;
+          that.userInfo = Object.assign(userInfo, res.data);
+          that.$store.commit('updateUserInfo', that.userInfo);
+        }
+        callBack && callBack();
+      });
+    } },
+
+
+  // 下拉刷新
+  onPullDownRefresh: function onPullDownRefresh() {
+    var that = this;
+    that.page = 1;
+    that._onLoad(function () {
+      uni.stopPullDownRefresh();
+    });
+  },
+  //上拉加载更多
+  // onReachBottom() {
+  //   var that = this;
+  //   if (that.last_page == that.page) {
+  //     return;
+  //   }
+  //   that.page += 1;
+  //   that.getListData();
+  // },
+  // 分享
+  onShareAppMessage: function onShareAppMessage() {
+    return activity.onShareAppMessage({});
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

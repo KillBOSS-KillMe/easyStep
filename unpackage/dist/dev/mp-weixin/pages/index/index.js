@@ -200,17 +200,53 @@ var _indexModel = _interopRequireDefault(__webpack_require__(/*! ./index-model.j
 //
 // 公共组件
 // import getUserInfoButton from "@/components/getUserInfoButton.vue";
-var index = new _indexModel.default();var _default = { data: function data() {return { title: 'Hello', authorizationButton: null, userInfoAll: {} };}, // components: {
+var index = new _indexModel.default();var _default = { data: function data() {return { title: 'Hello', authorizationButton: null, userInfoAll: {}, weRunData: { calorie: "0", // 昨日消耗卡路里
+        lastDayStep: 0, // 昨日步数
+        todayStep: 0 // 今日步数
+      } };}, // components: {
   //   // 获取用户信息组件
   //   getUserInfoButton
   // },
-  onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.wx_login(function () {that.getUserInfo(function () {that.getRunData(function () {callBack && callBack();});});});}, wx_login: function wx_login(callBack) {var that = this;that.authorizationButton = that.$store.state.authorizationButton;uni.login({ provider: 'weixin', success: function success(loginRes) {var code = loginRes.code;console.log(code); // return false
-          uni.getUserInfo({ provider: 'weixin',
+  onLoad: function onLoad() {var that = this;that._onLoad();}, onShow: function onShow() {// 获取已授权类别
+    var that = this;uni.getSetting({ success: function success(res) {if (res.authSetting['scope.userInfo']) {// 隐藏授权按钮
+          that.authorizationButton = false;that.$store.commit('updateAuthorizationButtonData', false);}}, fail: function fail() {console.log("获取授权信息授权失败");} }); // let token = index.get_storage('token_type', callBack);
+    // if(token) {
+    // 	that.getUserInfo(() => {
+    // 		that.getRunData(() => {
+    // 			callBack && callBack();
+    // 		})
+    // 	})
+    // }
+  }, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.wx_login(function () {that.getUserInfo(function () {
+          that.getRunData(function () {
+            that.runExchangeBeans(function () {
+              callBack && callBack();
+            });
+          });
+        });
+      });
+    },
+    exchangeBeans: function exchangeBeans(callBack) {
+      var that = this;
+      that.runExchangeBeans(function () {
+        that.getRunData(function () {
+          callBack && callBack();
+        });
+      });
+    },
+    wx_login: function wx_login(callBack) {
+      var that = this;
+      that.authorizationButton = that.$store.state.authorizationButton;
+      uni.login({
+        provider: 'weixin',
+        success: function success(loginRes) {
+          var code = loginRes.code;
+          uni.getUserInfo({
+            provider: 'weixin',
             success: function success(infoRes) {
-              console.clear();
-              console.log(infoRes);
               that.userInfoAll = infoRes;
               that.$store.commit('updateUserInfo', that.userInfo);
+              that.$store.commit('updateAuthorizationButtonData', false);
               index.login({
                 code: code,
                 share_id: '',
@@ -218,7 +254,6 @@ var index = new _indexModel.default();var _default = { data: function data() {re
                 nickname: infoRes.userInfo.nickName,
                 sex: infoRes.userInfo.gender },
               function (res) {
-                console.log(res);
                 if (res.status_code == 'ok') {
                   index.set_storage('token', res.access_token);
                   index.set_storage('token_type', res.token_type);
@@ -246,8 +281,6 @@ var index = new _indexModel.default();var _default = { data: function data() {re
     getRunData: function getRunData(callBack) {var _this = this;
       wx.getWeRunData({
         success: function success(res) {
-          // console.clear()
-          // console.log(res)
           var that = _this;
           index.getRunData({
             iv: res.iv,
@@ -256,46 +289,30 @@ var index = new _indexModel.default();var _default = { data: function data() {re
             rawData: that.userInfoAll.rawData },
           function (res) {
             if (res.status_code == 'ok') {
-              var userInfo = that.$store.state.userInfo;
-              that.userInfo = Object.assign(userInfo, res.data);
-              that.$store.commit('updateUserInfo', that.userInfo);
+              that.weRunData = res.data;
             }
             callBack && callBack();
           });
-          // wepy.login().then(res => {
-          // 	let code = res.code
-          // 	// 提交步数(未解密)
-          // 	wx.request({
-          // 		url: `${this.$parent.globalData.requestUrl}/api/getStepInformation`,
-          // 		method: 'POST',
-          // 		header: {
-          // 			AuthrizeOpenId: this.$parent.globalData.openId
-          // 		},
-          // 		data: {
-          // 			code: code,
-          // 			encryptedData: encryptedData,
-          // 			iv: iv
-          // 		},
-          // 		success: data => {
-          // 			if (data.data.success) {
-          // 				this.todayStep = data.data.data.today_step
-          // 				this.$parent.globalData.todayStep = this.todayStep
-          // 				let getStep = data.data.data.get_step
-          // 				let costStep = data.data.data.cost_step
-          // 				this.$parent.globalData.total = this.todayStep + costStep - getStep
-          // 				console.log(this.$parent.globalData.allStep)
-          // 				this.$apply()
-          // 			} else {
-          // 				wx.showModal({
-          // 					title: '',
-          // 					content: data.data.errmsg
-          // 				})
-          // 			}
-          // 		}
-          // 	})
-          // })
         } });
 
+    },
+
+    // 兑换步数
+    runExchangeBeans: function runExchangeBeans(callBack) {
+      var that = this;
+      index.exchangeBeans({}, function (res) {
+        // 提示
+        console.clear();
+        console.log(res);
+        console.log(res.message);
+        index.show_tips(res.message);
+        if (res.status_code == 'ok') {
+          that.weRunData.bean = res.bean;
+        }
+        // setTimeout(function() {
+        // 	// callBack && callBack();
+        // }, 2000)
+      });
     },
     // 提示开通会员
     promptOpenVip: function promptOpenVip(callBack) {

@@ -144,7 +144,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -199,9 +199,31 @@ var _signInModel = _interopRequireDefault(__webpack_require__(/*! ./signIn-model
 //
 //
 //
-var signIn = new _signInModel.default();var _default = { data: function data() {return { userInfo: null, continuousDays: 0, signinStatus: '立即签到', signinClass: 'signin', selShowData: 0, reward: [] };}, components: {}, onLoad: function onLoad(options) {this.userInfo = this.$parent.globalData.userInfo; // 签到信息查询
-    this.getUserSignin();}, methods: { // 签到
-    signin: function signin() {var _this = this;wx.request({ url: "".concat(this.$parent.globalData.requestUrl, "/api/userSignin"), method: 'PUT', header: { AuthrizeOpenId: this.$parent.globalData.openId },
+var signIn = new _signInModel.default();var _default = { data: function data() {return { userInfo: {}, continuousDays: 0, signinStatus: '立即签到', signinClass: 'signin', selShowData: 0, reward: [] };}, components: {}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {// 使用vuex获取原有的用户信息
+      this.userInfo = this.$store.state.userInfo; // 签到信息查询
+      this.getUserSignin();console.clear();console.log('1111111111------------');console.log(this.userInfo);that.getListData(function () {
+        callBack && callBack();
+      });
+    },
+    getListData: function getListData() {
+      var that = this;
+      accountDetails.getListData({}, function (res) {
+        if (res.status_code == 'ok') {
+          var userInfo = that.$store.state.userInfo;
+          that.userInfo = Object.assign(userInfo, res.data);
+          that.$store.commit('updateUserInfo', that.userInfo);
+        }
+        callBack && callBack();
+      });
+    },
+    // 签到
+    signin: function signin() {var _this = this;
+      wx.request({
+        url: "".concat(this.$parent.globalData.requestUrl, "/api/userSignin"),
+        method: 'PUT',
+        header: {
+          AuthrizeOpenId: this.$parent.globalData.openId },
+
         success: function success(data) {
           if (data.data.success) {
             _this.continuousDays = data.data.data.continuous_days;
@@ -266,7 +288,30 @@ var signIn = new _signInModel.default();var _default = { data: function data() {
           }
         } });
 
-    } } };exports.default = _default;
+    } },
+
+  // 下拉刷新
+  onPullDownRefresh: function onPullDownRefresh() {
+    var that = this;
+    that.page = 1;
+    that._onLoad(function () {
+      uni.stopPullDownRefresh();
+    });
+  },
+  //上拉加载更多
+  // onReachBottom() {
+  //   var that = this;
+  //   if (that.last_page == that.page) {
+  //     return;
+  //   }
+  //   that.page += 1;
+  //   that.getListData();
+  // },
+  // 分享
+  onShareAppMessage: function onShareAppMessage() {
+    return activity.onShareAppMessage({});
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

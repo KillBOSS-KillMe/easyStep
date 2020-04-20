@@ -4,29 +4,29 @@
 			<image src="../../static/images/stepBg.png" mode=""></image>
 			<view class="stepNum">
 				<text class="name">总步数</text>
-				<text class="stepData">100000</text>
+				<text class="stepData">{{weRunData.todayStep}}</text>
 			</view>
-			<text class="description">步数每日凌晨24点计算</text>
+			<text class="description">点击上方按钮兑换金豆</text>
 		</view>
 		<view class="myData">
 			<view class="title">我的数据</view?>
 				<ul class="features">
 					<li class="item">
 						<text class="name">昨日步数(步)</text>
-						<text class="data">2222</text>
+						<text class="data">{{weRunData.lastDayStep}}</text>
 					</li>
 					<li class="item">
 						<text class="name">消耗(千卡)</text>
-						<text class="data">2222</text>
+						<text class="data">{{weRunData.calorie}}</text>
 					</li>
 					<li class="item">
 						<text class="name">产金豆(个)</text>
-						<text class="data">222啊2</text>
+						<text class="data">{{weRunData.bean}}</text>
 					</li>
 				</ul>
 			</view>
 			<!-- <getUserInfoButton /> -->
-			<button open-type="getUserInfo" v-if="authorizationButton" id='getUserInfo' lang="zh_CN" @getuserinfo="wx_login"></button>
+			<button open-type="getUserInfo" v-if="authorizationButton" id='getUserInfo' lang="zh_CN" @getuserinfo="_onLoad"></button>
 		</view>
 </template>
 
@@ -40,7 +40,12 @@
 			return {
 				title: 'Hello',
 				authorizationButton: null,
-				userInfoAll: {}
+				userInfoAll: {},
+				weRunData: {
+					calorie: "0", // 昨日消耗卡路里
+					lastDayStep: 0, // 昨日步数
+					todayStep: 0 // 今日步数
+				}
 			}
 		},
 		// components: {
@@ -51,14 +56,48 @@
 			const that = this
 			that._onLoad()
 		},
+		onShow() {
+			// 获取已授权类别
+			const that = this
+			uni.getSetting({
+				success(res) {
+					if (res.authSetting['scope.userInfo']) {
+						// 隐藏授权按钮
+						that.authorizationButton = false;
+						that.$store.commit('updateAuthorizationButtonData', false);
+					}
+				},
+				fail() {
+					console.log("获取授权信息授权失败")
+				}
+			})
+			// let token = index.get_storage('token_type', callBack);
+			// if(token) {
+			// 	that.getUserInfo(() => {
+			// 		that.getRunData(() => {
+			// 			callBack && callBack();
+			// 		})
+			// 	})
+			// }
+		},
 		methods: {
 			_onLoad(callBack) {
 				const that = this
 				that.wx_login(() => {
 					that.getUserInfo(() => {
 						that.getRunData(() => {
-							callBack && callBack();
+							that.runExchangeBeans(() => {
+								callBack && callBack();
+							})
 						})
+					})
+				})
+			},
+			exchangeBeans(callBack) {
+				const that = this
+				that.runExchangeBeans(() => {
+					that.getRunData(() => {
+						callBack && callBack();
 					})
 				})
 			},
@@ -69,15 +108,12 @@
 					provider: 'weixin',
 					success: function(loginRes) {
 						var code = loginRes.code;
-						console.log(code)
-						// return false
 						uni.getUserInfo({
 							provider: 'weixin',
 							success: function(infoRes) {
-								console.clear()
-								console.log(infoRes)
 								that.userInfoAll = infoRes
 								that.$store.commit('updateUserInfo', that.userInfo);
+								that.$store.commit('updateAuthorizationButtonData', false);
 								index.login({
 									code: code,
 									share_id: '',
@@ -85,7 +121,6 @@
 									nickname: infoRes.userInfo.nickName,
 									sex: infoRes.userInfo.gender
 								}, (res) => {
-									console.log(res)
 									if (res.status_code == 'ok') {
 										index.set_storage('token', res.access_token);
 										index.set_storage('token_type', res.token_type);
@@ -113,8 +148,6 @@
 			getRunData(callBack) {
 				wx.getWeRunData({
 					success: res => {
-						// console.clear()
-						// console.log(res)
 						const that = this
 						index.getRunData({
 							iv: res.iv,
@@ -123,45 +156,29 @@
 							rawData: that.userInfoAll.rawData
 						}, (res) => {
 							if (res.status_code == 'ok') {
-								let userInfo = that.$store.state.userInfo;
-								that.userInfo = Object.assign(userInfo, res.data)
-								that.$store.commit('updateUserInfo', that.userInfo);
+								that.weRunData = res.data
 							}
 							callBack && callBack();
 						})
-						// wepy.login().then(res => {
-						// 	let code = res.code
-						// 	// 提交步数(未解密)
-						// 	wx.request({
-						// 		url: `${this.$parent.globalData.requestUrl}/api/getStepInformation`,
-						// 		method: 'POST',
-						// 		header: {
-						// 			AuthrizeOpenId: this.$parent.globalData.openId
-						// 		},
-						// 		data: {
-						// 			code: code,
-						// 			encryptedData: encryptedData,
-						// 			iv: iv
-						// 		},
-						// 		success: data => {
-						// 			if (data.data.success) {
-						// 				this.todayStep = data.data.data.today_step
-						// 				this.$parent.globalData.todayStep = this.todayStep
-						// 				let getStep = data.data.data.get_step
-						// 				let costStep = data.data.data.cost_step
-						// 				this.$parent.globalData.total = this.todayStep + costStep - getStep
-						// 				console.log(this.$parent.globalData.allStep)
-						// 				this.$apply()
-						// 			} else {
-						// 				wx.showModal({
-						// 					title: '',
-						// 					content: data.data.errmsg
-						// 				})
-						// 			}
-						// 		}
-						// 	})
-						// })
 					}
+				})
+			},
+			
+			// 兑换步数
+			runExchangeBeans(callBack) {
+				const that = this
+				index.exchangeBeans({}, (res) => {
+					// 提示
+					console.clear()
+					console.log(res)
+					console.log(res.message)
+					index.show_tips(res.message)
+					if (res.status_code == 'ok') {
+						that.weRunData.bean = res.bean
+					}
+					// setTimeout(function() {
+					// 	// callBack && callBack();
+					// }, 2000)
 				})
 			},
 			// 提示开通会员
@@ -184,11 +201,11 @@
 		},
 		// 下拉刷新
 		onPullDownRefresh() {
-		  var that = this;
-		  that.page = 1;
-		  that._onLoad(() => {
-		    uni.stopPullDownRefresh();
-		  });
+			var that = this;
+			that.page = 1;
+			that._onLoad(() => {
+				uni.stopPullDownRefresh();
+			});
 		},
 		//上拉加载更多
 		// onReachBottom() {

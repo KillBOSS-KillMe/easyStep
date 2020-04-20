@@ -174,7 +174,7 @@ var _shereModel = _interopRequireDefault(__webpack_require__(/*! ./shere-model.j
 //
 //
 //
-var shere = new _shereModel.default();var _default = { data: function data() {return {};}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.getDetailsData(function () {callBack && callBack();});}, // 获取列表
+var shere = new _shereModel.default();var _default = { data: function data() {return { userInfo: {} };}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.getDetailsData(function () {callBack && callBack();});}, // 获取列表
     getDetailsData: function getDetailsData(callBack) {var that = this;shere.getDetailsData({}, function (res) {
         if (res.status_code == 'ok') {
           var userInfo = that.$store.state.userInfo;

@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -185,7 +185,30 @@ var help = new _helpModel.default();var _default = { data: function data() {retu
     },
     selShow: function selShow(e) {
       this.selId = help.get_data_set(e, "id");
-    } } };exports.default = _default;
+    } },
+
+  // 下拉刷新
+  onPullDownRefresh: function onPullDownRefresh() {
+    var that = this;
+    that.page = 1;
+    that._onLoad(function () {
+      uni.stopPullDownRefresh();
+    });
+  },
+  //上拉加载更多
+  // onReachBottom() {
+  //   var that = this;
+  //   if (that.last_page == that.page) {
+  //     return;
+  //   }
+  //   that.page += 1;
+  //   that.getListData();
+  // },
+  // 分享
+  onShareAppMessage: function onShareAppMessage() {
+    return activity.onShareAppMessage({});
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

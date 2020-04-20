@@ -168,7 +168,8 @@ var _activityModel = _interopRequireDefault(__webpack_require__(/*! ./activity-m
 //
 //
 //
-var activity = new _activityModel.default();var _default = { data: function data() {return {};}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.getListData(function () {callBack && callBack();});}, // 获取列表
+var activity = new _activityModel.default();var _default = { data: function data() {return { userInfo: {} };}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.getListData(function () {callBack && callBack();});},
+    // 获取列表
     getListData: function getListData(callBack) {
       var that = this;
       activity.getListData({}, function (res) {

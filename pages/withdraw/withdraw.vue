@@ -27,7 +27,7 @@
 			return {
 				userInfo: {},
 				defaultAmount: 100,
-				amountList: [100, 200, 300, 400, 500, 600]，
+				amountList: [100, 200, 300, 400, 500, 600]
 			}
 		},
 		onLoad() {
@@ -56,7 +56,6 @@
 					callBack && callBack();
 				})
 			}
-			
 		},
 		// 下拉刷新
 		onPullDownRefresh() {

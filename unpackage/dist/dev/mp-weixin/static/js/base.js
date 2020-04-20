@@ -249,7 +249,7 @@ class Base {
 	//提示框
 	show_tips(options) {
 		uni.showToast({
-			title: options.title || '加载中...',
+			title: options || '加载中...',
 			icon: 'none',
 			duration: 2000
 		});
