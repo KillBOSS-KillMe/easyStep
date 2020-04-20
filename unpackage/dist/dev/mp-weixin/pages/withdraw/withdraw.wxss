@@ -1,89 +1,109 @@
-.headBg {
-  background-color: #43D182;
-  width: 100%;
-  height: 122rpx;
-  border-radius: 0 0 20rpx 20rpx;
-  z-index: 1;
+.cashOut {
+  width: 690rpx;
+  padding: 30rpx;
 }
-scroll-view {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 750rpx;
-  height: auto;
+.cash {
+  width: 638rpx;
+  padding: 26rpx;
+  margin-bottom: 30rpx;
+  /* height: 214rpx; */
+  background: #ffffff;
+  border: 1rpx solid #ffffff;
+  box-shadow: 0rpx 10rpx 35rpx 0rpx rgba(228, 228, 228, 0.4);
+  border-radius: 14rpx;
 }
-.pay .info {
-  width: 710rpx;
-  height: auto;
-  padding: 30rpx 20rpx;
-  border-radius: 20rpx 20rpx 0 0;
-  background-color: #fff;
+.cash .cashMoney {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #333333;
 }
-.pay .info .title {
-  font-size: 29rpx;
-  font-weight: 800;
-  color: #343434;
-  border-bottom: 1rpx solid #EEEEEE;
-  padding-bottom: 30rpx;
-}
-.pay .info .setAmount {
-  width: 670rpx;
-  height: 80rpx;
-  padding: 0 20rpx;
-  margin-top: 30rpx;
-  margin-bottom: 50rpx;
-  font-size: 40rpx;
-  color: #343434;
+.cash .cashInput {
+  width: 638rpx;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-          justify-content: flex-start;
-  border-bottom: 1rpx solid #EEEEEE;
-  padding-bottom: 30rpx;
+  border-bottom: 1rpx solid #D2D2D2;
+  margin: 10rpx 0 18rpx;
+  height: 70rpx;
 }
-.pay .info .setAmount text {
-  font-size: 40rpx;
-  color: #343434;
+.cash .cashInput label {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #666666;
+  margin-right: 10rpx;
 }
-.pay .info .setAmount input {
-  width: 100%;
-  height: 100%;
-  padding: 0 20rpx;
+.cash .cashInput input {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #999;
 }
-.pay .info .description {
-  width: 100%;
-  height: auto;
-  line-height: 40rpx;
-  font-size: 25rpx;
-  color: #898989;
+.cash .displayCash {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-content: center;
+          align-content: center;
 }
-.pay .shereButton {
+.cash .displayCash .item {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-content: center;
+          align-content: center;
+  margin-right: 20rpx;
+  font-size: 20rpx;
+  font-weight: 500;
+  color: #999999;
+}
+.cash .displayCash .item text {
+  color: #2390DC;
+}
+.radio {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  margin-right: 18rpx;
+}
+.radio text {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #666666;
+}
+.itemRadio {
+  -webkit-transform: scale(0.7);
+          transform: scale(0.7);
+}
+.cashImg {
+  width: 147rpx;
+  height: 147rpx;
+  background: #eeeeee;
+  border-radius: 14rpx;
+  overflow: hidden;
+  margin: 10rpx 0;
+}
+.tip {
+  font-size: 20rpx;
+  font-weight: 500;
+  color: #999999;
+}
+.cashButton {
   position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: auto;
-}
-.pay .shereButton button {
-  width: 710rpx;
-  height: 80rpx;
-  margin: 20rpx;
-  background: -webkit-linear-gradient(left, #37c375, #58e998);
-  background: linear-gradient(to right, #37c375, #58e998);
-  color: #fff;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-          justify-content: center;
+  bottom: 30rpx;
+  left: 30rpx;
+  width: 690rpx;
+  background: #43D182;
+  box-shadow: 0rpx 10rpx 45rpx 0rpx rgba(35, 144, 220, 0.6);
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #ffffff;
+  border: none;
+  border-radius: 60rpx;
+  padding: 4rpx 0;
 }
 
