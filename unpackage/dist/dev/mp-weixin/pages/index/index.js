@@ -200,12 +200,16 @@ var _indexModel = _interopRequireDefault(__webpack_require__(/*! ./index-model.j
 //
 // 公共组件
 // import getUserInfoButton from "@/components/getUserInfoButton.vue";
-var index = new _indexModel.default();var _default = { data: function data() {return { title: 'Hello', authorizationButton: null };}, // components: {
+var index = new _indexModel.default();var _default = { data: function data() {return { title: 'Hello', authorizationButton: null, userInfoAll: {} };}, // components: {
   //   // 获取用户信息组件
   //   getUserInfoButton
   // },
   onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.wx_login(function () {that.getUserInfo(function () {that.getRunData(function () {callBack && callBack();});});});}, wx_login: function wx_login(callBack) {var that = this;that.authorizationButton = that.$store.state.authorizationButton;uni.login({ provider: 'weixin', success: function success(loginRes) {var code = loginRes.code;console.log(code); // return false
-          uni.getUserInfo({ provider: 'weixin', success: function success(infoRes) {
+          uni.getUserInfo({ provider: 'weixin',
+            success: function success(infoRes) {
+              console.clear();
+              console.log(infoRes);
+              that.userInfoAll = infoRes;
               that.$store.commit('updateUserInfo', that.userInfo);
               index.login({
                 code: code,
@@ -242,11 +246,15 @@ var index = new _indexModel.default();var _default = { data: function data() {re
     getRunData: function getRunData(callBack) {var _this = this;
       wx.getWeRunData({
         success: function success(res) {
-          console.log(res);
-          var encryptedData = res.encryptedData;
-          var iv = res.iv;
+          // console.clear()
+          // console.log(res)
           var that = _this;
-          index.getRunData({}, function (res) {
+          index.getRunData({
+            iv: res.iv,
+            encryptedData: res.encryptedData,
+            signature: that.userInfoAll.signature,
+            rawData: that.userInfoAll.rawData },
+          function (res) {
             if (res.status_code == 'ok') {
               var userInfo = that.$store.state.userInfo;
               that.userInfo = Object.assign(userInfo, res.data);

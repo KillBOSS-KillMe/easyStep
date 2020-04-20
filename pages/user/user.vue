@@ -2,7 +2,7 @@
 	<view>
 		<view class="headBg"></view>
 		<view class="userInfo">
-			<image :src="userInfo.headimgurl" mode=""></image>
+			<image :src="userInfo.avatar" mode=""></image>
 			<text class="userNamer">{{userInfo.nickname}}</text>
 			<ul class="features">
 				<li class="item">
@@ -49,8 +49,8 @@
 			// 使用vuex获取原有的用户信息
 			this.userInfo = this.$store.state.userInfo;
 			// console.clear()
-			// console.log('------------')
-			// console.log(this.userInfo)
+			console.log('------------')
+			console.log(this.userInfo)
 		},
 		methods: {
 			// 进入余额页

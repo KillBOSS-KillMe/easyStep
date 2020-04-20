@@ -24,12 +24,55 @@
 			return {
 			};
 		},
+		onLoad() {
+			const that = this
+			that._onLoad()
+		},
 		methods: {
+			_onLoad(callBack) {
+				const that = this
+				that.getLIstData(() => {
+					callBack && callBack();
+				})
+			},
+			// 获取列表
+			getLIstData(callBack) {
+				const that = this
+				activity.getLIstData({}, (res) => {
+					if (res.status_code == 'ok') {
+						let userInfo = that.$store.state.userInfo;
+						that.userInfo = Object.assign(userInfo, res.data)
+						that.$store.commit('updateUserInfo', that.userInfo);
+					}
+					callBack && callBack();
+				})
+			},
 			goDetails(e) {
 				const that = this;
 				const id = activity.get_data_set(e, "id");
 				activity.navigate_to(`/pages/shere/shere?id=${id}`);
 			}
+		},
+		// 下拉刷新
+		onPullDownRefresh() {
+		  var that = this;
+		  that.page = 1;
+		  that._onLoad(() => {
+		    uni.stopPullDownRefresh();
+		  });
+		},
+		//上拉加载更多
+		// onReachBottom() {
+		//   var that = this;
+		//   if (that.last_page == that.page) {
+		//     return;
+		//   }
+		//   that.page += 1;
+		//   that.getLIstData();
+		// },
+		// 分享
+		onShareAppMessage() {
+			return activity.onShareAppMessage({});
 		}
 	}
 </script>

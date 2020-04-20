@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -168,7 +168,46 @@ var _activityModel = _interopRequireDefault(__webpack_require__(/*! ./activity-m
 //
 //
 //
-var activity = new _activityModel.default();var _default = { data: function data() {return {};}, methods: { goDetails: function goDetails(e) {var that = this;var id = activity.get_data_set(e, "id");activity.navigate_to("/pages/shere/shere?id=".concat(id));} } };exports.default = _default;
+var activity = new _activityModel.default();var _default = { data: function data() {return {};}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.getLIstData(function () {callBack && callBack();});}, // 获取列表
+    getLIstData: function getLIstData(callBack) {
+      var that = this;
+      activity.getLIstData({}, function (res) {
+        if (res.status_code == 'ok') {
+          var userInfo = that.$store.state.userInfo;
+          that.userInfo = Object.assign(userInfo, res.data);
+          that.$store.commit('updateUserInfo', that.userInfo);
+        }
+        callBack && callBack();
+      });
+    },
+    goDetails: function goDetails(e) {
+      var that = this;
+      var id = activity.get_data_set(e, "id");
+      activity.navigate_to("/pages/shere/shere?id=".concat(id));
+    } },
+
+  // 下拉刷新
+  onPullDownRefresh: function onPullDownRefresh() {
+    var that = this;
+    that.page = 1;
+    that._onLoad(function () {
+      uni.stopPullDownRefresh();
+    });
+  },
+  //上拉加载更多
+  // onReachBottom() {
+  //   var that = this;
+  //   if (that.last_page == that.page) {
+  //     return;
+  //   }
+  //   that.page += 1;
+  //   that.getLIstData();
+  // },
+  // 分享
+  onShareAppMessage: function onShareAppMessage() {
+    return activity.onShareAppMessage({});
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

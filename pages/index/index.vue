@@ -39,7 +39,8 @@
 		data() {
 			return {
 				title: 'Hello',
-				authorizationButton: null
+				authorizationButton: null,
+				userInfoAll: {}
 			}
 		},
 		// components: {
@@ -73,6 +74,9 @@
 						uni.getUserInfo({
 							provider: 'weixin',
 							success: function(infoRes) {
+								console.clear()
+								console.log(infoRes)
+								that.userInfoAll = infoRes
 								that.$store.commit('updateUserInfo', that.userInfo);
 								index.login({
 									code: code,
@@ -109,11 +113,15 @@
 			getRunData(callBack) {
 				wx.getWeRunData({
 					success: res => {
-						console.log(res)
-						let encryptedData = res.encryptedData
-						let iv = res.iv
+						// console.clear()
+						// console.log(res)
 						const that = this
-						index.getRunData({}, (res) => {
+						index.getRunData({
+							iv: res.iv,
+							encryptedData: res.encryptedData,
+							signature: that.userInfoAll.signature,
+							rawData: that.userInfoAll.rawData
+						}, (res) => {
 							if (res.status_code == 'ok') {
 								let userInfo = that.$store.state.userInfo;
 								that.userInfo = Object.assign(userInfo, res.data)

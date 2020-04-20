@@ -3,6 +3,19 @@ class Activity extends Base{
 	constructor() {
 		super();
 	}
+	// 获取列表
+	getLIstData(data,callBack) {
+		var that = this;
+		var params = {
+		  url: 'auth/me',
+		  method:'POST',
+		  data:data,
+		  sCallBack: function (res) {
+			callBack && callBack(res.data);
+		  }
+		};
+		that.request(params);
+	};
 }
 
 export default Activity	

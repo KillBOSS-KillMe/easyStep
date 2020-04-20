@@ -5,9 +5,6 @@ class Index extends Base {
 	}
 	// 登录
 	login(data,callBack) {
-		console.log('===============')
-		console.log(data)
-		console.log(callBack)
 		var that = this;
 		var params = {
 		  url: 'auth/login',
@@ -21,9 +18,6 @@ class Index extends Base {
 	};
 	// 获取用户信息
 	getUserInfo(data,callBack) {
-		console.log('===============')
-		console.log(data)
-		console.log(callBack)
 		var that = this;
 		var params = {
 		  url: 'auth/me',
@@ -37,9 +31,6 @@ class Index extends Base {
 	};
 	// 获取步数
 	getRunData(data,callBack) {
-		console.log('===============')
-		console.log(data)
-		console.log(callBack)
 		var that = this;
 		var params = {
 		  url: 'auth/me',
