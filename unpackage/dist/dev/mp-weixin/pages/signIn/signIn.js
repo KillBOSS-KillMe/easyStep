@@ -199,95 +199,37 @@ var _signInModel = _interopRequireDefault(__webpack_require__(/*! ./signIn-model
 //
 //
 //
-var signIn = new _signInModel.default();var _default = { data: function data() {return { userInfo: {}, continuousDays: 0, signinStatus: '立即签到', signinClass: 'signin', selShowData: 0, reward: [] };}, components: {}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.userInfo = that.$store.state.userInfo; // 签到信息查询
-      this.getUserSignin();console.clear();console.log('1111111111------------');console.log(this.userInfo);
-      that.getListData(function () {
-        callBack && callBack();
-      });
-    },
-    getListData: function getListData() {
+var signin = new _signInModel.default();var _default = { data: function data() {return { userInfo: {}, continuousDays: 0, signinStatus: '立即签到', signinClass: 'signin', selShowData: 0, reward: [] };}, components: {}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.userInfo = that.$store.state.userInfo; // 签到信息查询
+      that.getUserSignin(function () {callBack && callBack();});},
+    signin: function signin() {
       var that = this;
-      accountDetails.getListData({}, function (res) {
-        if (res.status_code == 'ok') {
-          var userInfo = that.$store.state.userInfo;
-          that.userInfo = Object.assign(userInfo, res.data);
-          that.$store.commit('updateUserInfo', that.userInfo);
-        }
-        callBack && callBack();
+      that.runSignin(function () {
+        that.getUserSignin(function () {
+          callBack && callBack();
+        });
       });
     },
     // 签到
-    signin: function signin() {var _this = this;
-      wx.request({
-        url: "".concat(this.$parent.globalData.requestUrl, "/api/userSignin"),
-        method: 'PUT',
-        header: {
-          AuthrizeOpenId: this.$parent.globalData.openId },
-
-        success: function success(data) {
-          if (data.data.success) {
-            _this.continuousDays = data.data.data.continuous_days;
-            if (_this.continuousDays > 7) {
-              _this.selShowData = _this.continuousDays % 7;
-            } else {
-              _this.selShowData = _this.continuousDays;
-            }
-            _this.getBeans = data.data.data.get_beans;
-            _this.signinStatus = '已签到';
-            _this.signinClass = 'already';
-            _this.$apply();
-            wx.showModal({
-              title: '',
-              content: "".concat(_this.signinStatus, "\u83B7\u5F97").concat(_this.getBeans, "\u6D3B\u529B\u8C46") });
-
-            // 签到信息查询
-            _this.getUserSignin();
-          } else {
-            wx.showModal({
-              title: '',
-              content: data.data.errmsg });
-
-          }
-        } });
-
+    runSignin: function runSignin(callBack) {
+      var that = this;
+      signin.runSignin({}, function (res) {
+        if (res.status_code == 'ok') {
+          callBack && callBack();
+        }
+      });
     },
     // 签到信息查询
-    getUserSignin: function getUserSignin() {var _this2 = this;
-      wx.request({
-        url: "".concat(this.$parent.globalData.requestUrl, "/api/userSignInformation"),
-        method: 'GET',
-        header: {
-          AuthrizeOpenId: this.$parent.globalData.openId },
-
-        success: function success(data) {
-          if (data.data.success) {
-            if (data.data.data.continuous_day.status === '已签到') {
-              _this2.signinClass = 'already';
-              _this2.signinStatus = '已签到';
-            }
-            var rewardData = data.data.data.setting_bean;
-            _this2.reward[0] = rewardData.first_day;
-            _this2.reward[1] = rewardData.second_day;
-            _this2.reward[2] = rewardData.third_day;
-            _this2.reward[3] = rewardData.fourth_day;
-            _this2.reward[4] = rewardData.fifth_day;
-            _this2.reward[5] = rewardData.sixth_day;
-            _this2.reward[6] = rewardData.seventh_day;
-            _this2.continuousDays = data.data.data.continuous_day.continuous_day;
-            if (_this2.continuousDays > 7) {
-              _this2.selShowData = _this2.continuousDays % 7;
-            } else {
-              _this2.selShowData = _this2.continuousDays;
-            }
-            _this2.$apply();
-          } else {
-            wx.showModal({
-              title: '',
-              content: data.data.errmsg });
-
-          }
-        } });
-
+    getUserSignin: function getUserSignin(callBack) {
+      // if (data.data.data.continuous_day.status === '已签到') {
+      // 	this.signinClass = 'already'
+      // 	this.signinStatus = '已签到'
+      // }
+      var that = this;
+      signin.getUserSignin({}, function (res) {
+        if (res.status_code == 'ok') {
+          that.signinInfo = res.data;
+        }
+      });
     } },
 
   // 下拉刷新

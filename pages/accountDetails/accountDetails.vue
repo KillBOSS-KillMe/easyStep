@@ -38,12 +38,9 @@
 		},
 		methods: {
 			_onLoad(callBack) {
-				// 使用vuex获取原有的用户信息
-				this.userInfo = this.$store.state.userInfo;
-				console.clear()
-				console.log('1111111111------------')
-				console.log(this.userInfo)
 				const that = this
+				// 使用vuex获取原有的用户信息
+				that.userInfo = that.$store.state.userInfo;
 				that.getListData(() => {
 					callBack && callBack();
 				})

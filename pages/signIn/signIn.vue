@@ -27,7 +27,7 @@
 
 <script>
 	import SignIn from "./signIn-model.js";
-	const signIn = new SignIn()
+	const signin = new SignIn()
 	export default {
 		data() {
 			return {
@@ -51,95 +51,37 @@
 				const that = this
 				that.userInfo = that.$store.state.userInfo;
 				// 签到信息查询
-				this.getUserSignin()
-				console.clear()
-				console.log('1111111111------------')
-				console.log(this.userInfo)
-				that.getListData(() => {
-						callBack && callBack();
-					})
-				},
-				getListData() {
-					const that = this
-					accountDetails.getListData({}, (res) => {
-						if (res.status_code == 'ok') {
-							let userInfo = that.$store.state.userInfo;
-							that.userInfo = Object.assign(userInfo, res.data)
-							that.$store.commit('updateUserInfo', that.userInfo);
-						}
-						callBack && callBack();
-					})
-				},
-			// 签到
+				that.getUserSignin(() => {
+					callBack && callBack();
+				})
+			},
 			signin() {
-				wx.request({
-					url: `${this.$parent.globalData.requestUrl}/api/userSignin`,
-					method: 'PUT',
-					header: {
-						AuthrizeOpenId: this.$parent.globalData.openId
-					},
-					success: data => {
-						if (data.data.success) {
-							this.continuousDays = data.data.data.continuous_days
-							if (this.continuousDays > 7) {
-								this.selShowData = this.continuousDays % 7
-							} else {
-								this.selShowData = this.continuousDays
-							}
-							this.getBeans = data.data.data.get_beans
-							this.signinStatus = '已签到'
-							this.signinClass = 'already'
-							this.$apply()
-							wx.showModal({
-								title: '',
-								content: `${this.signinStatus}获得${this.getBeans}活力豆`
-							})
-							// 签到信息查询
-							this.getUserSignin()
-						} else {
-							wx.showModal({
-								title: '',
-								content: data.data.errmsg
-							})
-						}
+				const that = this
+				that.runSignin(() => {
+					that.getUserSignin(() => {
+						callBack && callBack();
+					})
+				})
+			},
+			// 签到
+			runSignin(callBack) {
+				const that = this
+				signin.runSignin({}, (res) => {
+					if (res.status_code == 'ok') {
+						callBack && callBack();
 					}
 				})
 			},
 			// 签到信息查询
-			getUserSignin() {
-				wx.request({
-					url: `${this.$parent.globalData.requestUrl}/api/userSignInformation`,
-					method: 'GET',
-					header: {
-						AuthrizeOpenId: this.$parent.globalData.openId
-					},
-					success: data => {
-						if (data.data.success) {
-							if (data.data.data.continuous_day.status === '已签到') {
-								this.signinClass = 'already'
-								this.signinStatus = '已签到'
-							}
-							let rewardData = data.data.data.setting_bean
-							this.reward[0] = rewardData.first_day
-							this.reward[1] = rewardData.second_day
-							this.reward[2] = rewardData.third_day
-							this.reward[3] = rewardData.fourth_day
-							this.reward[4] = rewardData.fifth_day
-							this.reward[5] = rewardData.sixth_day
-							this.reward[6] = rewardData.seventh_day
-							this.continuousDays = data.data.data.continuous_day.continuous_day
-							if (this.continuousDays > 7) {
-								this.selShowData = this.continuousDays % 7
-							} else {
-								this.selShowData = this.continuousDays
-							}
-							this.$apply()
-						} else {
-							wx.showModal({
-								title: '',
-								content: data.data.errmsg
-							})
-						}
+			getUserSignin(callBack) {
+				// if (data.data.data.continuous_day.status === '已签到') {
+				// 	this.signinClass = 'already'
+				// 	this.signinStatus = '已签到'
+				// }
+				const that = this
+				signin.getUserSignin({}, (res) => {
+					if (res.status_code == 'ok') {
+						that.signinInfo = res.data
 					}
 				})
 			}

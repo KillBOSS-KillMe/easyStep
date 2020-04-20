@@ -10381,8 +10381,21 @@ SignIn = /*#__PURE__*/function (_Base) {_inherits(SignIn, _Base);
   function SignIn() {_classCallCheck(this, SignIn);return _possibleConstructorReturn(this, _getPrototypeOf(SignIn).call(this));
 
   }
-  // 获取列表
-  _createClass(SignIn, [{ key: "getListData", value: function getListData(data, callBack) {
+  // 获取签到信息
+  _createClass(SignIn, [{ key: "getUserSignin", value: function getUserSignin(data, callBack) {
+      var that = this;
+      var params = {
+        url: 'auth/me',
+        method: 'POST',
+        data: data,
+        sCallBack: function sCallBack(res) {
+          callBack && callBack(res.data);
+        } };
+
+      that.request(params);
+    } }, { key: "runSignin",
+    // 签到
+    value: function runSignin(data, callBack) {
       var that = this;
       var params = {
         url: 'auth/me',
