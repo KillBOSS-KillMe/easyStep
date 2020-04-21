@@ -144,6 +144,7 @@
 						let userInfo = that.$store.state.userInfo;
 						that.userInfo = Object.assign(userInfo, res.data)
 						that.$store.commit('updateUserInfo', that.userInfo);
+						that.$store.commit('updataSettingsInfo', res.settings);
 					}
 					callBack && callBack();
 				})
@@ -173,9 +174,6 @@
 				const that = this
 				index.exchangeBeans({}, (res) => {
 					// 提示
-					console.clear()
-					console.log(res)
-					console.log(res.message)
 					index.show_tips(res.message)
 					if (res.status_code == 'ok') {
 						that.weRunData.bean = res.bean

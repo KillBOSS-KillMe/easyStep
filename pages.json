@@ -117,16 +117,47 @@
 					"titleView": false
 				}
 			}
+		}, {
+			"path": "pages/withdraw/withdraw",
+			"style": {
+				"navigationBarTitleText": "提现",
+				"enablePullDownRefresh": true,
+				// #ifdef H5
+				"navigationStyle": "custom",
+				// #endif
+				"app-plus": {
+					"bounce": "none",
+					"titleView": false
+				}
+			}
+		}, {
+			"path": "pages/vip/vip",
+			"style": {
+				"navigationBarTitleText": "会员",
+				"enablePullDownRefresh": true,
+				// #ifdef H5
+				"navigationStyle": "custom",
+				// #endif
+				"app-plus": {
+					"bounce": "none",
+					"titleView": false
+				}
+			}
+		}, {
+			"path": "pages/exchangeMoney/exchangeMoney",
+			"style": {
+				"navigationBarTitleText": "兑换",
+				"enablePullDownRefresh": true,
+				// #ifdef H5
+				"navigationStyle": "custom",
+				// #endif
+				"app-plus": {
+					"bounce": "none",
+					"titleView": false
+				}
+			}
 		}
-	    ,{
-            "path" : "pages/withdraw/withdraw",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/vip/vip",
-            "style" : {}
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "未命名页面",

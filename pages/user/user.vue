@@ -5,7 +5,7 @@
 			<image :src="userInfo.avatar" mode=""></image>
 			<text class="userNamer">{{userInfo.nickname}}</text>
 			<ul class="features">
-				<li class="item">
+				<li class="item" @tap="goExchangeMoney">
 					<text class="name">金豆(个)</text>
 					<text class="data">{{userInfo.bean}}</text>
 				</li>
@@ -60,13 +60,17 @@
 			_onLoad(callBack) {
 				// 使用vuex获取原有的用户信息
 				this.userInfo = this.$store.state.userInfo;
-				console.clear()
-				console.log('------------')
-				console.log(this.userInfo)
+				// console.clear()
+				// console.log('------------')
+				// console.log(this.userInfo)
+			},
+			// 进入豆子兑换页
+			goExchangeMoney() {
+				user.navigate_to("/pages/exchangeMoney/exchangeMoney");
 			},
 			// 进入余额页
 			goBalancePage(e) {
-				user.navigate_to("../balance/balance");
+				user.navigate_to("/pages/balance/balance");
 			},
 			// 进入帮助页
 			goHelpPage(e) {

@@ -10,7 +10,8 @@
     "pages/accountDetails/accountDetails",
     "pages/signIn/signIn",
     "pages/withdraw/withdraw",
-    "pages/vip/vip"
+    "pages/vip/vip",
+    "pages/exchangeMoney/exchangeMoney"
   ],
   "subPackages": [],
   "window": {

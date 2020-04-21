@@ -277,6 +277,7 @@ var index = new _indexModel.default();var _default = { data: function data() {re
           var userInfo = that.$store.state.userInfo;
           that.userInfo = Object.assign(userInfo, res.data);
           that.$store.commit('updateUserInfo', that.userInfo);
+          that.$store.commit('updataSettingsInfo', res.settings);
         }
         callBack && callBack();
       });
@@ -306,9 +307,6 @@ var index = new _indexModel.default();var _default = { data: function data() {re
       var that = this;
       index.exchangeBeans({}, function (res) {
         // 提示
-        console.clear();
-        console.log(res);
-        console.log(res.message);
         index.show_tips(res.message);
         if (res.status_code == 'ok') {
           that.weRunData.bean = res.bean;

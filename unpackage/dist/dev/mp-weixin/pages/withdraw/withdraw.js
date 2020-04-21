@@ -230,6 +230,10 @@ var withdraw = new _withdrawModel.default();var _default = { data: function data
         withdraw.show_tips('请输入提现金额');
         return false;
       }
+      if (!/((^[1-9]\d*)|^0)(\.\d{0,2}){0,1}$/.test(that.withdrawNum)) {
+        withdraw.show_tips('请输入合法金额');
+        return false;
+      }
       if (that.imgAlipayShow == '') {
         withdraw.show_tips('请上传收款码');
         return false;
@@ -244,6 +248,12 @@ var withdraw = new _withdrawModel.default();var _default = { data: function data
         type: that.types },
       function (res) {
         withdraw.show_tips(res.message);
+        if (res.status_code == 'ok') {
+          setTimeout(function () {
+            withdraw.navigate_back();
+          }, 2000);
+        }
+
       });
     } },
 

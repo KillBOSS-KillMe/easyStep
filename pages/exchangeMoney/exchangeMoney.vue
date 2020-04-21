@@ -1,55 +1,32 @@
 <template>
 	<view class="cashOut">
 		<view class="cash">
-			<text class="cashMoney">提现金额</text>
+			<text class="cashMoney">兑换金额</text>
 			<view class="cashInput">
-				<label for="">￥</label>
-				<input type="digit" value="" @input="getWithdrawNum" placeholder="请输入提现金额" />
+				<label>
+					<icon class="iconfont icondouzi"></icon>
+				</label>
+				<input type="number" value="" @input="getExchangeNum" :placeholder="'最少兑换'+settings.beanToWallet+'个'" />
 			</view>
 			<view class="displayCash">
 				<view class="item">
-					可提现金额<text>￥{{userInfo.wallet}}</text>
+					可兑换豆子<text>{{userInfo.bean}}</text>，{{settings.beanToWallet}}豆起兑
 				</view>
 			</view>
-		</view>
-		<view class="cash">
-			<text class="cashMoney">选择提现账户</text>
-			<view>
-				<radio-group @change="radioChange" style="width: 690rpx;display: flex;">
-					<view class="item">
-						<label class="radio">
-							<radio class="itemRadio" value="1" />
-							<text>支付宝</text>
-						</label>
-					</view>
-					<view class="item">
-						<label class="radio">
-							<radio class="itemRadio" value="2" />
-							<text>微信</text>
-						</label>
-					</view>
-				</radio-group>
-				<view @tap="getCard">
-					<image class="cashImg" v-if="imgAlipayShow == ''" src="../../static/images/imgLost.png" mode=""></image>
-					<image class="cashImg" v-else :src="imgAlipayShow" mode=""></image>
-				</view>
-				<text class="tip" v-if="types == '1'">请上传支付宝收款码</text>
-				<text class="tip" v-else-if="types == '2'">请上传微信收款码</text>
-				<text class="tip" v-else>请选择提现方式</text>
-			</view>
-			<button type="" class="cashButton" @tap="runWithdraw">确认提现</button>
+			<button type="" class="cashButton" @tap="runWithdraw">确认兑换</button>
 		</view>
 	</view>
 </template>
 
 <script>
-	import Withdraw from "./withdraw-model.js";
-	const withdraw = new Withdraw()
+	import ExchangeMoney from "./exchangeMoney-model.js";
+	const exchangeMoney = new ExchangeMoney()
 	export default {
 		data() {
 			return {
+				settings: {},
 				userInfo: {},
-				withdrawNum: '',
+				exchangeNum: '',
 				imgAlipayShow: '',
 				types: ''
 			}
@@ -63,64 +40,37 @@
 				// 使用vuex获取原有的用户信息
 				const that = this
 				that.userInfo = that.$store.state.userInfo;
+				that.settings = that.$store.state.settings;
 			},
-			// 上传图片
-			getCard(callBack) {
+			// 兑换数量设置
+			getExchangeNum(e) {
 				const that = this
-				if (that.types == '') {
-					withdraw.show_tips('请选择收款方式')
-					return false
-				}
-				withdraw.getCard(1, (res) => {
-					if (res.status_code == 'ok') {
-						that.imgAlipayShow = res.data
-						withdraw.show_tips(res.message)
-					} else {
-						withdraw.show_tips(res.message)
-					}
-				})
+				that.exchangeNum = exchangeMoney.get_input_val(e)
 			},
-			// 收款方式选择
-			radioChange(e) {
-				const that = this
-				that.types = withdraw.get_input_val(e)
-			},
-			// 提现金额设置
-			getWithdrawNum(e) {
-				const that = this
-				that.withdrawNum = withdraw.get_input_val(e)
-			},
-			// 提现
+			// 兑换
 			runWithdraw() {
 				const that = this
-				if (that.withdrawNum == '') {
-					withdraw.show_tips('请输入提现金额')
+				if (that.exchangeNum == '') {
+					exchangeMoney.show_tips('请输入兑换数量')
 					return false
 				}
-				if(!/((^[1-9]\d*)|^0)(\.\d{0,2}){0,1}$/.test(that.withdrawNum)) {
-					withdraw.show_tips('请输入合法金额')
+				if(!/^[0-9]+$/.test(that.exchangeNum)) {
+					exchangeMoney.show_tips('请输入正整数')
 					return false
 				}
-				if (that.imgAlipayShow == '') {
-					withdraw.show_tips('请上传收款码')
+				if (that.exchangeNum < that.settings.beanToWallet) {
+					exchangeMoney.show_tips('兑换数量未达到最少兑换数')
 					return false
 				}
-				if (that.types == '') {
-					withdraw.show_tips('请选择收款方式')
-					return false
-				}
-				withdraw.runWithdraw({
-					money: that.withdrawNum,
-					qrcode: that.imgAlipayShow,
-					type: that.types
+				exchangeMoney.exchange({
+					bean: that.exchangeNum
 				}, (res) => {
-					withdraw.show_tips(res.message)
+					exchangeMoney.show_tips(res.message)
 					if (res.status_code == 'ok') {
 						setTimeout(function(){
-							withdraw.navigate_back()
+							exchangeMoney.navigate_back()
 						}, 2000)
 					}
-					
 				})
 			}
 		},
@@ -170,12 +120,6 @@
 		border: 1rpx solid #ffffff;
 		box-shadow: 0rpx 10rpx 35rpx 0rpx rgba(228, 228, 228, 0.4);
 		border-radius: 14rpx;
-	}
-
-	.cash .cashMoney {
-		font-size: 24rpx;
-		font-weight: 700;
-		color: #333333;
 	}
 
 	.cash .cashInput {
@@ -241,12 +185,6 @@
 		border-radius: 14rpx;
 		overflow: hidden;
 		margin: 10rpx 0;
-	}
-
-	.tip {
-		font-size: 20rpx;
-		font-weight: 500;
-		color: #999999;
 	}
 
 	.cashButton {

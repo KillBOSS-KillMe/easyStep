@@ -12,11 +12,6 @@
   box-shadow: 0rpx 10rpx 35rpx 0rpx rgba(228, 228, 228, 0.4);
   border-radius: 14rpx;
 }
-.cash .cashMoney {
-  font-size: 24rpx;
-  font-weight: 700;
-  color: #333333;
-}
 .cash .cashInput {
   width: 638rpx;
   display: -webkit-box;
@@ -86,11 +81,6 @@
   border-radius: 14rpx;
   overflow: hidden;
   margin: 10rpx 0;
-}
-.tip {
-  font-size: 20rpx;
-  font-weight: 500;
-  color: #999999;
 }
 .cashButton {
   position: fixed;

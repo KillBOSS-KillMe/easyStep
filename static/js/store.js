@@ -4,9 +4,14 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 	state: {
 		authorizationButton: true,
-		userInfo: {}
+		userInfo: {},
+		settings: {}
 	},
 	mutations: {
+		// 更新授权按钮显示状态
+		updataSettingsInfo(state, data = {}) {
+			state.settings = data
+		},
 		// 更新授权按钮显示状态
 		updateAuthorizationButtonData(state, data = true) {
 			state.authorizationButton = data
