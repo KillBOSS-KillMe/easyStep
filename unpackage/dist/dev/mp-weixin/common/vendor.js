@@ -10264,8 +10264,8 @@ Shere = /*#__PURE__*/function (_Base) {_inherits(Shere, _Base);
   _createClass(Shere, [{ key: "getDetailsData", value: function getDetailsData(data, callBack) {
       var that = this;
       var params = {
-        url: 'auth/me',
-        method: 'POST',
+        url: 'share/getShareInfo',
+        method: 'GET',
         data: data,
         sCallBack: function sCallBack(res) {
           callBack && callBack(res.data);

@@ -153,6 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _shereModel = _interopRequireDefault(__webpack_require__(/*! ./shere-model.js */ 62));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -174,13 +175,15 @@ var _shereModel = _interopRequireDefault(__webpack_require__(/*! ./shere-model.j
 //
 //
 //
-var shere = new _shereModel.default();var _default = { data: function data() {return { userInfo: {} };}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.userInfo = that.$store.state.userInfo;that.getDetailsData(function () {callBack && callBack();});}, // 获取列表
-    getDetailsData: function getDetailsData(callBack) {var that = this;
+//
+var shere = new _shereModel.default();var _default = { data: function data() {return { articleInfo: {}, imageUrl: '', userInfo: {} };}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this;that.imageUrl = shere.base_image_url;that.userInfo = that.$store.state.userInfo;that.getDetailsData(function () {callBack && callBack();});},
+    // 获取详情
+    getDetailsData: function getDetailsData(callBack) {
+      var that = this;
       shere.getDetailsData({}, function (res) {
         if (res.status_code == 'ok') {
-          var userInfo = that.$store.state.userInfo;
-          that.userInfo = Object.assign(userInfo, res.data);
-          that.$store.commit('updateUserInfo', that.userInfo);
+          res.data.image = that.imageUrl + res.data.image;
+          that.articleInfo = res.data;
         }
         callBack && callBack();
       });
@@ -198,7 +201,7 @@ var shere = new _shereModel.default();var _default = { data: function data() {re
   onShareAppMessage: function onShareAppMessage() {
     var shareData = {
       title: '',
-      path: "pages/index/index?".concat(this.userInfo.id),
+      path: "pages/index/index?id=".concat(this.userInfo.id),
       imageUrl: '' };
 
     return shere.onShareAppMessage(shareData);

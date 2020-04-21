@@ -38,6 +38,7 @@
 	export default {
 		data() {
 			return {
+				options: {},
 				title: 'Hello',
 				authorizationButton: null,
 				userInfo: {},
@@ -49,8 +50,9 @@
 				}
 			}
 		},
-		onLoad() {
+		onLoad(options) {
 			const that = this
+			that.options = options
 			that._onLoad()
 		},
 		onShow() {
@@ -120,7 +122,7 @@
 								that.$store.commit('updateAuthorizationButtonData', false);
 								index.login({
 									code: code,
-									share_id: '',
+									share_id: that.options.id,
 									headimgurl: infoRes.userInfo.avatarUrl,
 									nickname: infoRes.userInfo.nickName,
 									sex: infoRes.userInfo.gender
