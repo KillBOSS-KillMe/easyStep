@@ -60,9 +60,6 @@
 			_onLoad(callBack) {
 				// 使用vuex获取原有的用户信息
 				this.userInfo = this.$store.state.userInfo;
-				// console.clear()
-				// console.log('------------')
-				// console.log(this.userInfo)
 			},
 			// 进入豆子兑换页
 			goExchangeMoney() {

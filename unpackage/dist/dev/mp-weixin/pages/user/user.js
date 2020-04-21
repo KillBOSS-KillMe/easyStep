@@ -223,10 +223,7 @@ var _userModel = _interopRequireDefault(__webpack_require__(/*! ./user-model.js 
 //
 //
 var user = new _userModel.default();var _default = { data: function data() {return { userInfo: {} };}, onShow: function onShow() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {// 使用vuex获取原有的用户信息
-      this.userInfo = this.$store.state.userInfo; // console.clear()
-      // console.log('------------')
-      // console.log(this.userInfo)
-    }, // 进入豆子兑换页
+      this.userInfo = this.$store.state.userInfo;}, // 进入豆子兑换页
     goExchangeMoney: function goExchangeMoney() {user.navigate_to("/pages/exchangeMoney/exchangeMoney");}, // 进入余额页
     goBalancePage: function goBalancePage(e) {user.navigate_to("/pages/balance/balance");}, // 进入帮助页
     goHelpPage: function goHelpPage(e) {user.navigate_to("/pages/help/help");}, goVIP: function goVIP() {user.navigate_to("/pages/vip/vip");} }, // 下拉刷新

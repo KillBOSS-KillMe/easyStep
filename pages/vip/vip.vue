@@ -41,12 +41,6 @@
 				// 使用vuex获取原有的用户信息
 				const that = this
 				that.userInfo = that.$store.state.userInfo;
-				console.clear()
-				console.log('1111111111------------')
-				console.log(this.userInfo)
-				// that.getListData(() => {
-				// 		callBack && callBack();
-				// })
 			},
 			getListData() {
 				const that = this
