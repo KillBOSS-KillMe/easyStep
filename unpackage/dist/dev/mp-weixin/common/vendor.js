@@ -10350,7 +10350,7 @@ AccountDetails = /*#__PURE__*/function (_Base) {_inherits(AccountDetails, _Base)
   _createClass(AccountDetails, [{ key: "getListData", value: function getListData(data, callBack) {
       var that = this;
       var params = {
-        url: 'auth/me',
+        url: 'cash_withdrawal/cashWithdrawalRecord',
         method: 'POST',
         data: data,
         sCallBack: function sCallBack(res) {

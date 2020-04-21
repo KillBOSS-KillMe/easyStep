@@ -1,24 +1,15 @@
 <template>
 	<view class="list">
-		<view class="item topUp">
+		<view :class="item.type == 2?'item withdraw':'item topUp'" :data-id="item.id" v-for="(item,index) in listData" :key="index">
 			<view class="info">
-				<icon class="iconfont iconchongzhi"></icon>
+				<icon :class="item.type == 2?'iconfont iconchongzhi1':'iconfont iconchongzhi'"></icon>
 				<view class="details">
-					<view>充值到账</view>
+					<view>{{item.title}}</view>
 					<text>09-12 13：22</text>
 				</view>
 			</view>
-			<text class="amount">+2566</text>
-		</view>
-		<view class="item withdraw">
-			<view class="info">
-				<icon class="iconfont iconchongzhi1"></icon>
-				<view class="details">
-					<view>提现扣除</view>
-					<text>09-12 13：22</text>
-				</view>
-			</view>
-			<text class="amount">-2566</text>
+			<text class="amount" v-if="item.type == 2">-{{item.money}}</text>
+			<text class="amount" v-else>+{{item.money}}</text>
 		</view>
 	</view>
 </template>
@@ -29,7 +20,8 @@
 	export default {
 		data() {
 			return {
-				userInfo: {}
+				userInfo: {},
+				listData: [],
 			};
 		},
 		onLoad() {
@@ -45,13 +37,11 @@
 					callBack && callBack();
 				})
 			},
-			getListData() {
+			getListData(callBack) {
 				const that = this
 				accountDetails.getListData({}, (res) => {
 					if (res.status_code == 'ok') {
-						let userInfo = that.$store.state.userInfo;
-						that.userInfo = Object.assign(userInfo, res.data)
-						that.$store.commit('updateUserInfo', that.userInfo);
+						that.listData = res.data
 					}
 					callBack && callBack();
 				})
