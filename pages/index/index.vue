@@ -6,7 +6,7 @@
 				<text class="name">总步数</text>
 				<text class="stepData">{{weRunData.todayStep}}</text>
 			</view>
-			<text class="description">点击上方按钮兑换金豆</text>
+			<text class="description">步数每日凌晨24点计算</text>
 		</view>
 		<view class="myData">
 			<view class="title">我的数据</view?>
@@ -46,7 +46,8 @@
 				weRunData: {
 					calorie: "0", // 昨日消耗卡路里
 					lastDayStep: 0, // 昨日步数
-					todayStep: 0 // 今日步数
+					todayStep: 0, // 今日步数
+					bean: 0
 				}
 			}
 		},

@@ -15,8 +15,8 @@
 				<image src="../../static/images/activityPageImg_2.png" mode=""></image>
 				<view class="description">
 					<view class="info">
-						<text class="title">夏日瘦身的N种方法</text>
-						<text>参与签到活动，领取更多金豆</text>
+						<text class="title">自在呼吸·心肺功能激活</text>
+						<text>分销好友开通会员，领取更多金豆</text>
 					</view>
 					<button @tap="goShere" :data-id="1">立即分享</button>
 				</view>

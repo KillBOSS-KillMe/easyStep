@@ -1632,6 +1632,38 @@ Vip;exports.default = _default;
 
 /***/ }),
 
+/***/ 125:
+/*!***********************************************************************!*\
+  !*** D:/workspan/easyStep/pages/exchangeMoney/exchangeMoney-model.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _base = _interopRequireDefault(__webpack_require__(/*! ../../static/js/base */ 25));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}var
+Withdraw = /*#__PURE__*/function (_Base) {_inherits(Withdraw, _Base);
+  function Withdraw() {_classCallCheck(this, Withdraw);return _possibleConstructorReturn(this, _getPrototypeOf(Withdraw).call(this));
+
+  }
+  // 提现
+  _createClass(Withdraw, [{ key: "exchange", value: function exchange(data, callBack) {
+      var that = this;
+      var params = {
+        url: 'step/exchangeWallet',
+        method: 'POST',
+        data: data,
+        sCallBack: function sCallBack(res) {
+          callBack && callBack(res.data);
+        } };
+
+      that.request(params);
+    } }]);return Withdraw;}(_base.default);var _default =
+
+
+Withdraw;exports.default = _default;
+
+/***/ }),
+
 /***/ 14:
 /*!**********************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -1758,38 +1790,6 @@ function normalizeComponent (
   }
 }
 
-
-/***/ }),
-
-/***/ 140:
-/*!***********************************************************************!*\
-  !*** D:/workspan/easyStep/pages/exchangeMoney/exchangeMoney-model.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _base = _interopRequireDefault(__webpack_require__(/*! ../../static/js/base */ 25));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}var
-Withdraw = /*#__PURE__*/function (_Base) {_inherits(Withdraw, _Base);
-  function Withdraw() {_classCallCheck(this, Withdraw);return _possibleConstructorReturn(this, _getPrototypeOf(Withdraw).call(this));
-
-  }
-  // 提现
-  _createClass(Withdraw, [{ key: "exchange", value: function exchange(data, callBack) {
-      var that = this;
-      var params = {
-        url: 'step/exchangeWallet',
-        method: 'POST',
-        data: data,
-        sCallBack: function sCallBack(res) {
-          callBack && callBack(res.data);
-        } };
-
-      that.request(params);
-    } }]);return Withdraw;}(_base.default);var _default =
-
-
-Withdraw;exports.default = _default;
 
 /***/ }),
 
@@ -9023,7 +9023,6 @@ Base = /*#__PURE__*/function () {
           uni.chooseImage({
             count: count,
             success: function success(res) {
-              console.log(res.tempFilePaths);
               for (var i = 0; i < res.tempFilePaths.length; i++) {
                 that.show_loading('上传中...');
                 uni.uploadFile({
@@ -9042,7 +9041,6 @@ Base = /*#__PURE__*/function () {
                     if (data.status_code == 500) {
                       that.refresh_token(count);return;
                     }
-                    console.log(data);
                     data.data = that.base_image_url + data.data;
                     // 返回请求到的数据
                     count.sCallBack && count.sCallBack(data);return;
@@ -9061,8 +9059,6 @@ Base = /*#__PURE__*/function () {
         url: 'auth/refresh',
         method: 'POST',
         sCallBack: function sCallBack(res) {
-          // console.log('+++++++++++++++++++++11111111111111+++++++++++++++++++')
-          // console.log(res)
           if (res.status_code == 'ok') {
             // that.set_storage('token', res.data.data.token);
             // that.set_storage('token_type', res.data.data.token_type);
@@ -9106,12 +9102,9 @@ Base = /*#__PURE__*/function () {
       uni.getStorage({
         key: key,
         success: function success(res) {
-          console.log('|+|+|+|+|+|||||||||||||||||||||||||||||||||||||');
-          console.log(res);
           callBack(res.data);
         },
         fail: function fail(e) {
-          console.log('|||||||||||||||||||||||||||||||||||||+|+|+|+|+|');
           callBack('');
         } });
 
@@ -9191,7 +9184,6 @@ Base = /*#__PURE__*/function () {
     }
     //分享
   }, { key: "onShareAppMessage", value: function onShareAppMessage(data) {
-      console.log(data);
       return {
         title: data.title || '益步步',
         path: data.path || 'pages/index/index',
@@ -10287,7 +10279,7 @@ Shere;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/activity/activity": { "navigationBarTitleText": "活动", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/user": { "navigationBarTitleText": "我的", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/balance/balance": { "navigationBarTitleText": "我的余额", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shere/shere": { "navigationBarTitleText": "分享", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/pay/pay": { "navigationBarTitleText": "充值", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/help/help": { "navigationBarTitleText": "帮助", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/accountDetails/accountDetails": { "navigationBarTitleText": "账户明细", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/signIn/signIn": { "navigationBarTitleText": "签到", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/withdraw/withdraw": { "navigationBarTitleText": "提现", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/vip/vip": { "navigationBarTitleText": "会员", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/exchangeMoney/exchangeMoney": { "navigationBarTitleText": "兑换", "enablePullDownRefresh": true, "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "未命名页面", "navigationBarBackgroundColor": "#43D182", "backgroundColor": "#43D182" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页", "enablePullDownRefresh": true }, "pages/activity/activity": { "navigationBarTitleText": "活动", "enablePullDownRefresh": true }, "pages/user/user": { "navigationBarTitleText": "我的", "enablePullDownRefresh": true }, "pages/balance/balance": { "navigationBarTitleText": "我的余额", "enablePullDownRefresh": true }, "pages/shere/shere": { "navigationBarTitleText": "分享", "enablePullDownRefresh": true }, "pages/pay/pay": { "navigationBarTitleText": "充值", "enablePullDownRefresh": true }, "pages/help/help": { "navigationBarTitleText": "帮助", "enablePullDownRefresh": true }, "pages/accountDetails/accountDetails": { "navigationBarTitleText": "账户明细", "enablePullDownRefresh": true }, "pages/signIn/signIn": { "navigationBarTitleText": "签到", "enablePullDownRefresh": true }, "pages/withdraw/withdraw": { "navigationBarTitleText": "提现", "enablePullDownRefresh": true }, "pages/vip/vip": { "navigationBarTitleText": "会员", "enablePullDownRefresh": true }, "pages/exchangeMoney/exchangeMoney": { "navigationBarTitleText": "兑换", "enablePullDownRefresh": true } }, "globalStyle": { "navigationBarTextStyle": "white", "navigationBarTitleText": "未命名页面", "navigationBarBackgroundColor": "#43D182", "backgroundColor": "#43D182" } };exports.default = _default;
 
 /***/ }),
 

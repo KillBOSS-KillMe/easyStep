@@ -1,0 +1,1 @@
+<view><view class="headBg"></view><scroll-view scroll-y="true"><view class="article"><image src="{{articleInfo.image}}" mode></image><view class="info"><view class="_p">{{articleInfo.content}}</view></view><view class="shereButton"><button open-type="share">立即分享</button></view></view></scroll-view></view>

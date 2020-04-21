@@ -88,7 +88,6 @@ class Base {
 				uni.chooseImage({
 					count: count,
 					success: function (res) {
-						console.log(res.tempFilePaths)
 						for (var i = 0; i < res.tempFilePaths.length; i++) {
 							that.show_loading('上传中...');
 							uni.uploadFile({
@@ -107,7 +106,6 @@ class Base {
 									if (data.status_code == 500) {
 										that.refresh_token(count); return;
 									}
-									console.log(data)
 									data.data = that.base_image_url + data.data
 									// 返回请求到的数据
 									count.sCallBack && count.sCallBack(data); return;
@@ -126,8 +124,6 @@ class Base {
 			url: 'auth/refresh',
 			method: 'POST',
 			sCallBack: function (res) {
-				// console.log('+++++++++++++++++++++11111111111111+++++++++++++++++++')
-				// console.log(res)
 				if (res.status_code == 'ok') {
 					// that.set_storage('token', res.data.data.token);
 					// that.set_storage('token_type', res.data.data.token_type);
@@ -171,12 +167,9 @@ class Base {
 		uni.getStorage({
 			key: key,
 			success: function (res) {
-				console.log('|+|+|+|+|+|||||||||||||||||||||||||||||||||||||')
-				console.log(res)
 				callBack(res.data);
 			},
 			fail: function (e) {
-				console.log('|||||||||||||||||||||||||||||||||||||+|+|+|+|+|')
 				callBack('');
 			}
 		});
@@ -256,7 +249,6 @@ class Base {
 	}
 	//分享
 	onShareAppMessage(data) {
-		console.log(data)
 		return {
 			title: data.title || '益步步',
 			path: data.path || 'pages/index/index',

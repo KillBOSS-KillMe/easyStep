@@ -202,8 +202,8 @@ var _indexModel = _interopRequireDefault(__webpack_require__(/*! ./index-model.j
 // import getUserInfoButton from "@/components/getUserInfoButton.vue";
 var index = new _indexModel.default();var _default = { data: function data() {return { options: {}, title: 'Hello', authorizationButton: null, userInfo: {}, userInfoAll: {}, weRunData: { calorie: "0", // 昨日消耗卡路里
         lastDayStep: 0, // 昨日步数
-        todayStep: 0 // 今日步数
-      } };}, onLoad: function onLoad(options) {var that = this;that.options = options;that._onLoad();}, onShow: function onShow() {// 获取已授权类别
+        todayStep: 0, // 今日步数
+        bean: 0 } };}, onLoad: function onLoad(options) {var that = this;that.options = options;that._onLoad();}, onShow: function onShow() {// 获取已授权类别
     var that = this;uni.getSetting({ success: function success(res) {if (res.authSetting['scope.userInfo']) {// 隐藏授权按钮
           that.authorizationButton = false;that.$store.commit('updateAuthorizationButtonData', false);}}, fail: function fail() {console.log("获取授权信息授权失败");} }); // let token = index.get_storage('token_type', callBack);
     // if(token) {
@@ -213,7 +213,8 @@ var index = new _indexModel.default();var _default = { data: function data() {re
     // 		})
     // 	})
     // }
-  }, methods: { _onLoad: function _onLoad(callBack) {
+  }, methods: {
+    _onLoad: function _onLoad(callBack) {
       var that = this;
       that.userInfo = that.$store.state.userInfo;
       that.wx_login(function () {

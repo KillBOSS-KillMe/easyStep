@@ -45,5 +45,7 @@
       }
     ]
   },
-  "usingComponents": {}
+  "permission": {},
+  "usingComponents": {},
+  "sitemapLocation": "sitemap64.json"
 }
