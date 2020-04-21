@@ -148,6 +148,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _accountDetailsModel = _interopRequireDefault(__webpack_require__(/*! ./accountDetails-model.js */ 89));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -164,9 +165,9 @@ var _accountDetailsModel = _interopRequireDefault(__webpack_require__(/*! ./acco
 //
 //
 //
+//
 var accountDetails = new _accountDetailsModel.default();var _default = { data: function data() {return { userInfo: {}, listData: [] };}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {var that = this; // 使用vuex获取原有的用户信息
-      that.userInfo = that.$store.state.userInfo;
-      that.getListData(function () {
+      that.userInfo = that.$store.state.userInfo;that.getListData(function () {
         callBack && callBack();
       });
     },

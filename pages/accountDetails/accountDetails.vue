@@ -2,14 +2,15 @@
 	<view class="list">
 		<view :class="item.type == 2?'item withdraw':'item topUp'" :data-id="item.id" v-for="(item,index) in listData" :key="index">
 			<view class="info">
-				<icon :class="item.type == 2?'iconfont iconchongzhi1':'iconfont iconchongzhi'"></icon>
+				<icon class="iconfont iconchongzhi" v-if="item.type == 1"></icon>
+				<icon class="iconfont iconchongzhi1" v-if="item.type == 2"></icon>
+				<icon class="iconfont icondouzi" v-if="item.type == 3"></icon>
 				<view class="details">
 					<view>{{item.title}}</view>
-					<text>09-12 13：22</text>
+					<text>{{item.time}}</text>
 				</view>
 			</view>
-			<text class="amount" v-if="item.type == 2">-{{item.money}}</text>
-			<text class="amount" v-else>+{{item.money}}</text>
+			<text class="amount">{{item.money}}</text>
 		</view>
 	</view>
 </template>
