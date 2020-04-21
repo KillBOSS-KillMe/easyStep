@@ -1,22 +1,4 @@
 <template>
-	<!-- 	<view>
-		<view class="headBg"></view>
-		<scroll-view scroll-y="true" >
-			<view class="pay">
-				<view class="info">
-					<view class="title">提现至微信</view>
-					<view class="setAmount">
-						<text>￥</text>
-						<input type="number" placeholder="提现金额" @input="getWithdrawNum" />
-					</view>
-					<view class="description">可提现金额{{userInfo.wallet}}元</view>
-				</view>
-				<view class="shereButton">
-					<button @tap="runWithdraw">提现</button>
-				</view>
-			</view>
-		</scroll-view>
-	</view> -->
 	<view class="cashOut">
 		<view class="cash">
 			<text class="cashMoney">提现金额</text>
@@ -33,35 +15,29 @@
 		<view class="cash">
 			<text class="cashMoney">选择提现账户</text>
 			<view>
-				<radio-group @change="radioChange" :id="index" style="width: 690rpx;display: flex;">
+				<radio-group @change="radioChange" style="width: 690rpx;display: flex;">
 					<view class="item">
 						<label class="radio">
-							<radio class="itemRadio" value="0" />
+							<radio class="itemRadio" value="1" />
+							<text>支付宝</text>
+						</label>
+					</view>
+					<view class="item">
+						<label class="radio">
+							<radio class="itemRadio" value="2" />
 							<text>微信</text>
 						</label>
 					</view>
-					<view class="item">
-						<label class="radio">
-							<radio value="1" class="itemRadio" />
-							<text>支付宝</text>
-						</label>
-						<!-- <image src="../static/imgLost.png" mode=""></image> -->
-					</view>
 				</radio-group>
-				<image v-if="types == ''" class="cashImg" src="../static/imgLost.png" mode=""></image>
-				<view v-if="types == '0'" @tap="getCard(1)">
-					<image class="cashImg" v-if="imgShow == ''" src="../static/imgLost.png" mode=""></image>
-					<image class="cashImg" v-else :src="imgShow" mode=""></image>
-				</view>
-				<view v-if="types == '1'" @tap="getCard(2)">
-					<image class="cashImg" v-if="imgAlipayShow == ''" src="../static/imgLost.png" mode=""></image>
+				<view @tap="getCard">
+					<image class="cashImg" v-if="imgAlipayShow == ''" src="../../static/images/imgLost.png" mode=""></image>
 					<image class="cashImg" v-else :src="imgAlipayShow" mode=""></image>
 				</view>
 				<text class="tip" v-if="types == '1'">请上传支付宝收款码</text>
-				<text class="tip" v-else-if="types == '0'">请上传微信收款码</text>
+				<text class="tip" v-else-if="types == '2'">请上传微信收款码</text>
 				<text class="tip" v-else>请选择提现方式</text>
 			</view>
-			<button type="" class="cashButton" @tap="cashOut">预计3个工作日到账，确认提现</button>
+			<button type="" class="cashButton" @tap="runWithdraw">确认提现</button>
 		</view>
 	</view>
 </template>
@@ -73,7 +49,9 @@
 		data() {
 			return {
 				userInfo: {},
-				withdrawNum: 0
+				withdrawNum: '',
+				imgAlipayShow: '',
+				types: ''
 			}
 		},
 		onLoad() {
@@ -86,20 +64,53 @@
 				const that = this
 				that.userInfo = that.$store.state.userInfo;
 			},
+			// 上传图片
+			getCard(callBack) {
+				const that = this
+				if (that.types == '') {
+					withdraw.show_tips('请选择收款方式')
+					return false
+				}
+				withdraw.getCard(1, (res) => {
+					if (res.status_code == 'ok') {
+						that.imgAlipayShow = res.data
+						withdraw.show_tips(res.message)
+					} else {
+						withdraw.show_tips(res.message)
+					}
+				})
+			},
+			// 收款方式选择
+			radioChange(e) {
+				const that = this
+				that.types = withdraw.get_input_val(e)
+			},
+			// 提现金额设置
 			getWithdrawNum(e) {
 				const that = this
 				that.withdrawNum = withdraw.get_input_val(e)
-				console.log(that.withdrawNum)
 			},
+			// 提现
 			runWithdraw() {
 				const that = this
+				if (that.withdrawNum == '') {
+					withdraw.show_tips('请输入提现金额')
+					return false
+				}
+				if (that.imgAlipayShow == '') {
+					withdraw.show_tips('请上传收款码')
+					return false
+				}
+				if (that.types == '') {
+					withdraw.show_tips('请选择收款方式')
+					return false
+				}
 				withdraw.runWithdraw({
-					money: that.withdrawNum
+					money: that.withdrawNum,
+					qrcode: that.imgAlipayShow,
+					type: that.types
 				}, (res) => {
 					withdraw.show_tips(res.message)
-					// if (res.status_code == 'ok') {
-					// 	withdraw.show_tips()
-					// }
 				})
 			}
 		},
@@ -216,7 +227,6 @@
 	.cashImg {
 		width: 147rpx;
 		height: 147rpx;
-		background: #eeeeee;
 		border-radius: 14rpx;
 		overflow: hidden;
 		margin: 10rpx 0;

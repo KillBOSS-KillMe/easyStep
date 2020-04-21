@@ -4,6 +4,7 @@ class Config{
 }
 //接口域名
 Config.requset_url = "http://www.ybb.cc/api/";
+Config.img_url = "http://www.ybb.cc/uploads/";
 //微信授权域名192.168.1.168
 //Config.wx_login_url = "https://diancan.lvacms.cn/wechat/login";
 

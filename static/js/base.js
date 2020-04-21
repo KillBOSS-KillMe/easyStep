@@ -2,6 +2,7 @@ import Config from './config'
 class Base {
 	constructor() {
 		this.base_qequest_url = Config.requset_url;
+		this.base_image_url = Config.img_url;
 		this.base_wx_login_url = Config.wx_login_url;
 		this.base_wx_order_pay_url = Config.wx_order_pay_url;
 		this.apikey = Config.apikey;
@@ -54,8 +55,6 @@ class Base {
 					},
 					method: params.method || 'GET',
 					success: function (ret) {
-						console.log('++++++++++++++++++++++||||||||||||||||||||||||||||||++++++++++++++++++++')
-						console.log(ret)
 						var code = ret.statusCode.toString().charAt(0);
 						if (code == '2' || code == '4' || code == '5') {
 							that.hide_loading();
@@ -66,12 +65,11 @@ class Base {
 							// 返回请求到的数据
 							params.sCallBack && params.sCallBack(ret); return;
 						}
-
 					},
 					fail: function (err) {
 						that.remove_storage('token');
 						that.remove_storage('token_type');
-						//that.hide_loading();
+						that.hide_loading();
 					}
 				})
 			})
@@ -80,7 +78,7 @@ class Base {
 	//图片上传
 	upload(count, callBack) {
 		var that = this;
-		var url = that.base_qequest_url + 'upload/upload_file';
+		var url = that.base_qequest_url + 'cash_withdrawal/qrcodeUpload';
 		var token = '';
 		var token_type = '';
 		that.get_storage('token', (res) => {
@@ -90,44 +88,29 @@ class Base {
 				uni.chooseImage({
 					count: count,
 					success: function (res) {
+						console.log(res.tempFilePaths)
 						for (var i = 0; i < res.tempFilePaths.length; i++) {
+							that.show_loading('上传中...');
 							uni.uploadFile({
 								url: url,
 								filePath: res.tempFilePaths[i],
-								name: 'file',
+								name: 'qrcode',
 								header: {
 									'apikey': that.apikey,
 									'Authorization': token_type + ' ' + token
 								},
 								success: function (uploadFileRes) {
 									var data = JSON.parse(uploadFileRes.data);
-									if (data.code == 1001 || data.code == 1002 || data.code == 1004) {
-										that.show_modal({ content: ret.data.msg }, (res) => {
-											if (res.confirm) {
-												that.switch_tab('../../pages/my/my'); return;
-											}
-										})
-									} else if (data.code == 1003) {
-										that.request({
-											url: 'login/refresh',
-											method: 'PUT',
-											sCallBack: function (res) {
-												if (res.data.code == 8888) {
-													that.set_storage('token', res.data.data.token);
-													that.set_storage('token_type', res.data.data.token_type);
-												} else {
-													that.show_modal({ content: '请先登录！' }, (res) => {
-														if (res.confirm) {
-															that.navigate_to('../../pages/login/login'); return;
-														}
-													})
-												}
-											}
-										}); return;
-									} else if (data.code == 4444) {
-										that.show_tips({ title: ret.data.msg }); return;
+									// var data = uploadFileRes;
+									that.hide_loading();
+									// token实效,更新token
+									if (data.status_code == 500) {
+										that.refresh_token(count); return;
 									}
-									callBack(data);
+									console.log(data)
+									data.data = that.base_image_url + data.data
+									// 返回请求到的数据
+									count.sCallBack && count.sCallBack(data); return;
 								}
 							});
 						}
@@ -143,8 +126,8 @@ class Base {
 			url: 'auth/refresh',
 			method: 'POST',
 			sCallBack: function (res) {
-				console.log('+++++++++++++++++++++11111111111111+++++++++++++++++++')
-				console.log(res)
+				// console.log('+++++++++++++++++++++11111111111111+++++++++++++++++++')
+				// console.log(res)
 				if (res.status_code == 'ok') {
 					// that.set_storage('token', res.data.data.token);
 					// that.set_storage('token_type', res.data.data.token_type);

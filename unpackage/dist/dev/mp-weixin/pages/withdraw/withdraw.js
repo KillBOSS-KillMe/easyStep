@@ -176,30 +176,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var _withdrawModel = _interopRequireDefault(__webpack_require__(/*! ./withdraw-model.js */ 107));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -244,36 +220,42 @@ var _withdrawModel = _interopRequireDefault(__webpack_require__(/*! ./withdraw-m
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var withdraw = new _withdrawModel.default();var _default = { data: function data() {return { userInfo: {}, withdrawNum: 0 };}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {// 使用vuex获取原有的用户信息
-      var that = this;that.userInfo = that.$store.state.userInfo;}, getWithdrawNum: function getWithdrawNum(e) {var that = this;that.withdrawNum = withdraw.get_input_val(e);console.log(that.withdrawNum);}, runWithdraw: function runWithdraw() {var that = this;withdraw.runWithdraw({ money: that.withdrawNum }, function (res) {withdraw.show_tips(res.message); // if (res.status_code == 'ok') {
-        // 	withdraw.show_tips()
-        // }
-      });} }, // 下拉刷新
-  onPullDownRefresh: function onPullDownRefresh() {var that = this;that.page = 1;that._onLoad(function () {uni.stopPullDownRefresh();});}, //上拉加载更多
+var withdraw = new _withdrawModel.default();var _default = { data: function data() {return { userInfo: {}, withdrawNum: '', imgAlipayShow: '', types: '' };}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {// 使用vuex获取原有的用户信息
+      var that = this;that.userInfo = that.$store.state.userInfo;}, // 上传图片
+    getCard: function getCard(callBack) {var that = this;if (that.types == '') {withdraw.show_tips('请选择收款方式');return false;}withdraw.getCard(1, function (res) {if (res.status_code == 'ok') {that.imgAlipayShow = res.data;withdraw.show_tips(res.message);} else {withdraw.show_tips(res.message);}});}, // 收款方式选择
+    radioChange: function radioChange(e) {var that = this;that.types = withdraw.get_input_val(e);}, // 提现金额设置
+    getWithdrawNum: function getWithdrawNum(e) {var that = this;that.withdrawNum = withdraw.get_input_val(e);}, // 提现
+    runWithdraw: function runWithdraw() {var that = this;
+      if (that.withdrawNum == '') {
+        withdraw.show_tips('请输入提现金额');
+        return false;
+      }
+      if (that.imgAlipayShow == '') {
+        withdraw.show_tips('请上传收款码');
+        return false;
+      }
+      if (that.types == '') {
+        withdraw.show_tips('请选择收款方式');
+        return false;
+      }
+      withdraw.runWithdraw({
+        money: that.withdrawNum,
+        qrcode: that.imgAlipayShow,
+        type: that.types },
+      function (res) {
+        withdraw.show_tips(res.message);
+      });
+    } },
+
+  // 下拉刷新
+  onPullDownRefresh: function onPullDownRefresh() {
+    var that = this;
+    that.page = 1;
+    that._onLoad(function () {
+      uni.stopPullDownRefresh();
+    });
+  },
+  //上拉加载更多
   // onReachBottom() {
   //   var that = this;
   //   if (that.last_page == that.page) {
@@ -283,7 +265,14 @@ var withdraw = new _withdrawModel.default();var _default = { data: function data
   //   that.getListData();
   // },
   // 分享
-  onShareAppMessage: function onShareAppMessage() {var shareData = { title: '', path: "pages/index/index?".concat(this.userInfo.id), imageUrl: '' };return withdraw.onShareAppMessage(shareData);} };exports.default = _default;
+  onShareAppMessage: function onShareAppMessage() {
+    var shareData = {
+      title: '',
+      path: "pages/index/index?".concat(this.userInfo.id),
+      imageUrl: '' };
+
+    return withdraw.onShareAppMessage(shareData);
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
