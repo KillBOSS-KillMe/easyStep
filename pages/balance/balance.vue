@@ -52,7 +52,89 @@
 			// 账户明细
 			goAccountDetails() {
 				balance.navigate_to(`/pages/accountDetails/accountDetails`);
-			}
+			},
+      _onLoad(callBack) {
+      	const that = this
+      	that.userInfo = that.$store.state.userInfo;
+      	let userInfo = that.userInfo
+      	if (userInfo.expiration > 0) {
+      		let nowTime = Date.parse(new Date()) / 1000;
+      		if (userInfo.expiration > nowTime) {
+      			that.vipTime = userVIP.transformTime(userInfo.expiration * 1000)
+      			that.timeShow = true
+      		}
+      	} else {
+      		that.timeShow = false
+      	}
+      },
+      // 获取支付所需参数
+      openVIP(e) {
+      	const that = this
+      	let type = userVIP.get_data_set(e, "type");
+      	userVIP.getPayInfo({
+      		openid: that.userInfo.openid,
+      		member_type: type
+      	}, (res) => {
+      		if (res.code == '4000') {
+      			that.payData = res.data
+      			// 执行支付
+      			that.runPay()
+      		}
+      		// callBack && callBack();
+      	})
+      },
+      runPay() {
+      	// 仅作为示例，非真实参数信息。
+      	const that = this
+      	const payData = that.payData
+      	uni.requestPayment({
+      		provider: 'wxpay',
+      		timeStamp: payData.timeStamp,
+      		nonceStr: payData.nonceStr,
+      		package: payData.package,
+      		signType: payData.signType,
+      		paySign: payData.paySign,
+      		success: function (res) {
+      			// console.log('success:' + JSON.stringify(res));
+      			// console.log(res)
+      			// if (res.errMsg == "requestPayment:ok") {
+      				that.getUserInfo()
+      			// }
+      			
+      		},
+      		fail: function (err) {
+      				console.log('fail:' + JSON.stringify(err));
+      		}
+      	});
+      },
+      getUserInfo(callBack) {
+      	const that = this
+      	uni.login({
+      		provider: 'weixin',
+      		success: function(loginRes) {
+      			var code = loginRes.code;
+      			uni.getUserInfo({
+      				provider: 'weixin',
+      				success: function(infoRes) {
+      					userVIP.login({
+      						code: code,
+      						role: that.userInfo.role, // 角色
+      						portrait: infoRes.userInfo.avatarUrl,
+      						nickname: infoRes.userInfo.nickName
+      					}, (res) => {
+      						// console.log(res)
+      						if (res.code == 4000) {
+      							that.userInfo = res.data
+      							that.$store.commit('updateUserInfo', that.userInfo);
+      							that._onLoad()
+      						}
+      						callBack && callBack();
+      					})
+      				}
+      			})
+      		}
+      	});
+      }
 		},
 		// 下拉刷新
 		onPullDownRefresh() {

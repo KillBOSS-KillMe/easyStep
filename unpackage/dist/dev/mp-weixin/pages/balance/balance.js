@@ -154,38 +154,120 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _balanceModel = _interopRequireDefault(__webpack_require__(/*! ./balance-model.js */ 53));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var balance = new _balanceModel.default();var _default = { data: function data() {return { userInfo: {} };}, onLoad: function onLoad() {var that = this;that._onLoad();}, methods: { _onLoad: function _onLoad(callBack) {// 使用vuex获取原有的用户信息
-      var that = this;that.userInfo = that.$store.state.userInfo;console.clear();console.log('1111111111------------');console.log(this.userInfo);}, // 充值
-    goPay: function goPay(e) {balance.navigate_to("/pages/pay/pay");},
+var _balanceModel = _interopRequireDefault(__webpack_require__(/*! ./balance-model.js */ 53));var _methods;function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+var balance = new _balanceModel.default();var _default =
+{
+  data: function data() {
+    return {
+      userInfo: {} };
+
+  },
+  onLoad: function onLoad() {
+    var that = this;
+    that._onLoad();
+  },
+  methods: (_methods = {
+    _onLoad: function _onLoad(callBack) {
+      // 使用vuex获取原有的用户信息
+      var that = this;
+      that.userInfo = that.$store.state.userInfo;
+      console.clear();
+      console.log('1111111111------------');
+      console.log(this.userInfo);
+    },
+    // 充值
+    goPay: function goPay(e) {
+      balance.navigate_to("/pages/pay/pay");
+    },
     goWithdraw: function goWithdraw() {
       balance.navigate_to("/pages/withdraw/withdraw");
     },
     // 账户明细
     goAccountDetails: function goAccountDetails() {
       balance.navigate_to("/pages/accountDetails/accountDetails");
-    } },
+    } }, _defineProperty(_methods, "_onLoad", function _onLoad(
+  callBack) {
+    var that = this;
+    that.userInfo = that.$store.state.userInfo;
+    var userInfo = that.userInfo;
+    if (userInfo.expiration > 0) {
+      var nowTime = Date.parse(new Date()) / 1000;
+      if (userInfo.expiration > nowTime) {
+        that.vipTime = userVIP.transformTime(userInfo.expiration * 1000);
+        that.timeShow = true;
+      }
+    } else {
+      that.timeShow = false;
+    }
+  }), _defineProperty(_methods, "openVIP", function openVIP(
+
+  e) {
+    var that = this;
+    var type = userVIP.get_data_set(e, "type");
+    userVIP.getPayInfo({
+      openid: that.userInfo.openid,
+      member_type: type },
+    function (res) {
+      if (res.code == '4000') {
+        that.payData = res.data;
+        // 执行支付
+        that.runPay();
+      }
+      // callBack && callBack();
+    });
+  }), _defineProperty(_methods, "runPay", function runPay()
+  {
+    // 仅作为示例，非真实参数信息。
+    var that = this;
+    var payData = that.payData;
+    uni.requestPayment({
+      provider: 'wxpay',
+      timeStamp: payData.timeStamp,
+      nonceStr: payData.nonceStr,
+      package: payData.package,
+      signType: payData.signType,
+      paySign: payData.paySign,
+      success: function success(res) {
+        // console.log('success:' + JSON.stringify(res));
+        // console.log(res)
+        // if (res.errMsg == "requestPayment:ok") {
+        that.getUserInfo();
+        // }
+
+      },
+      fail: function fail(err) {
+        console.log('fail:' + JSON.stringify(err));
+      } });
+
+  }), _defineProperty(_methods, "getUserInfo", function getUserInfo(
+  callBack) {
+    var that = this;
+    uni.login({
+      provider: 'weixin',
+      success: function success(loginRes) {
+        var code = loginRes.code;
+        uni.getUserInfo({
+          provider: 'weixin',
+          success: function success(infoRes) {
+            userVIP.login({
+              code: code,
+              role: that.userInfo.role, // 角色
+              portrait: infoRes.userInfo.avatarUrl,
+              nickname: infoRes.userInfo.nickName },
+            function (res) {
+              // console.log(res)
+              if (res.code == 4000) {
+                that.userInfo = res.data;
+                that.$store.commit('updateUserInfo', that.userInfo);
+                that._onLoad();
+              }
+              callBack && callBack();
+            });
+          } });
+
+      } });
+
+  }), _methods),
 
   // 下拉刷新
   onPullDownRefresh: function onPullDownRefresh() {
